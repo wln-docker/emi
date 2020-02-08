@@ -1,0 +1,10 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="@ViewBag.Assets/js/element/theme-chalk/index.css?@ViewBag.ResVersion" />
+    <script type="text/javascript" src="@ViewBag.Assets/js/wln-vue.js?@ViewBag.ResVersion"></script>
+    <script type="text/javascript" src="@ViewBag.Assets/js/element/index.js?@ViewBag.ResVersion"></script>@RenderSection("head", required: false)@*<script type="text/javascript">var api = (function () { let o = axios.create({ baseURL: '/', withCredentials: false }); o.interceptors.response.use((res) => { if (res.status === 200) { return res.data } else { return res } }); return o })();</script>*@
+</head>
+<body>    @RenderSection("body", required: false)@RenderBody()@RenderSection("foot", required: false)</body>
+</html>

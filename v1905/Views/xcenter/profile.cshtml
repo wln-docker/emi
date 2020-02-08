@@ -1,0 +1,59 @@
+﻿<div id="app" class="wln-layout">
+    <template>
+        <div class="wln" style="left:0;right: 0;position:fixed;background-color:#f0f0f0;">
+            <div style="margin:20px auto">
+                <el-form ref="form" label-width="140px">
+                    <el-form-item label="旧密码">
+                        <el-input type="password" v-model="obj.opwd" placeholder="必填" style="width:240px"></el-input> <span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item label="新密码">
+                        <el-input type="password" v-model="obj.npwd" placeholder="必填" style="width:240px"></el-input> <span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item label="再次确认">
+                        <el-input type="password" v-model="obj.rpwd" placeholder="必填" style="width:240px"></el-input> <span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button @@click="onSubmit" type="primary">更新登录密码</el-button>
+                        <el-button @@click="onClear">取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+    </template>
+</div>
+<script type="text/javascript">
+    new Vue({
+        el: '#app', router: new VueRouter({ mode: 'history' }),
+        data: function () {
+            return { obj: { opwd: '', npwd: '', rpwd: '' } }
+        },
+        methods: {
+            onClear: function () {
+                this.obj.opwd = '';
+                this.obj.npwd = '';
+                this.obj.rpwd = '';
+            },
+            onSubmit: function () {
+                let t = this
+                if (!t.obj.opwd) {
+                    Vue.prototype.$message({ type: 'info', message: '旧密码未输入，请输入' });
+                } else if (!t.obj.npwd) {
+                    Vue.prototype.$message({ type: 'info', message: '新密码未输入，请输入' });
+                } else if (t.obj.npwd != t.obj.rpwd) {
+                    Vue.prototype.$message({ type: 'info', message: '两次密码不一致，请修改' });
+                } else {
+                    post(location.pathname + "?do=save", t.obj).then(res => {
+                        if (res.success) {
+                            t.obj.opwd = '';
+                            t.obj.npwd = '';
+                            t.obj.rpwd = '';
+                            Vue.prototype.$message({ type: 'success', message: '密码修改成功，下次请使用新密码登录' });
+                        } else {
+                            Vue.prototype.$message({ type: 'error', message: res.message });
+                        }
+                    });
+                }
+            }
+        }
+    })
+</script>

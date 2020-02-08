@@ -1,0 +1,183 @@
+﻿<div id="app" class="wln-layout">
+    <template>
+        <div class="wln">
+            <el-table ref="table" :data="rows" empty-text="暂无菜单信息" lazy row-key="code" :load="loadChild">
+                <el-table-column width="90" label="排序" align="center" property="sort"></el-table-column>
+                <el-table-column width="100" label="图标" align="center">
+                    <template slot-scope="scope">
+                        <em class="menu-icon" :style="{'mask-image':'url('+scope.row.icon+')'}"></em>
+                    </template>
+                </el-table-column>
+                <el-table-column width="160" label="名称" align="left" property="name"></el-table-column>
+                <el-table-column width="180" label="编码" align="left" property="code"></el-table-column>
+                <el-table-column label="连接" align="left" property="link"></el-table-column>
+                <el-table-column width="180" align="right" :render-header="renderHeader">
+                    <template slot-scope="scope">
+                        <template v-if="scope.row.parent.length > 0">
+                            <el-button size="mini" type="success" v-on:click="toEdit(scope.row.code)">编辑</el-button>
+                            <el-button size="mini" type="warning" v-on:click="toDel(scope.row.code, scope.row.parent)">删除</el-button>
+                        </template>
+                        <template v-else>
+                            <el-button size="mini" type="primary" v-on:click="toAdd(scope.row)">添加子菜单</el-button>
+                            <el-button size="mini" type="success" v-on:click="toEdit(scope.row.code)">编辑</el-button>
+                            <el-button size="mini" type="warning" v-on:click="toDel(scope.row.code)">删除</el-button>
+                        </template>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+        <div class="wln-mask-layout" v-if="mask">
+            <div class="wln-mask-form" style="width:500px;">
+                <div class="wln-title">菜单信息</div>
+                <el-form label-width="120px">
+                    <el-form-item label="上级菜单">
+                        <font style="color:#FF9800">{{form.parentName}}</font>
+                    </el-form-item>
+                    <el-form-item label="菜单编码">
+                        <el-input v-model="form.code" placeholder="必填(不可修改)" :disabled="form.id.length > 0" style="width:320px"></el-input><span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item label="菜单名称">
+                        <el-input v-model="form.name" placeholder="必填" style="width:320px"></el-input><span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item label="连接目录">
+                        <el-input v-model="form.link" placeholder="" style="width:320px"></el-input><span class="tips"></span>
+                    </el-form-item>
+                    <el-form-item label="图标连接">
+                        <el-input v-model="form.icon" placeholder="" style="width:320px"></el-input><em class="menu-icon" :style="{'mask-image':'url('+form.icon+')'}"></em>
+                    </el-form-item>
+                    <el-form-item label="菜单排序">
+                        <el-input v-model="form.sort" placeholder="" style="width:80px"></el-input><span class="tips"></span>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button size="small" icon="el-icon-check" type="primary" v-on:click="doSave">提交</el-button>
+                        <el-button size="small" icon="el-icon-close" v-on:click="close">取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+    </template>
+</div>
+<style>
+    .menu-icon {
+        background: #9ba3af;
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-mask: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR…AJcEhZcwAADsMAAA7DAcdvqGQAAAANSURBVBhXY2BgYGAAAAAFAAGKM+MAAAAAAElFTkSuQmCC) no-repeat 50% 50% /16px;
+    }
+</style>
+<script type="text/javascript">
+    var map = new Map();
+    var form = { id: '', code: '', name: '', link: '', icon: '', parent: '', parentName: '', sort: 0 }
+    new Vue({
+        el: '#app',
+        router: new VueRouter({ mode: 'history' }),
+        data() {
+            ds.form = {}
+            ds.mask = false
+            for (var i in form) { ds.form[i] = form[i] };
+            return ds
+        },
+        methods: {
+            refresh(key) {
+                asyncPost(location.pathname + '?do=list', { key: key }).then(res => {
+                    this.rows = res;
+                });
+            },
+            loadChild(tree, treeNode, resolve) {
+                map.set(tree.code, { tree, treeNode, resolve })
+                asyncPost(location.pathname + '?do=list', { key: tree.code }).then(res => {
+                    resolve(res);
+                });
+            },
+            close() {
+                this.mask = false
+            },
+            toAdd(row) {
+                let t = this
+                for (var i in form) { t.form[i] = form[i] }
+                t.form.parentName = row.name
+                t.form.parent = row.code
+                t.form.sort = 0
+                t.mask = true
+            },
+            toEdit(code) {
+                let t = this;
+                for (var i in form) { t.form[i] = form[i] };
+                post(location.pathname + '?do=load', { code: code }).then(res => {
+                    if (res.success) {
+                        for (var i in res) { t.form[i] = res[i] };
+                        t.mask = true
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                });
+            },
+            doSave() {
+                post(location.pathname + '?do=save', this.form).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    if (res.success) {
+                        this.mask = false
+                        if (this.form.parent) {
+                            this.renderChildren(this.form.parent)
+                        } else {
+                            this.refresh('')
+                        }
+                    }
+                });
+            },
+            toDel(code, parent) {
+                let t = this;
+                Vue.prototype.$confirm('您正在删除所选班级, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    post(location.pathname + '?do=del', { code: code }).then(res => {
+                        if (res.success) {
+                            if (parent) {
+                                t.renderChildren(parent)
+                            } else {
+                                t.refresh('')
+                            }
+                        }
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
+                    })
+                }).catch(() => {
+                    Vue.prototype.$message({ type: 'info', message: '操作已取消' })
+                })
+            },
+            renderHeader(h, { column, $index }) {
+                let t = this
+                return h("el-button", {
+                    attrs: {
+                        size: "small",
+                        type: "primary",
+                        icon: "el-icon-plus"
+                    }, on: {
+                        click() {
+                            for (var i in form) { t.form[i] = form[i] };
+                            t.form.parentName = '无'
+                            t.form.parent = ''
+                            t.form.sort = t.rows.length + 1
+                            t.mask = true
+                        }
+                    }
+                }, ["添加新菜单"])
+            },
+            renderChildren(code) {
+                if (map.has(code)) {
+                    const { tree, treeNode, resolve } = map.get(code);
+                    this.$set(this.$refs.table.store.states.lazyTreeNodeMap, code, []);
+                    asyncPost(location.pathname + '?do=list', { key: code }).then(res => {
+                        resolve(res);
+                    });
+                }
+            }
+        },
+        created() {
+            this.refresh('');
+        }
+    })
+</script>

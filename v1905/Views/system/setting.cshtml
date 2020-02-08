@@ -1,0 +1,98 @@
+﻿<style>
+    input[type=text],input[type=tel],input[type=password],select,textarea{line-height:36px;box-sizing:border-box;border:1px solid #d8dce5;padding:0 2px;vertical-align:middle;}.el-select__input[type=text]{border:none;}
+</style>
+<div id="app" class="wln">
+    <el-tabs v-loading="loading">
+        <el-tab-pane label="基础设置">
+            <el-form label-width="180px">
+                <el-form-item :label="item.text" v-for="item in cfg">
+                    <el-select v-on:change="change(item)" v-model="item.value" style="width:240px" v-if="item.key == 'MobilePlatform'">
+                        <el-option key="default" label="不启用" value=""></el-option>
+                        <el-option key="dingtalk" label="钉钉" value="dingtalk"></el-option>
+                        <el-option key="wxwork" label="企业微信" value="wxwork" disabled></el-option>
+                    </el-select>
+                    <input type="text" v-on:change="change(item)" v-model="item.value" style="width:240px" v-else />
+                    <span class="tips" v-html="item.message"></span>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="企业微信" v-if="MobilePlatform === 'wxwork'">
+            <el-form label-width="180px">
+                <el-form-item :label="item.text" v-for="item in wxwork">
+                    <input type="text" v-on:change="change(item)" v-model="item.value" style="width:500px" /><span class="tips" v-html="item.message"></span>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="阿里钉钉" v-if="MobilePlatform === 'dingtalk'">
+            <el-form label-width="180px">
+                <el-form-item :label="item.text" v-for="item in dingtalk">
+                    <input type="text" v-on:change="change(item)" v-model="item.value" style="width:500px" /><span class="tips" v-html="item.message"></span>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" icon="el-icon-check" type="primary" @@click="check_dingtalk">检查配置是否正确</el-button>
+                    <el-button size="mini" icon="el-icon-refresh" type="primary" onclick="openTab('/system/sync_dingtalk','通讯录同步')">通讯录同步</el-button>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="其它">
+            <el-form label-width="180px">
+                <el-form-item :label="item.text" v-for="item in other">
+                    <input type="text" v-on:change="change(item)" v-model="item.value" style="width:240px" /><span class="tips" v-html="item.message"></span>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" icon="el-icon-news" type="primary" onclick="window.open('/export')">导出备份数据</el-button>
+                    <el-button size="mini" icon="el-icon-more-outline" type="primary" onclick="openTab('/system/settings','系统参数管理')">更多配置</el-button>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+    </el-tabs>
+</div>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app', router: new VueRouter({ mode: 'history' }),
+        data: function () {
+            return {
+                cfg: [],
+                wxwork: [],
+                dingtalk: [],
+                other: [],
+                loading: true,
+                MobilePlatform: ''
+            }
+        },
+        methods: {
+            change(item) {
+                if (item.value || !item.required) {
+                    item.message = '<font style="color:#2196F3">保存中...</font>'
+                    post(location.pathname + '?do=set', { key: item.key, value: item.value }).then(res => {
+                        if (res.success) {
+                            item.message = '<font style="color:#4CAF50">已保存</font>'
+                            setTimeout(() => { item.message = '' }, 2000)
+                            if (item.key === 'MobilePlatform') { this.MobilePlatform = item.value }
+                        } else {
+                            item.message = '<font style="color:#F44336">' + res.message + '</font>'
+                        }
+                    });
+                } else {
+                    item.message = '<font style="color:#F44336">必填项</font>'
+                }
+            },
+            check_dingtalk() {
+                get('check_dingtalk').then(res => { Vue.prototype.$alert(res.message) });
+            }
+        }, created() {
+            get(location.pathname + '?do=load').then(res => {
+                this.loading = false
+                for (let i in res) {
+                    res[i].forEach(item => {
+                        item.message = ''
+                        if (item.key === 'MobilePlatform') {
+                            this.MobilePlatform = item.value
+                        }
+                        this[i].push(item)
+                    })
+                }
+            });
+        }
+    })
+</script>
