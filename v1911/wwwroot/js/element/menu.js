@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 67);
+/******/ 	return __webpack_require__(__webpack_require__.s = 68);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -210,10 +210,11 @@ module.exports = require("element-ui/lib/mixins/emitter");
 
 /***/ }),
 
-/***/ 67:
+/***/ 68:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/emitter"
@@ -762,7 +763,12 @@ var dom_ = __webpack_require__(2);
       if (this.router && hasIndex) {
         this.routeToItem(item, function (error) {
           _this.activeIndex = oldActiveIndex;
-          if (error) console.error(error);
+          if (error) {
+            // vue-router 3.1.0+ push/replace cause NavigationDuplicated error 
+            // https://github.com/ElemeFE/element/issues/17044
+            if (error.name === 'NavigationDuplicated') return;
+            console.error(error);
+          }
         });
       }
     },

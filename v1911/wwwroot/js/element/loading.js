@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 66);
+/******/ 	return __webpack_require__(__webpack_require__.s = 69);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -189,7 +189,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 16:
+/***/ 15:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/utils/popup");
@@ -203,17 +203,18 @@ module.exports = require("element-ui/lib/utils/dom");
 
 /***/ }),
 
-/***/ 40:
+/***/ 41:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/utils/after-leave");
 
 /***/ }),
 
-/***/ 66:
+/***/ 69:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "vue"
@@ -355,10 +356,10 @@ component.options.__file = "packages/loading/src/loading.vue"
 var dom_ = __webpack_require__(2);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/popup"
-var popup_ = __webpack_require__(16);
+var popup_ = __webpack_require__(15);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/after-leave"
-var after_leave_ = __webpack_require__(40);
+var after_leave_ = __webpack_require__(41);
 var after_leave_default = /*#__PURE__*/__webpack_require__.n(after_leave_);
 
 // CONCATENATED MODULE: ./packages/loading/src/directive.js

@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 62);
+/******/ 	return __webpack_require__(__webpack_require__.s = 64);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -203,24 +203,17 @@ module.exports = require("element-ui/lib/mixins/migrating");
 
 /***/ }),
 
-/***/ 17:
-/***/ (function(module, exports) {
-
-module.exports = require("element-ui/lib/checkbox");
-
-/***/ }),
-
-/***/ 18:
+/***/ 13:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/button");
 
 /***/ }),
 
-/***/ 38:
+/***/ 18:
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/checkbox-group");
+module.exports = require("element-ui/lib/checkbox");
 
 /***/ }),
 
@@ -231,6 +224,13 @@ module.exports = require("element-ui/lib/mixins/emitter");
 
 /***/ }),
 
+/***/ 40:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/checkbox-group");
+
+/***/ }),
+
 /***/ 6:
 /***/ (function(module, exports) {
 
@@ -238,10 +238,11 @@ module.exports = require("element-ui/lib/mixins/locale");
 
 /***/ }),
 
-/***/ 62:
+/***/ 64:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/transfer/src/main.vue?vue&type=template&id=5c654dd8&
@@ -361,7 +362,7 @@ render._withStripped = true
 // CONCATENATED MODULE: ./packages/transfer/src/main.vue?vue&type=template&id=5c654dd8&
 
 // EXTERNAL MODULE: external "element-ui/lib/button"
-var button_ = __webpack_require__(18);
+var button_ = __webpack_require__(13);
 var button_default = /*#__PURE__*/__webpack_require__.n(button_);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/emitter"
@@ -532,11 +533,11 @@ transfer_panelvue_type_template_id_2ddab8bd_render._withStripped = true
 // CONCATENATED MODULE: ./packages/transfer/src/transfer-panel.vue?vue&type=template&id=2ddab8bd&
 
 // EXTERNAL MODULE: external "element-ui/lib/checkbox-group"
-var checkbox_group_ = __webpack_require__(38);
+var checkbox_group_ = __webpack_require__(40);
 var checkbox_group_default = /*#__PURE__*/__webpack_require__.n(checkbox_group_);
 
 // EXTERNAL MODULE: external "element-ui/lib/checkbox"
-var checkbox_ = __webpack_require__(17);
+var checkbox_ = __webpack_require__(18);
 var checkbox_default = /*#__PURE__*/__webpack_require__.n(checkbox_);
 
 // EXTERNAL MODULE: external "element-ui/lib/input"

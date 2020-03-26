@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 57);
+/******/ 	return __webpack_require__(__webpack_require__.s = 58);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -189,10 +189,17 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 17:
+/***/ 18:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/checkbox");
+
+/***/ }),
+
+/***/ 19:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/locale");
 
 /***/ }),
 
@@ -200,13 +207,6 @@ module.exports = require("element-ui/lib/checkbox");
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/utils/dom");
-
-/***/ }),
-
-/***/ 20:
-/***/ (function(module, exports) {
-
-module.exports = require("element-ui/lib/locale");
 
 /***/ }),
 
@@ -231,10 +231,11 @@ module.exports = require("element-ui/lib/mixins/emitter");
 
 /***/ }),
 
-/***/ 57:
+/***/ 58:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/tree/src/tree.vue?vue&type=template&id=547575a6&
@@ -1242,8 +1243,8 @@ var tree_store_TreeStore = function () {
   };
 
   TreeStore.prototype.setCurrentNodeKey = function setCurrentNodeKey(key) {
-    if (key === null) {
-      this.currentNode.isCurrent = false;
+    if (key === null || key === undefined) {
+      this.currentNode && (this.currentNode.isCurrent = false);
       this.currentNode = null;
       return;
     }
@@ -1421,7 +1422,7 @@ var collapse_transition_ = __webpack_require__(28);
 var collapse_transition_default = /*#__PURE__*/__webpack_require__.n(collapse_transition_);
 
 // EXTERNAL MODULE: external "element-ui/lib/checkbox"
-var checkbox_ = __webpack_require__(17);
+var checkbox_ = __webpack_require__(18);
 var checkbox_default = /*#__PURE__*/__webpack_require__.n(checkbox_);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/emitter"
@@ -1733,7 +1734,7 @@ if (false) { var api; }
 component.options.__file = "packages/tree/src/tree-node.vue"
 /* harmony default export */ var tree_node = (component.exports);
 // EXTERNAL MODULE: external "element-ui/lib/locale"
-var locale_ = __webpack_require__(20);
+var locale_ = __webpack_require__(19);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/dom"
 var dom_ = __webpack_require__(2);

@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 71);
+/******/ 	return __webpack_require__(__webpack_require__.s = 73);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -210,7 +210,7 @@ module.exports = require("element-ui/lib/utils/clickoutside");
 
 /***/ }),
 
-/***/ 15:
+/***/ 14:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/scrollbar");
@@ -327,7 +327,7 @@ var locale_ = __webpack_require__(6);
 var locale_default = /*#__PURE__*/__webpack_require__.n(locale_);
 
 // EXTERNAL MODULE: ./packages/date-picker/src/basic/time-spinner.vue + 4 modules
-var time_spinner = __webpack_require__(34);
+var time_spinner = __webpack_require__(35);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/date-picker/src/panel/time.vue?vue&type=script&lang=js&
 //
@@ -587,7 +587,7 @@ component.options.__file = "packages/date-picker/src/panel/time.vue"
 
 /***/ }),
 
-/***/ 32:
+/***/ 33:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1721,7 +1721,7 @@ component.options.__file = "packages/date-picker/src/picker.vue"
 
 /***/ }),
 
-/***/ 34:
+/***/ 35:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2087,7 +2087,7 @@ render._withStripped = true
 var date_util_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: external "element-ui/lib/scrollbar"
-var scrollbar_ = __webpack_require__(15);
+var scrollbar_ = __webpack_require__(14);
 var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
 
 // EXTERNAL MODULE: ./src/directives/repeat-click.js
@@ -2319,7 +2319,7 @@ var repeat_click = __webpack_require__(30);
       bindFuntion('seconds');
     },
     handleScroll: function handleScroll(type) {
-      var value = Math.min(Math.floor((this.$refs[type].wrap.scrollTop - (this.scrollBarHeight(type) * 0.5 - 10) / this.typeItemHeight(type) + 3) / this.typeItemHeight(type)), type === 'hours' ? 23 : 59);
+      var value = Math.min(Math.round((this.$refs[type].wrap.scrollTop - (this.scrollBarHeight(type) * 0.5 - 10) / this.typeItemHeight(type) + 3) / this.typeItemHeight(type)), type === 'hours' ? 23 : 59);
       this.modifyDateField(type, value);
     },
 
@@ -2343,6 +2343,8 @@ var repeat_click = __webpack_require__(30);
       }
     },
     scrollDown: function scrollDown(step) {
+      var _this3 = this;
+
       if (!this.currentScrollbar) {
         this.emitSelectRange('hours');
       }
@@ -2369,6 +2371,9 @@ var repeat_click = __webpack_require__(30);
 
       this.modifyDateField(label, now);
       this.adjustSpinner(label, now);
+      this.$nextTick(function () {
+        return _this3.emitSelectRange(_this3.currentScrollbar);
+      });
     },
     amPm: function amPm(hour) {
       var shouldShowAmPm = this.amPmMode.toLowerCase() === 'a';
@@ -2445,14 +2450,15 @@ module.exports = require("vue");
 
 /***/ }),
 
-/***/ 71:
+/***/ 73:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./packages/date-picker/src/picker.vue + 4 modules
-var picker = __webpack_require__(32);
+var picker = __webpack_require__(33);
 
 // EXTERNAL MODULE: ./packages/date-picker/src/panel/time.vue + 4 modules
 var time = __webpack_require__(27);
@@ -2601,7 +2607,7 @@ var locale_ = __webpack_require__(6);
 var locale_default = /*#__PURE__*/__webpack_require__.n(locale_);
 
 // EXTERNAL MODULE: ./packages/date-picker/src/basic/time-spinner.vue + 4 modules
-var time_spinner = __webpack_require__(34);
+var time_spinner = __webpack_require__(35);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/date-picker/src/panel/time-range.vue?vue&type=script&lang=js&
 //

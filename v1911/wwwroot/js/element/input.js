@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 73);
+/******/ 	return __webpack_require__(__webpack_require__.s = 71);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -196,6 +196,13 @@ module.exports = require("element-ui/lib/mixins/migrating");
 
 /***/ }),
 
+/***/ 21:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/utils/shared");
+
+/***/ }),
+
 /***/ 4:
 /***/ (function(module, exports) {
 
@@ -203,10 +210,11 @@ module.exports = require("element-ui/lib/mixins/emitter");
 
 /***/ }),
 
-/***/ 73:
+/***/ 71:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/input/src/input.vue?vue&type=template&id=343dd774&
@@ -275,6 +283,7 @@ var render = function() {
                       },
                       on: {
                         compositionstart: _vm.handleCompositionStart,
+                        compositionupdate: _vm.handleCompositionUpdate,
                         compositionend: _vm.handleCompositionEnd,
                         input: _vm.handleInput,
                         focus: _vm.handleFocus,
@@ -327,7 +336,12 @@ var render = function() {
                         ? _c("i", {
                             staticClass:
                               "el-input__icon el-icon-circle-close el-input__clear",
-                            on: { click: _vm.clear }
+                            on: {
+                              mousedown: function($event) {
+                                $event.preventDefault()
+                              },
+                              click: _vm.clear
+                            }
                           })
                         : _vm._e(),
                       _vm.showPwdVisible
@@ -390,6 +404,7 @@ var render = function() {
                 },
                 on: {
                   compositionstart: _vm.handleCompositionStart,
+                  compositionupdate: _vm.handleCompositionUpdate,
                   compositionend: _vm.handleCompositionEnd,
                   input: _vm.handleInput,
                   focus: _vm.handleFocus,
@@ -502,6 +517,9 @@ function calcTextareaHeight(targetElement) {
 var merge_ = __webpack_require__(9);
 var merge_default = /*#__PURE__*/__webpack_require__.n(merge_);
 
+// EXTERNAL MODULE: external "element-ui/lib/utils/shared"
+var shared_ = __webpack_require__(21);
+
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/input/src/input.vue?vue&type=script&lang=js&
 //
 //
@@ -609,6 +627,10 @@ var merge_default = /*#__PURE__*/__webpack_require__.n(merge_);
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -834,9 +856,16 @@ var merge_default = /*#__PURE__*/__webpack_require__.n(merge_);
     handleCompositionStart: function handleCompositionStart() {
       this.isComposing = true;
     },
+    handleCompositionUpdate: function handleCompositionUpdate(event) {
+      var text = event.target.value;
+      var lastCharacter = text[text.length - 1] || '';
+      this.isComposing = !Object(shared_["isKorean"])(lastCharacter);
+    },
     handleCompositionEnd: function handleCompositionEnd(event) {
-      this.isComposing = false;
-      this.handleInput(event);
+      if (this.isComposing) {
+        this.isComposing = false;
+        this.handleInput(event);
+      }
     },
     handleInput: function handleInput(event) {
       // should not emit input during composition

@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 115);
+/******/ 	return __webpack_require__(__webpack_require__.s = 120);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -189,10 +189,11 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 115:
+/***/ 120:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/backtop/src/main.vue?vue&type=template&id=257dd4a9&
@@ -255,6 +256,13 @@ var throttle_default = /*#__PURE__*/__webpack_require__.n(throttle_);
 //
 
 
+
+var cubic = function cubic(value) {
+  return Math.pow(value, 3);
+};
+var easeInOutCubic = function easeInOutCubic(value) {
+  return value < 0.5 ? cubic(value * 2) / 2 : 1 - cubic((1 - value) * 2) / 2;
+};
 
 /* harmony default export */ var mainvue_type_script_lang_js_ = ({
   name: 'ElBacktop',
@@ -322,15 +330,21 @@ var throttle_default = /*#__PURE__*/__webpack_require__.n(throttle_);
     },
     scrollToTop: function scrollToTop() {
       var el = this.el;
-      var step = 0;
-      var interval = setInterval(function () {
-        if (el.scrollTop <= 0) {
-          clearInterval(interval);
-          return;
+      var beginTime = Date.now();
+      var beginValue = el.scrollTop;
+      var rAF = window.requestAnimationFrame || function (func) {
+        return setTimeout(func, 16);
+      };
+      var frameFunc = function frameFunc() {
+        var progress = (Date.now() - beginTime) / 500;
+        if (progress < 1) {
+          el.scrollTop = beginValue * (1 - easeInOutCubic(progress));
+          rAF(frameFunc);
+        } else {
+          el.scrollTop = 0;
         }
-        step += 10;
-        el.scrollTop -= step;
-      }, 20);
+      };
+      rAF(frameFunc);
     }
   },
 

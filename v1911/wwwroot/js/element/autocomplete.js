@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -213,18 +213,18 @@ module.exports = require("element-ui/lib/utils/clickoutside");
 /***/ 14:
 /***/ (function(module, exports) {
 
-module.exports = require("throttle-debounce/debounce");
-
-/***/ }),
-
-/***/ 15:
-/***/ (function(module, exports) {
-
 module.exports = require("element-ui/lib/scrollbar");
 
 /***/ }),
 
-/***/ 21:
+/***/ 17:
+/***/ (function(module, exports) {
+
+module.exports = require("throttle-debounce/debounce");
+
+/***/ }),
+
+/***/ 22:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/mixins/focus");
@@ -256,6 +256,7 @@ module.exports = require("element-ui/lib/utils/vue-popper");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/autocomplete/src/autocomplete.vue?vue&type=template&id=152f2ee6&
@@ -418,7 +419,7 @@ render._withStripped = true
 // CONCATENATED MODULE: ./packages/autocomplete/src/autocomplete.vue?vue&type=template&id=152f2ee6&
 
 // EXTERNAL MODULE: external "throttle-debounce/debounce"
-var debounce_ = __webpack_require__(14);
+var debounce_ = __webpack_require__(17);
 var debounce_default = /*#__PURE__*/__webpack_require__.n(debounce_);
 
 // EXTERNAL MODULE: external "element-ui/lib/input"
@@ -494,7 +495,7 @@ var emitter_ = __webpack_require__(4);
 var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
 // EXTERNAL MODULE: external "element-ui/lib/scrollbar"
-var scrollbar_ = __webpack_require__(15);
+var scrollbar_ = __webpack_require__(14);
 var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/autocomplete/src/autocomplete-suggestions.vue?vue&type=script&lang=js&
@@ -612,7 +613,7 @@ var migrating_default = /*#__PURE__*/__webpack_require__.n(migrating_);
 var util_ = __webpack_require__(3);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/focus"
-var focus_ = __webpack_require__(21);
+var focus_ = __webpack_require__(22);
 var focus_default = /*#__PURE__*/__webpack_require__.n(focus_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/autocomplete/src/autocomplete.vue?vue&type=script&lang=js&

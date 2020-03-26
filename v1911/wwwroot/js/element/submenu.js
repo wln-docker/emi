@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 121);
+/******/ 	return __webpack_require__(__webpack_require__.s = 125);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -189,10 +189,11 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 121:
+/***/ 125:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "element-ui/lib/transitions/collapse-transition"
@@ -200,7 +201,7 @@ var collapse_transition_ = __webpack_require__(28);
 var collapse_transition_default = /*#__PURE__*/__webpack_require__.n(collapse_transition_);
 
 // EXTERNAL MODULE: ./packages/menu/src/menu-mixin.js
-var menu_mixin = __webpack_require__(35);
+var menu_mixin = __webpack_require__(37);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/emitter"
 var emitter_ = __webpack_require__(4);
@@ -406,10 +407,15 @@ var poperMixins = {
       this.timeout = setTimeout(function () {
         _this2.rootMenu.openMenu(_this2.index, _this2.indexPath);
       }, showTimeout);
+
+      if (this.appendToBody) {
+        this.$parent.$el.dispatchEvent(new MouseEvent('mouseenter'));
+      }
     },
     handleMouseleave: function handleMouseleave() {
       var _this3 = this;
 
+      var deepDispatch = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       var rootMenu = this.rootMenu;
 
       if (rootMenu.menuTrigger === 'click' && rootMenu.mode === 'horizontal' || !rootMenu.collapse && rootMenu.mode === 'vertical') {
@@ -418,11 +424,14 @@ var poperMixins = {
       this.dispatch('ElSubmenu', 'mouse-leave-child');
       clearTimeout(this.timeout);
       this.timeout = setTimeout(function () {
-        if (_this3.appendToBody) {
-          _this3.rootMenu.openedMenus = [];
-        }
         !_this3.mouseInChild && _this3.rootMenu.closeMenu(_this3.index);
       }, this.hideTimeout);
+
+      if (this.appendToBody && deepDispatch) {
+        if (this.$parent.$options.name === 'ElSubmenu') {
+          this.$parent.handleMouseleave(true);
+        }
+      }
     },
     handleTitleMouseenter: function handleTitleMouseenter() {
       if (this.mode === 'horizontal' && !this.rootMenu.backgroundColor) return;
@@ -502,7 +511,9 @@ var poperMixins = {
             'mouseenter': function mouseenter($event) {
               return _this5.handleMouseenter($event, 100);
             },
-            'mouseleave': this.handleMouseleave,
+            'mouseleave': function mouseleave() {
+              return _this5.handleMouseleave(true);
+            },
             'focus': function focus($event) {
               return _this5.handleMouseenter($event, 100);
             }
@@ -554,7 +565,9 @@ var poperMixins = {
         },
         on: {
           'mouseenter': this.handleMouseenter,
-          'mouseleave': this.handleMouseleave,
+          'mouseleave': function mouseleave() {
+            return _this5.handleMouseleave(false);
+          },
           'focus': this.handleMouseenter
         }
       },
@@ -623,7 +636,7 @@ module.exports = require("element-ui/lib/transitions/collapse-transition");
 
 /***/ }),
 
-/***/ 35:
+/***/ 37:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

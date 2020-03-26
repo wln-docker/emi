@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 69);
+/******/ 	return __webpack_require__(__webpack_require__.s = 75);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -196,17 +196,24 @@ module.exports = require("element-ui/lib/input");
 
 /***/ }),
 
-/***/ 16:
+/***/ 13:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/button");
+
+/***/ }),
+
+/***/ 15:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/utils/popup");
 
 /***/ }),
 
-/***/ 18:
+/***/ 19:
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/button");
+module.exports = require("element-ui/lib/locale");
 
 /***/ }),
 
@@ -214,13 +221,6 @@ module.exports = require("element-ui/lib/button");
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/utils/dom");
-
-/***/ }),
-
-/***/ 20:
-/***/ (function(module, exports) {
-
-module.exports = require("element-ui/lib/locale");
 
 /***/ }),
 
@@ -245,10 +245,18 @@ module.exports = require("element-ui/lib/mixins/locale");
 
 /***/ }),
 
-/***/ 69:
+/***/ 7:
+/***/ (function(module, exports) {
+
+module.exports = require("vue");
+
+/***/ }),
+
+/***/ 75:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "vue"
@@ -351,25 +359,27 @@ var render = function() {
                 ])
               : _vm._e(),
             _c("div", { staticClass: "el-message-box__content" }, [
-              _vm.icon && !_vm.center && _vm.message !== ""
-                ? _c("div", { class: ["el-message-box__status", _vm.icon] })
-                : _vm._e(),
-              _vm.message !== ""
-                ? _c(
-                    "div",
-                    { staticClass: "el-message-box__message" },
-                    [
-                      _vm._t("default", [
-                        !_vm.dangerouslyUseHTMLString
-                          ? _c("p", [_vm._v(_vm._s(_vm.message))])
-                          : _c("p", {
-                              domProps: { innerHTML: _vm._s(_vm.message) }
-                            })
-                      ])
-                    ],
-                    2
-                  )
-                : _vm._e(),
+              _c("div", { staticClass: "el-message-box__container" }, [
+                _vm.icon && !_vm.center && _vm.message !== ""
+                  ? _c("div", { class: ["el-message-box__status", _vm.icon] })
+                  : _vm._e(),
+                _vm.message !== ""
+                  ? _c(
+                      "div",
+                      { staticClass: "el-message-box__message" },
+                      [
+                        _vm._t("default", [
+                          !_vm.dangerouslyUseHTMLString
+                            ? _c("p", [_vm._v(_vm._s(_vm.message))])
+                            : _c("p", {
+                                domProps: { innerHTML: _vm._s(_vm.message) }
+                              })
+                        ])
+                      ],
+                      2
+                    )
+                  : _vm._e()
+              ]),
               _c(
                 "div",
                 {
@@ -548,7 +558,7 @@ render._withStripped = true
 // CONCATENATED MODULE: ./packages/message-box/src/main.vue?vue&type=template&id=6b29b012&
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/popup"
-var popup_ = __webpack_require__(16);
+var popup_ = __webpack_require__(15);
 var popup_default = /*#__PURE__*/__webpack_require__.n(popup_);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/locale"
@@ -560,20 +570,22 @@ var input_ = __webpack_require__(10);
 var input_default = /*#__PURE__*/__webpack_require__.n(input_);
 
 // EXTERNAL MODULE: external "element-ui/lib/button"
-var button_ = __webpack_require__(18);
+var button_ = __webpack_require__(13);
 var button_default = /*#__PURE__*/__webpack_require__.n(button_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/dom"
 var dom_ = __webpack_require__(2);
 
 // EXTERNAL MODULE: external "element-ui/lib/locale"
-var lib_locale_ = __webpack_require__(20);
+var lib_locale_ = __webpack_require__(19);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/aria-dialog"
 var aria_dialog_ = __webpack_require__(47);
 var aria_dialog_default = /*#__PURE__*/__webpack_require__.n(aria_dialog_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/message-box/src/main.vue?vue&type=script&lang=js&
+//
+//
 //
 //
 //
@@ -808,6 +820,9 @@ var typeMap = {
     getInputElement: function getInputElement() {
       var inputRefs = this.$refs.input.$refs;
       return inputRefs.input || inputRefs.textarea;
+    },
+    handleClose: function handleClose() {
+      this.handleAction('close');
     }
   },
 
@@ -1164,13 +1179,6 @@ main_MessageBox.close = function () {
 // CONCATENATED MODULE: ./packages/message-box/index.js
 
 /* harmony default export */ var message_box = __webpack_exports__["default"] = (src_main);
-
-/***/ }),
-
-/***/ 7:
-/***/ (function(module, exports) {
-
-module.exports = require("vue");
 
 /***/ }),
 

@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 75);
+/******/ 	return __webpack_require__(__webpack_require__.s = 76);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -189,7 +189,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 16:
+/***/ 15:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/utils/popup");
@@ -210,10 +210,11 @@ module.exports = require("vue");
 
 /***/ }),
 
-/***/ 75:
+/***/ 76:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "vue"
@@ -492,13 +493,18 @@ var component = Object(componentNormalizer["a" /* default */])(
 if (false) { var api; }
 component.options.__file = "packages/notification/src/main.vue"
 /* harmony default export */ var main = (component.exports);
+// EXTERNAL MODULE: external "element-ui/lib/utils/merge"
+var merge_ = __webpack_require__(9);
+var merge_default = /*#__PURE__*/__webpack_require__.n(merge_);
+
 // EXTERNAL MODULE: external "element-ui/lib/utils/popup"
-var popup_ = __webpack_require__(16);
+var popup_ = __webpack_require__(15);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/vdom"
 var vdom_ = __webpack_require__(23);
 
 // CONCATENATED MODULE: ./packages/notification/src/main.js
+
 
 
 
@@ -511,7 +517,7 @@ var seed = 1;
 
 var main_Notification = function Notification(options) {
   if (external_vue_default.a.prototype.$isServer) return;
-  options = options || {};
+  options = merge_default()({}, options);
   var userOnClose = options.onClose;
   var id = 'notification_' + seed++;
   var position = options.position || 'top-right';
@@ -596,6 +602,13 @@ main_Notification.closeAll = function () {
 // CONCATENATED MODULE: ./packages/notification/index.js
 
 /* harmony default export */ var notification = __webpack_exports__["default"] = (src_main);
+
+/***/ }),
+
+/***/ 9:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/utils/merge");
 
 /***/ })
 

@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 78);
+/******/ 	return __webpack_require__(__webpack_require__.s = 87);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -196,10 +196,11 @@ module.exports = require("element-ui/lib/mixins/emitter");
 
 /***/ }),
 
-/***/ 78:
+/***/ 87:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/checkbox/src/checkbox.vue?vue&type=template&id=d0387074&
@@ -219,12 +220,7 @@ var render = function() {
         { "is-bordered": _vm.border },
         { "is-checked": _vm.isChecked }
       ],
-      attrs: {
-        role: "checkbox",
-        "aria-checked": _vm.indeterminate ? "mixed" : _vm.isChecked,
-        "aria-disabled": _vm.isDisabled,
-        id: _vm.id
-      }
+      attrs: { id: _vm.id }
     },
     [
       _c(
@@ -237,7 +233,11 @@ var render = function() {
             "is-indeterminate": _vm.indeterminate,
             "is-focus": _vm.focus
           },
-          attrs: { "aria-checked": "mixed" }
+          attrs: {
+            tabindex: _vm.indeterminate ? 0 : false,
+            role: _vm.indeterminate ? "checkbox" : false,
+            "aria-checked": _vm.indeterminate ? "mixed" : false
+          }
         },
         [
           _c("span", { staticClass: "el-checkbox__inner" }),
@@ -254,7 +254,7 @@ var render = function() {
                 staticClass: "el-checkbox__original",
                 attrs: {
                   type: "checkbox",
-                  "aria-hidden": "true",
+                  "aria-hidden": _vm.indeterminate ? "true" : "false",
                   name: _vm.name,
                   disabled: _vm.isDisabled,
                   "true-value": _vm.trueLabel,
@@ -308,7 +308,7 @@ var render = function() {
                 staticClass: "el-checkbox__original",
                 attrs: {
                   type: "checkbox",
-                  "aria-hidden": "true",
+                  "aria-hidden": _vm.indeterminate ? "true" : "false",
                   disabled: _vm.isDisabled,
                   name: _vm.name
                 },
@@ -376,7 +376,6 @@ var emitter_ = __webpack_require__(4);
 var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/checkbox/src/checkbox.vue?vue&type=script&lang=js&
-//
 //
 //
 //

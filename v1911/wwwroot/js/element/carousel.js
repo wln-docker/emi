@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 80);
+/******/ 	return __webpack_require__(__webpack_require__.s = 107);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -189,24 +189,11 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 13:
-/***/ (function(module, exports) {
-
-module.exports = require("element-ui/lib/utils/resize-event");
-
-/***/ }),
-
-/***/ 25:
-/***/ (function(module, exports) {
-
-module.exports = require("throttle-debounce/throttle");
-
-/***/ }),
-
-/***/ 80:
+/***/ 107:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/carousel/src/main.vue?vue&type=template&id=5d5d1482&
@@ -357,7 +344,7 @@ var throttle_ = __webpack_require__(25);
 var throttle_default = /*#__PURE__*/__webpack_require__.n(throttle_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/resize-event"
-var resize_event_ = __webpack_require__(13);
+var resize_event_ = __webpack_require__(16);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/carousel/src/main.vue?vue&type=script&lang=js&
 //
@@ -509,7 +496,9 @@ var resize_event_ = __webpack_require__(13);
     },
     activeIndex: function activeIndex(val, oldVal) {
       this.resetItemPosition(oldVal);
-      this.$emit('change', val, oldVal);
+      if (oldVal > -1) {
+        this.$emit('change', val, oldVal);
+      }
     },
     autoplay: function autoplay(val) {
       val ? this.startTimer() : this.pauseTimer();
@@ -689,6 +678,20 @@ main.install = function (Vue) {
 };
 
 /* harmony default export */ var carousel = __webpack_exports__["default"] = (main);
+
+/***/ }),
+
+/***/ 16:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/utils/resize-event");
+
+/***/ }),
+
+/***/ 25:
+/***/ (function(module, exports) {
+
+module.exports = require("throttle-debounce/throttle");
 
 /***/ })
 

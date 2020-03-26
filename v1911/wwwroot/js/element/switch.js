@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 101);
+/******/ 	return __webpack_require__(__webpack_require__.s = 90);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -189,10 +189,32 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 101:
+/***/ 11:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/mixins/migrating");
+
+/***/ }),
+
+/***/ 22:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/mixins/focus");
+
+/***/ }),
+
+/***/ 4:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/mixins/emitter");
+
+/***/ }),
+
+/***/ 90:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/switch/src/component.vue?vue&type=template&id=2dcd8fbb&
@@ -305,7 +327,7 @@ var emitter_ = __webpack_require__(4);
 var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/focus"
-var focus_ = __webpack_require__(21);
+var focus_ = __webpack_require__(22);
 var focus_default = /*#__PURE__*/__webpack_require__.n(focus_);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/migrating"
@@ -524,27 +546,6 @@ src_component.install = function (Vue) {
 };
 
 /* harmony default export */ var packages_switch = __webpack_exports__["default"] = (src_component);
-
-/***/ }),
-
-/***/ 11:
-/***/ (function(module, exports) {
-
-module.exports = require("element-ui/lib/mixins/migrating");
-
-/***/ }),
-
-/***/ 21:
-/***/ (function(module, exports) {
-
-module.exports = require("element-ui/lib/mixins/focus");
-
-/***/ }),
-
-/***/ 4:
-/***/ (function(module, exports) {
-
-module.exports = require("element-ui/lib/mixins/emitter");
 
 /***/ })
 

@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 96);
+/******/ 	return __webpack_require__(__webpack_require__.s = 85);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -196,10 +196,11 @@ module.exports = require("element-ui/lib/mixins/emitter");
 
 /***/ }),
 
-/***/ 96:
+/***/ 85:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/radio/src/radio-group.vue?vue&type=template&id=818a704c&
@@ -208,8 +209,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    _vm._elTag,
     {
+      tag: "component",
       staticClass: "el-radio-group",
       attrs: { role: "radiogroup" },
       on: { keydown: _vm.handleKeydown }
@@ -229,6 +231,7 @@ var emitter_ = __webpack_require__(4);
 var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/radio/src/radio-group.vue?vue&type=script&lang=js&
+//
 //
 //
 //
@@ -271,6 +274,9 @@ var keyCode = Object.freeze({
   computed: {
     _elFormItemSize: function _elFormItemSize() {
       return (this.elFormItem || {}).elFormItemSize;
+    },
+    _elTag: function _elTag() {
+      return (this.$vnode.data || {}).tag || 'div';
     },
     radioGroupSize: function radioGroupSize() {
       return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;

@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 60);
+/******/ 	return __webpack_require__(__webpack_require__.s = 62);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -210,10 +210,11 @@ module.exports = require("element-ui/lib/input-number");
 
 /***/ }),
 
-/***/ 60:
+/***/ 62:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/slider/src/main.vue?vue&type=template&id=32708644&
@@ -251,11 +252,7 @@ var render = function() {
               debounce: _vm.debounce,
               size: _vm.inputSize
             },
-            on: {
-              change: function($event) {
-                _vm.$nextTick(_vm.emitChange)
-              }
-            },
+            on: { change: _vm.emitChange },
             model: {
               value: _vm.firstValue,
               callback: function($$v) {

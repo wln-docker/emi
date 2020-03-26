@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -189,7 +189,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 13:
+/***/ 16:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/utils/resize-event");
@@ -207,6 +207,7 @@ module.exports = require("element-ui/lib/utils/util");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/tabs/src/tab-bar.vue?vue&type=template&id=2031f33a&
@@ -272,16 +273,17 @@ var util_ = __webpack_require__(3);
             return true;
           } else {
             tabSize = $el['client' + firstUpperCase(sizeName)];
+            var tabStyles = window.getComputedStyle($el);
             if (sizeName === 'width' && _this.tabs.length > 1) {
-              tabSize -= index === 0 || index === _this.tabs.length - 1 ? 20 : 40;
+              tabSize -= parseFloat(tabStyles.paddingLeft) + parseFloat(tabStyles.paddingRight);
+            }
+            if (sizeName === 'width') {
+              offset += parseFloat(tabStyles.paddingLeft);
             }
             return false;
           }
         });
 
-        if (sizeName === 'width' && offset !== 0) {
-          offset += 20;
-        }
         var transform = 'translate' + firstUpperCase(sizeDir) + '(' + offset + 'px)';
         style[sizeName] = tabSize + 'px';
         style.transform = transform;
@@ -322,7 +324,7 @@ if (false) { var api; }
 component.options.__file = "packages/tabs/src/tab-bar.vue"
 /* harmony default export */ var tab_bar = (component.exports);
 // EXTERNAL MODULE: external "element-ui/lib/utils/resize-event"
-var resize_event_ = __webpack_require__(13);
+var resize_event_ = __webpack_require__(16);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/tabs/src/tab-nav.vue?vue&type=script&lang=js&
 
@@ -411,19 +413,28 @@ var tab_navvue_type_script_lang_js_firstUpperCase = function firstUpperCase(str)
       var activeTab = this.$el.querySelector('.is-active');
       if (!activeTab) return;
       var navScroll = this.$refs.navScroll;
+      var isHorizontal = ['top', 'bottom'].indexOf(this.rootTabs.tabPosition) !== -1;
       var activeTabBounding = activeTab.getBoundingClientRect();
       var navScrollBounding = navScroll.getBoundingClientRect();
-      var maxOffset = nav.offsetWidth - navScrollBounding.width;
+      var maxOffset = isHorizontal ? nav.offsetWidth - navScrollBounding.width : nav.offsetHeight - navScrollBounding.height;
       var currentOffset = this.navOffset;
       var newOffset = currentOffset;
 
-      if (activeTabBounding.left < navScrollBounding.left) {
-        newOffset = currentOffset - (navScrollBounding.left - activeTabBounding.left);
+      if (isHorizontal) {
+        if (activeTabBounding.left < navScrollBounding.left) {
+          newOffset = currentOffset - (navScrollBounding.left - activeTabBounding.left);
+        }
+        if (activeTabBounding.right > navScrollBounding.right) {
+          newOffset = currentOffset + activeTabBounding.right - navScrollBounding.right;
+        }
+      } else {
+        if (activeTabBounding.top < navScrollBounding.top) {
+          newOffset = currentOffset - (navScrollBounding.top - activeTabBounding.top);
+        }
+        if (activeTabBounding.bottom > navScrollBounding.bottom) {
+          newOffset = currentOffset + (activeTabBounding.bottom - navScrollBounding.bottom);
+        }
       }
-      if (activeTabBounding.right > navScrollBounding.right) {
-        newOffset = currentOffset + activeTabBounding.right - navScrollBounding.right;
-      }
-
       newOffset = Math.max(newOffset, 0);
       this.navOffset = Math.min(newOffset, maxOffset);
     },

@@ -82,28 +82,29 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 127);
+/******/ 	return __webpack_require__(__webpack_require__.s = 134);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 127:
+/***/ 134:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "throttle-debounce/debounce"
-var debounce_ = __webpack_require__(14);
+var debounce_ = __webpack_require__(17);
 var debounce_default = /*#__PURE__*/__webpack_require__.n(debounce_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/types"
-var types_ = __webpack_require__(19);
+var types_ = __webpack_require__(20);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/dom"
 var dom_ = __webpack_require__(2);
 
-// CONCATENATED MODULE: ./packages/infiniteScroll/src/main.js
+// CONCATENATED MODULE: ./packages/infinite-scroll/src/main.js
 
 
 
@@ -203,6 +204,9 @@ var main_handleScroll = function handleScroll(cb) {
 
   if (disabled) return;
 
+  var containerInfo = container.getBoundingClientRect();
+  if (!containerInfo.width && !containerInfo.height) return;
+
   var shouldTrigger = false;
 
   if (container === el) {
@@ -261,7 +265,7 @@ var main_handleScroll = function handleScroll(cb) {
     }
   }
 });
-// CONCATENATED MODULE: ./packages/infiniteScroll/index.js
+// CONCATENATED MODULE: ./packages/infinite-scroll/index.js
 
 
 /* istanbul ignore next */
@@ -269,21 +273,14 @@ main.install = function (Vue) {
   Vue.directive(main.name, main);
 };
 
-/* harmony default export */ var infiniteScroll = __webpack_exports__["default"] = (main);
+/* harmony default export */ var infinite_scroll = __webpack_exports__["default"] = (main);
 
 /***/ }),
 
-/***/ 14:
+/***/ 17:
 /***/ (function(module, exports) {
 
 module.exports = require("throttle-debounce/debounce");
-
-/***/ }),
-
-/***/ 19:
-/***/ (function(module, exports) {
-
-module.exports = require("element-ui/lib/utils/types");
 
 /***/ }),
 
@@ -291,6 +288,13 @@ module.exports = require("element-ui/lib/utils/types");
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/utils/dom");
+
+/***/ }),
+
+/***/ 20:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/utils/types");
 
 /***/ })
 

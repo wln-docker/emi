@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 68);
+/******/ 	return __webpack_require__(__webpack_require__.s = 77);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -189,7 +189,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 16:
+/***/ 15:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/utils/popup");
@@ -203,10 +203,18 @@ module.exports = require("element-ui/lib/utils/vdom");
 
 /***/ }),
 
-/***/ 68:
+/***/ 7:
+/***/ (function(module, exports) {
+
+module.exports = require("vue");
+
+/***/ }),
+
+/***/ 77:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "vue"
@@ -424,7 +432,7 @@ if (false) { var api; }
 component.options.__file = "packages/message/src/main.vue"
 /* harmony default export */ var main = (component.exports);
 // EXTERNAL MODULE: external "element-ui/lib/utils/popup"
-var popup_ = __webpack_require__(16);
+var popup_ = __webpack_require__(15);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/vdom"
 var vdom_ = __webpack_require__(23);
@@ -490,8 +498,10 @@ var main_Message = function Message(options) {
 main_Message.close = function (id, userOnClose) {
   var len = instances.length;
   var index = -1;
+  var removedHeight = void 0;
   for (var i = 0; i < len; i++) {
     if (id === instances[i].id) {
+      removedHeight = instances[i].$el.offsetHeight;
       index = i;
       if (typeof userOnClose === 'function') {
         userOnClose(instances[i]);
@@ -501,7 +511,6 @@ main_Message.close = function (id, userOnClose) {
     }
   }
   if (len <= 1 || index === -1 || index > instances.length - 1) return;
-  var removedHeight = instances[index].$el.offsetHeight;
   for (var _i = index; _i < len - 1; _i++) {
     var dom = instances[_i].$el;
     dom.style['top'] = parseInt(dom.style['top'], 10) - removedHeight - 16 + 'px';
@@ -518,13 +527,6 @@ main_Message.closeAll = function () {
 // CONCATENATED MODULE: ./packages/message/index.js
 
 /* harmony default export */ var message = __webpack_exports__["default"] = (src_main);
-
-/***/ }),
-
-/***/ 7:
-/***/ (function(module, exports) {
-
-module.exports = require("vue");
 
 /***/ })
 

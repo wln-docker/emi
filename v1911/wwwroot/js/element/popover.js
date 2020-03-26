@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 70);
+/******/ 	return __webpack_require__(__webpack_require__.s = 74);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -217,10 +217,11 @@ module.exports = require("vue");
 
 /***/ }),
 
-/***/ 70:
+/***/ 74:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/popover/src/main.vue?vue&type=template&id=52060272&
@@ -343,6 +344,10 @@ var util_ = __webpack_require__(3);
     openDelay: {
       type: Number,
       default: 0
+    },
+    closeDelay: {
+      type: Number,
+      default: 200
     },
     title: String,
     disabled: Boolean,
@@ -484,9 +489,13 @@ var util_ = __webpack_require__(3);
       var _this3 = this;
 
       clearTimeout(this._timer);
-      this._timer = setTimeout(function () {
-        _this3.showPopper = false;
-      }, 200);
+      if (this.closeDelay) {
+        this._timer = setTimeout(function () {
+          _this3.showPopper = false;
+        }, this.closeDelay);
+      } else {
+        this.showPopper = false;
+      }
     },
     handleDocumentClick: function handleDocumentClick(e) {
       var reference = this.reference || this.$refs.reference;
@@ -506,7 +515,7 @@ var util_ = __webpack_require__(3);
       this.doDestroy();
     },
     cleanup: function cleanup() {
-      if (this.openDelay) {
+      if (this.openDelay || this.closeDelay) {
         clearTimeout(this._timer);
       }
     }
