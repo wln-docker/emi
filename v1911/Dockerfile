@@ -1,2 +1,2 @@
-FROM wlniao/dotnet:3.0.0
+FROM wlniao/dotnet:3.1.0
 ENTRYPOINT ["dotnet", "emi.dll"]
