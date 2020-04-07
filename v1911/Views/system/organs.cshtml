@@ -1,0 +1,150 @@
+﻿<div id="app" class="wln-layout">
+    <template>
+        <div class="wln">
+            <el-table :data="rows" :empty-text="message" row-key="id" :default-expand-all="true">
+                @*<el-table-column type="index" width="30"></el-table-column>*@
+                <el-table-column align="left" label="组织机构名称">
+                    <template scope="scope">
+                        <el-popover trigger="hover" placement="right">
+                            <p>编号: {{ scope.row.id }}</p>
+                            <p>全称: {{ scope.row.fullname }}</p>
+                            <p>权重: {{ scope.row.sort }}</p>
+                            <div slot="reference" class="name-wrapper">{{ scope.row.name }}</div>
+                        </el-popover>
+                    </template>
+                </el-table-column>
+                <el-table-column width="160" label="分类" property="type"></el-table-column>
+                <el-table-column width="60" align="left" label="状态">
+                    <template scope="scope">
+                        <font v-if="scope.row.state > 0">正常</font>
+                        <font v-else style="color:#cccccc">停用</font>
+                    </template>
+                </el-table-column>
+                <el-table-column width="250" align="right">
+                    <template slot="header">
+                        <el-button size="small" type="danger" icon="el-icon-plus" v-on:click="toAdd">新增一级组织机构(部门)</el-button>
+                    </template>
+                    <template scope="scope">
+                        <el-button size="mini" icon="el-icon-plus" type="primary" @@click="toChild(scope.row.id,scope.row.name)">添加下级</el-button>
+                        <el-button size="mini" icon="el-icon-edit" type="warning" @@click="toEdit(scope.row.id)">编辑</el-button>
+                        <el-button size="mini" icon="el-icon-delete" @@click="doDel(scope.row.id)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+        <div class="wln-mask-layout" v-if="mask">
+            <div class="wln-mask-form" style="width:500px;">
+                <div class="wln-title">{{form.id ? '编辑组织机构' : '新增组织机构'}}</div>
+                <el-form label-width="120px">
+                    <el-form-item label="上级">
+                        <el-input v-model="form.parentName" :disabled="true" style="width:320px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="名称">
+                        <el-input v-model="form.name" placeholder="（必填）" style="width:320px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="全称">
+                        <el-input v-model="form.fullname" placeholder="部门、子公司等子机构全称" style="width:320px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="分类">
+                        <el-select v-model="form.type" clearable placeholder="请选择">
+                            <el-option v-for="item in types" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="权重">
+                        <el-input v-model="form.sort" style="width:60px"></el-input> <span style="color:#808080">数值越大越靠前</span>
+                    </el-form-item>
+                    <el-form-item label="状态">
+                        <el-switch on-text="启用" off-text="停用" v-model="form.state"></el-switch>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button size="small" icon="el-icon-check" type="primary" v-on:click="onSubmit">提交</el-button>
+                        <el-button size="small" icon="el-icon-close" v-on:click="close">取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+    </template>
+</div>
+<script type="text/javascript">
+    var types = @Html.Raw(ViewBag.OrganType);
+    var form = { id: '', name: '', fullname: '', type: '', sort: '', parent: '', parentName: '无', state: true };
+    new Vue({
+        el: '#app', router: new VueRouter({ mode: 'history' }),
+        data: function () {
+            ds.form = {}
+            ds.mask = false
+            ds.types = types
+            for (var i in form) { ds.form[i] = form[i] };
+            return ds
+        },
+        methods: {
+            pager() {
+                post(location.pathname + '?do=pager', { key: this.key }).then(res => {
+                    this.rows = res.rows;
+                    this.message = res.message;
+                })
+            },
+            refresh() {
+                this.rows = []
+                this.page = 1
+                this.pager()
+            },
+            pageset(val) {
+                this.page = val
+                this.pager()
+            },
+            close() {
+                this.mask = false
+            },
+            toAdd() {
+                for (var i in form) { this.form[i] = form[i] }
+                this.mask = true
+            },
+            toChild(id, name) {
+                for (var i in form) { this.form[i] = form[i] }
+                this.form.parent = id
+                this.form.parentName = name
+                this.mask = true
+            },
+            toEdit(id) {
+                let t = this;
+                for (var i in form) { t.form[i] = form[i] };
+                post(location.pathname + '?do=get', { id: id }).then(res => {
+                    if (res.success) {
+                        for (var i in form) { t.form[i] = res[i] || form[i] };
+                        t.mask = true;
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                });
+            },
+            doDel(id) {
+                let t = this
+                Vue.prototype.$confirm('此操作将永久删除此组织机构, 是否继续?', '提示', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).then(() => {
+                    post(location.pathname + '?do=del', { id: id }).then(res => {
+                        if (res.success) {
+                            t.refresh();
+                            Vue.prototype.$message({ type: 'success', message: res.message });
+                        } else {
+                            Vue.prototype.$message({ type: 'info', message: res.message });
+                        }
+                    })
+                }).catch(() => { return Vue.prototype.$message({ type: 'info', message: '操作已取消' }); });
+            },
+            onSubmit: function () {
+                let t = this;
+                post(location.pathname + '?do=set', t.form).then(res => {
+                    if (res.success) {
+                        t.pager();
+                        t.mask = false;
+                        Vue.prototype.$message({ type: 'success', message: res.message });
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                })
+            },
+        }, mounted() {
+            this.pager()
+        }
+    })
+</script>

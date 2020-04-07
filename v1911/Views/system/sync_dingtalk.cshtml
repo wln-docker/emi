@@ -1,0 +1,198 @@
+﻿<style>
+    .el-tree { background: transparent; }
+    .el-tree-node__expand-icon { color: #607d8b; }
+    .el-tree-node__content:hover { background-color: transparent; cursor: default; }
+    .el-tree-node:focus > .el-tree-node__content { background-color: transparent; }
+    .el-aside { background: #e2e2e2; }
+    .el-container { height: 100%; }
+    .el-main { padding: 0; overflow: hidden;}
+    .el-tree-node-custom {
+        width: 100%
+    }
+    .el-tree-node-custom > span {
+        float: right;
+        padding-right: 8px;
+    }
+    .el-tree-node-custom > span > button {
+        font-size: 12px;
+        padding: 3px 5px !important;
+    }
+    .el-tree-node-custom > span > button > i{
+        font-size: 15px !important;
+        margin: -1px !important;
+        vertical-align: bottom;
+    }
+</style>
+<div id="app" class="wln-layout">
+    <el-container>
+        <el-aside>
+            <el-tree ref="tree" node-key="value" :data="tree" :empty-text="message" @@check-change="checkDept" show-checkbox check-strictly :default-expand-all="true" default-expanded-keys="['root']">
+                <span class="el-tree-node-custom" slot-scope="{ node, data }">
+                    <font>{{data.label}}</font>
+                    <span>
+                        <el-button type="more" size="mini" icon="el-icon-question" @@click.stop="desc('dept')" v-if="data.value == 'root'">说明</el-button>
+                        <el-button type="gray" size="mini" icon="el-icon-info" @@click.stop="regDingDept(data)" v-if="data.ding == 'NONE'">钉钉</el-button>
+                        <el-button type="gray" size="mini" icon="el-icon-info" @@click.stop="regLocalDept(data)" v-if="data.organ == 'NONE'">本地</el-button>
+                    </span>
+                </span>
+            </el-tree>
+        </el-aside>
+        <el-main>
+            <div class="wln">
+                <el-table :data="rows" :height="height" :empty-text="message" style="width:100%">
+                    <el-table-column label="#" type="index" align="center" width="50"></el-table-column>
+                    <el-table-column width="150" property="mobile" label="手机账号" align="center"></el-table-column>
+                    <el-table-column width="150" property="name" label="姓名" align="center"></el-table-column>
+                    <el-table-column align="right">
+                        <template slot="header">
+                            <el-button type="more" icon="el-icon-question" @@click.stop="desc('user')">账号同步说明</el-button>
+                        </template>
+                        <template scope="scope">
+                            <el-button type="primary" size="mini" @@click.stop="desc('ding',scope.row.userid)" v-if="scope.row.ding">已添加钉钉账号</el-button>
+                            <el-button type="gray" size="mini" @@click.stop="addMobile(scope.row)" v-else>未添加钉钉账号</el-button>
+                            <el-button type="warning" size="mini" @@click.stop="desc('organ')" v-if="scope.row.organ">已添加内部账号</el-button>
+                            <el-button type="gray" size="mini" @@click.stop="addLocal(scope.row)" v-else>未添加内部账号</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+        </el-main>
+    </el-container>
+</div>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app', router: new VueRouter({ mode: 'history' }),
+        data() {
+            ds.lock = false
+            ds.tree = []
+            ds.dingKeys = []
+            ds.workKeys = []
+            ds.organKeys = []
+            ds.height = document.body.clientHeight - 50;
+            return ds
+        },
+        methods: {
+            loadTree() {
+                asyncGet(location.pathname + '?do=tree').then(res => {
+                    this.tree = res.tree
+                    if (res.message) {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                    if (sessionStorage.accountOrgan) {
+                        this.$refs.tree.setCheckedKeys(sessionStorage.accountOrgan.split(','))                       
+                    }
+                });
+            },
+            loadUser() {
+                var t = this;
+                asyncPost(location.pathname + '?do=user', { key: t.key, organ: t.organKeys.join(), ding: t.dingKeys.join(), work: t.workKeys.join() }).then(res => {
+                    t.rows = res;
+                });
+            },
+            checkDept: function () {
+                var t = this;
+                var nodes = t.$refs.tree.getCheckedNodes()
+                if (sessionStorage.accountOrgan && nodes.length > 1) {
+                    let tmp = nodes.filter(a => sessionStorage.accountOrgan.indexOf(a.value) < 0)
+                    if (tmp.length > 0) {
+                        nodes = tmp
+                        let keys = nodes.map(a => a.value)
+                        sessionStorage.setItem('accountOrgan', keys.join())
+                        t.$refs.tree.setCheckedKeys(keys)
+                    }
+                } else if (nodes.length > 0) {
+                    sessionStorage.setItem('accountOrgan', nodes.map(a => a.value).join())
+                }
+                t.lock = true
+                setTimeout(function () {
+                    if (t.lock) {
+                        t.lock = false
+                        t.dingKeys = nodes.map(a => a.ding)
+                        t.workKeys = nodes.map(a => a.work)
+                        t.organKeys = nodes.map(a => a.organ)
+                        t.loadUser()
+                    }
+                }, 250);
+            },
+            addLocal(row) {
+                let obj = { id: row.userid, name: row.name, mobile: row.mobile, department: this.organKeys.join() }
+                post(location.pathname + '?do=addlocal', obj).then(res => {
+                    if (res.success) {
+                        this.loadUser()
+                        Vue.prototype.$message({ type: 'success', message: res.message });
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                })
+            },
+            addMobile(row) {
+                let obj = { id: row.id, name: row.name, mobile: row.mobile, department: this.dingKeys.join() }
+                post(location.pathname + '?do=addmobile', obj).then(res => {
+                    if (res.success) {
+                        this.loadUser()
+                        Vue.prototype.$message({ type: 'success', message: res.message });
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                })
+            },
+            regDingDept(obj) {
+                Vue.prototype.$confirm(obj.label + ' 尚未添加到钉钉通讯录, 是否立即添加?', '', {
+                    confirmButtonText: '添加',
+                    cancelButtonText: '取消'
+                }).then(() => {
+                    if (obj.parentDing == 'TOP') {
+                        Vue.prototype.$message({ type: 'info', message: '不可添加顶级组织机构' });
+                    } else if (obj.parentDing == 'NONE') {
+                        Vue.prototype.$message({ type: 'info', message: '上级组织机构未添加，请先添加' });
+                    } else {
+                        post(location.pathname + '?do=setdept', { name: obj.label, parent: obj.parentDing, organ: obj.organ == 'NONE' ? '' : obj.organ }).then(res => {
+                            if (res.success) {
+                                this.loadTree()
+                                Vue.prototype.$message({ type: 'success', message: res.message });
+                            } else {
+                                Vue.prototype.$message({ type: 'info', message: res.message });
+                            }
+                        })
+                    }
+                }).catch(() => { })
+            },
+            regLocalDept(obj) {
+                Vue.prototype.$confirm(obj.label + ' 尚未添加到本地系统, 是否立即添加?', '', {
+                    confirmButtonText: '添加',
+                    cancelButtonText: '取消'
+                }).then(() => {
+                    if (obj.parentOrgan == 'TOP') {
+                        Vue.prototype.$message({ type: 'info', message: '不可添加顶级组织机构' });
+                    } else if (obj.parentOrgan == 'NONE') {
+                        Vue.prototype.$message({ type: 'info', message: '上级组织机构未添加，请先添加' });
+                    } else {
+                        post('organs?do=set', { name: obj.label, parent: obj.parentOrgan, state: true }).then(res => {
+                            if (res.success) {
+                                this.loadTree()
+                                Vue.prototype.$message({ type: 'success', message: res.message });
+                            } else {
+                                Vue.prototype.$message({ type: 'info', message: res.message });
+                            }
+                        })
+                    }
+                }).catch(() => { })
+            },
+            desc(type,code) {
+                if (type == 'dept') {
+                    Vue.prototype.$alert('组织机构信息通过名称与第三方应用平台进行数据比对，请确保两端结构和名称处于一致！')
+                } else if (type == 'user') {
+                    Vue.prototype.$alert('用户账号信息通过手机号与第三方应用平台进行对比，会自动添加或绑定账号！')
+                } else if (type == 'ding') {
+                    Vue.prototype.$alert('此用户已添加了钉钉账号，userid：' + code)
+                } else if (type == 'organ') {
+                    Vue.prototype.$alert('此用户已添加了内部账号！')
+                }
+            }
+        }, created() {
+            sessionStorage.setItem('accountOrgan', 'root')
+            this.loadTree()
+            this.loadUser()
+        }
+    })
+</script>

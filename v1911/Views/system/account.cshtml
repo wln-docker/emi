@@ -1,0 +1,190 @@
+﻿<div id="app" class="wln-layout">
+    <template>
+        <div class="wln">
+            <div>
+                <span style="float:right">
+                    <el-button type="primary" onclick="openTab('/system/sync_dingtalk','通讯录同步')">钉钉通讯录同步</el-button>
+                    <el-button type="primary" onclick="openTab('/system/role','角色管理')">角色管理</el-button>
+                </span>
+                <el-input v-model="key" placeholder="按 名称、账号 进行筛选" @@keydown.enter.native="refresh" style="width:300px"></el-input>
+                <el-button type="info" icon="el-icon-refresh" @@click="refresh">筛选</el-button>
+                <el-button type="primary" icon="el-icon-plus" @@click="toAdd">新增账号</el-button>
+            </div>
+            <div class="wln-line"></div>
+            <el-table :data="rows" :empty-text="message" style="width:100%">
+                <el-table-column label="#" property="index" align="center" width="50"></el-table-column>
+                <el-table-column width="150" property="account" label="帐号"></el-table-column>
+                <el-table-column label="姓名">
+                    <template scope="scope">
+                        <el-popover trigger="hover" placement="right">
+                            <p>姓名: {{ scope.row.name }}</p>
+                            <p>职位: {{ scope.row.position }}</p>
+                            <p>工号: {{ scope.row.jobnumber }}</p>
+                            <p v-if="scope.row.dinguserid">钉钉: {{scope.row.dinguserid}}(userid)</p>
+                            <div slot="reference" class="name-wrapper">
+                                <font>{{scope.row.name}}</font>
+                                <img class="icon" src="/img/dingtalk.svg" v-if="scope.row.dinguserid" />
+                            </div>
+                        </el-popover>
+                    </template>
+                </el-table-column>
+                <el-table-column property="department" align="left" label="所属部门"></el-table-column>
+                <el-table-column width="100" property="role" align="center" label="授权角色"></el-table-column>
+                <el-table-column width="70" align="center" label="状态">
+                    <template scope="scope">
+                        <font v-if="scope.row.state==='1'">正常</font>
+                        <font v-else style="color:#cccccc">停用</font>
+                    </template>
+                </el-table-column>
+                <el-table-column width="150" align="center" property="create" label="添加时间"></el-table-column>
+                <el-table-column width="230" align="right" label="操作">
+                    <template scope="scope">
+                        <el-button size="mini" icon="el-icon-tickets" type="primary" @@click="toPermission(scope.row.sid)">权限管理</el-button>
+                        <el-button size="mini" icon="el-icon-edit" type="warning" @@click="toEdit(scope.row.sid)">编辑</el-button>
+                        <el-button size="mini" icon="el-icon-delete" type="info" @@click="doDel(scope.row.sid)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-pagination @@current-change="pageset" layout="total, prev, pager, next, jumper" :current-page="page" :page-size="size" :total="total"></el-pagination>
+        </div>
+        <div class="wln-mask-layout" v-if="mask">
+            <div class="wln-mask-form" style="width:500px;">
+                <div class="wln-title">账号信息</div>
+                <el-form label-width="120px">
+                    <el-form-item label="Sid" v-if="form.sid">
+                        <el-input v-model="form.sid" :disabled="true" style="width:240px"></el-input> <span class="tips">用户唯一标识</span>
+                    </el-form-item>
+                    <el-form-item label="账号">
+                        <el-input v-model="form.account" placeholder="推荐使用手机号" style="width:240px"></el-input> <span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item label="姓名">
+                        <el-input v-model="form.name" placeholder="用户的真实姓名" style="width:240px"></el-input> <span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item label="职位">
+                        <el-input v-model="form.position" placeholder="" style="width:240px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="部门">
+                        <el-cascader v-model="form.department" :options="organs" :props="{ multiple:true,checkStrictly:true}" style="width:240px"></el-cascader>
+                    </el-form-item>
+                    <el-form-item label="工号">
+                        <el-input v-model="form.jobnumber" placeholder="" style="width:240px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="授权角色">
+                        <el-select v-model="form.role" placeholder="请选择" style="width:240px">
+                            <el-option v-for="item in roles" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="状态">
+                        <el-switch on-text="启用" off-text="停用" v-model="form.state"></el-switch>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button size="small" icon="el-icon-check" type="primary" v-on:click="onSubmit">提交</el-button>
+                        <el-button size="small" icon="el-icon-close" v-on:click="close">取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+    </template>
+</div>
+<script type="text/javascript">
+    var form = {
+        sid: '',
+        name: '',
+        account: '',
+        position: '',
+        department: [],
+        jobnumber: '',
+        avatar: '',
+        role: '',
+        state: true
+    };
+    asyncGet('/system/organs?do=filters').then(organs => { ds.organs = organs });
+    new Vue({
+        el: '#app', router: new VueRouter({ mode: 'history' }),
+        data() {
+            ds.form = {}
+            ds.mask = false
+            ds.roles = []
+            ds.organs = []
+            for (var i in form) { ds.form[i] = form[i] };
+            return ds
+        },
+        methods: {
+            pager() {
+                asyncPost(location.pathname + '?do=pager', { key: this.key, page: this.page, size: 12 }).then(res => {
+                    this.rows = res.rows;
+                    this.page = res.page;
+                    this.size = res.size;
+                    this.total = res.total;
+                    this.message = res.message;
+                })
+            },
+            refresh() {
+                if (this.page > 1) {
+                    this.rows = []
+                    this.page = 1
+                }
+                this.pager()
+            },
+            pageset(val) {
+                this.page = val
+                this.pager()
+            },
+            close() {
+                this.mask = false
+            },
+            toAdd() {
+                for (var i in form) { this.form[i] = form[i] }
+                this.mask = true
+            },
+            toEdit(sid) {
+                let t = this;
+                for (var i in form) { t.form[i] = form[i] }
+                post(location.pathname + '?do=get', { sid: sid }).then(res => {
+                    if (res.success) {
+                        for (var i in form) { t.form[i] = res[i] }
+                        t.mask = true
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                });
+            },
+            doDel(sid) {
+                let t = this
+                Vue.prototype.$confirm('此操作将永久删除所选用户, 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    post(location.pathname + '?do=del', { sid: sid }).then(res => {
+                        t.refresh();
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    })
+                }).catch(() => {
+                    Vue.prototype.$message({ type: 'info', message: '操作已取消' });
+                });
+            },
+            onSubmit: function () {
+                let obj = {}
+                for (var i in this.form) { obj[i] = this.form[i] }
+                obj.department = this.form.department.map(a => a[a.length - 1]).join()
+                post(location.pathname + '?do=set', obj).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    if (res.success) {
+                        this.refresh();
+                        this.mask = false;
+                    }
+                });
+            },
+            toPermission(sid) {
+                openTab('/system/permission/type0?sid=' + sid, '用户权限明细')
+            }
+        },
+        created() {
+            get(location.pathname + '?do=roles').then(res => {
+                this.roles = res
+                this.refresh()
+            })
+        }
+    })
+</script>
