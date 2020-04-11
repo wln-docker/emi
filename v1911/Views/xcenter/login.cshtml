@@ -134,6 +134,14 @@
             },
             created: function () {
                 document.title = '@Html.Raw(ViewBag.SystemName)'
+                try {
+                    if (self.frameElement && self.frameElement.tagName == "IFRAME") {
+                        let ifr = document.createElement('iframe');
+                        ifr.src = '/jsapi.js?do=tologin';
+                        ifr.style.display = 'none';
+                        document.body.appendChild(ifr);
+                    }
+                } catch (e) { console.log(e) }
             }
         })
     </script>

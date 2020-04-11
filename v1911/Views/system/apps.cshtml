@@ -6,7 +6,7 @@
                 <el-input v-model="key" placeholder="按 名称 进行筛选" @@keydown.enter.native="refresh" style="width:300px"></el-input>
                 <el-button type="info" icon="el-icon-refresh" @@click="refresh">筛选</el-button>
                 <el-button type="primary" icon="el-icon-plus" @@click="toAdd">新建应用</el-button>
-                <el-button type="warning" icon="el-icon-upload" @@click="toAdd">导入应用</el-button>
+                <el-button type="warning" icon="el-icon-upload" @@click="toImport">导入应用</el-button>
             </div>
             <div class="wln-line"></div>
             <el-table :data="rows" :empty-text="message">
@@ -101,6 +101,17 @@
             close() {
                 this.mask = false
             },
+            toImport() {
+                let t = this
+                uploader(location.pathname + '?do=import', '.json', (res) => {
+                    if (res.success) {
+                        t.refresh()
+                        Vue.prototype.$alert(res.message)
+                    } else {
+                        Vue.prototype.$alert(res.message)
+                    }
+                })
+            },
             toAdd() {
                 for (var i in form) { this.form[i] = form[i] }
                 this.mask = true
@@ -190,7 +201,8 @@
                 });
             }
         },
-        created() {
+        mounted() {
+            let t = this
             this.refresh();
         }
     })
