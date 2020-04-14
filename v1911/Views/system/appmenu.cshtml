@@ -5,7 +5,7 @@
                 <el-table-column width="90" label="排序" align="center" property="sort"></el-table-column>
                 <el-table-column width="100" label="图标" align="center">
                     <template slot-scope="scope">
-                        <em class="menu-icon" :style="{'mask-image':'url('+scope.row.icon+')'}"></em>
+                        <img :src="scope.row.icon" class="menu-icon" />
                     </template>
                 </el-table-column>
                 <el-table-column width="160" label="名称" align="left" property="name"></el-table-column>
@@ -43,7 +43,7 @@
                         <el-input v-model="form.link" placeholder="" style="width:320px"></el-input><span class="tips"></span>
                     </el-form-item>
                     <el-form-item label="图标连接">
-                        <el-input v-model="form.icon" placeholder="" style="width:320px"></el-input><em class="menu-icon" :style="{'mask-image':'url('+form.icon+')'}"></em>
+                        <el-input v-model="form.icon" placeholder="" style="width:320px"></el-input><em class="menu-icon" :style="{'background':'url(' + iconUrl + ')','backgroundSize':'100%','backgroundRepeat':'no-repeat','marginLeft':'5px'}"></em>
                     </el-form-item>
                     <el-form-item label="菜单排序">
                         <el-input v-model="form.sort" placeholder="" style="width:80px"></el-input><span class="tips"></span>
@@ -59,12 +59,11 @@
 </div>
 <style>
     .menu-icon {
-        background: #9ba3af;
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
         display: inline-block;
         vertical-align: middle;
-        -webkit-mask: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR…AJcEhZcwAADsMAAA7DAcdvqGQAAAANSURBVBhXY2BgYGAAAAAFAAGKM+MAAAAAAElFTkSuQmCC) no-repeat 50% 50% /16px;
+        background-repeat: no-repeat;
     }
 </style>
 <script type="text/javascript">
@@ -78,6 +77,14 @@
             ds.mask = false
             for (var i in form) { ds.form[i] = form[i] };
             return ds
+        },
+        computed: {
+            iconUrl() {
+                if (this.form.icon && this.form.icon.indexOf('//') < 0) {
+                    return '@Html.Raw(ViewBag.AppHost)' + this.form.icon;
+                }
+                return this.form.icon
+            }
         },
         methods: {
             refresh(key) {

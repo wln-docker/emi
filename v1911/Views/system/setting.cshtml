@@ -6,13 +6,16 @@
         <el-tab-pane label="基础设置">
             <el-form label-width="180px">
                 <el-form-item label="系统名称">
-                    <input type="text" v-model="cfg.system_name" style="width:240px" /><span class="tips notnull">必填</span>
+                    <input type="text" v-model="cfg.system_name" style="width:270px" /><span class="tips notnull">必填</span>
                 </el-form-item>
                 <el-form-item label="组织名称">
-                    <input type="text" v-model="cfg.system_organ" style="width:240px" /><span class="tips notnull">必填</span>
+                    <input type="text" v-model="cfg.system_organ" style="width:270px" /><span class="tips notnull">必填</span>
+                </el-form-item>
+                <el-form-item label="Api Token">
+                    <input type="text" v-model="cfg.token" style="width:270px" /><span class="tips notnull">必填</span>
                 </el-form-item>
                 <el-form-item label="移动办公平台">
-                    <el-select v-model="cfg.mobile_platform" style="width:240px">
+                    <el-select v-model="cfg.mobile_platform" style="width:270px">
                         <el-option key="default" label="不启用" value=""></el-option>
                         <el-option key="dingtalk" label="钉钉" value="dingtalk"></el-option>
                         <el-option key="wxwork" label="企业微信" value="wxwork" disabled></el-option>
@@ -62,11 +65,11 @@
         </el-tab-pane>
         <el-tab-pane label="其它">
             <el-form label-width="180px">
-                <el-form-item label="Api Token">
-                    <input type="text" v-model="other.token" style="width:360px" /><span class="tips notnull">必填</span>
+                <el-form-item label="控制台首页">
+                    <input type="text" v-model="other.emain" placeholder="如：/xcenter/profile" style="width:270px" /><span class="tips">控制台首页自动加载页面</span>
                 </el-form-item>
                 <el-form-item label="ICP备案号">
-                    <input type="text" v-model="other.miiticp" style="width:360px" /><span class="tips">选填</span>
+                    <input type="text" v-model="other.miiticp" style="width:270px" /><span class="tips">选填</span>
                 </el-form-item>
                 <el-form-item>
                     <el-button size="mini" icon="el-icon-edit" type="primary" @@click="other_save">保存配置</el-button>
@@ -83,12 +86,13 @@
         data() {
             ds.loading = true
             ds.cfg = {
+                token: '',
                 system_name: '',
                 system_organ: '',
                 mobile_platform: ''
             }
             ds.other = {
-                token: '',
+                emain: '',
                 miiticp: ''
             }
             ds.dingtalk = {
