@@ -1,14 +1,14 @@
 ﻿var ehost = '';
 function emiOpenTab(url, name) {
-	if (self.frameElement && self.frameElement.tagName === "IFRAME") {
+	if (!parent || parent === self) {
+		location.href = url
+	} else {
 		let ifr = document.createElement('iframe');
 		ifr.id = 'emifr';
 		ifr.name = 'emifr';
 		ifr.src = '//' + ehost + '/jsapi?do=open&url=' + encodeURIComponent(url) + '&name=' + encodeURI(name);
 		ifr.style.display = 'none';
 		document.body.appendChild(ifr);
-	} else {
-		location.href = url
 	}
 }
 function emiBackTab(name) {

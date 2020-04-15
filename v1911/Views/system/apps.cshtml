@@ -34,11 +34,11 @@
                         <el-button size="mini" type="primary" @@click="token(scope.row)">点击查看/更新</el-button>
                     </template>
                 </el-table-column>
-                <el-table-column width="360" align="center" label="操作">
+                <el-table-column width="390" align="center" label="操作">
                     <template scope="scope">
                         <el-button size="mini" icon="el-icon-remove-outline" type="danger" @@click="setState(scope.row.app)" v-if="scope.row.sort < 0">未启用</el-button>
                         <el-button size="mini" icon="el-icon-check" type="success" @@click="setState(scope.row.app)" v-else>已启用</el-button>
-                        <el-button size="mini" icon="el-icon-download" type="warning" v-on:click.native="window.open('apps?do=export&app=' + scope.row.app)">导出</el-button>
+                        <el-button size="mini" icon="el-icon-download" type="primary" v-on:click.native="window.open('apps?do=export&app=' + scope.row.app)">导出配置</el-button>
                         <el-button size="mini" icon="el-icon-menu" type="primary" @@click="toMenus(scope.row.app)">菜单管理</el-button>
                         <el-button size="mini" icon="el-icon-edit" type="primary" @@click="toEdit(scope.row.app)">编辑</el-button>
                         <el-button size="mini" icon="el-icon-delete" type="info" @@click="doDel(scope.row.app)">删除</el-button>
