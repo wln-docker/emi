@@ -84,7 +84,7 @@
 				pro.style.width = (_temp > o.width ? o.width : _temp) + 'px'
 				pro.style.display = 'block'
 			}
-			if (o.to == 'oss') {
+			if (o.to === 'oss') {
 				if (!o.ossdomain) {
 					_tipback({ success: false, message: 'not set ossdomain' })
 				} else if (!o.ossaccesskeyid) {
@@ -98,7 +98,7 @@
 						obj.oss(file, _upback)
 					})
 				}
-			} else if (o.to == 'upyun') {
+			} else if (o.to === 'upyun') {
 				_w.upyun(function (data) {
 					__pro.hide();
 					if (data.success) {
@@ -180,15 +180,15 @@
 	}
 	obj.bindlist = function (a0, a1, a2, a3) {
 		let opt = {}
-		if (arguments.length >= 3 && typeof (a0) == 'string' && typeof (a1) == 'number' && typeof (a2) == 'string') {
+		if (arguments.length >= 3 && typeof (a0) === 'string' && typeof (a1) === 'number' && typeof (a2) === 'string') {
 			opt.el = a0
 			opt.to = a2
 			opt.width = a1
 			opt.height = a1
-			if (typeof (a3) == 'function') {
+			if (typeof (a3) === 'function') {
 				opt.callback = a3;
 			}
-		} else if (typeof (a0) == 'object') {
+		} else if (typeof (a0) === 'object') {
 			opt = a0
 		}
 		let o = _bindset(opt)
@@ -270,10 +270,11 @@
 		}
 		function _show() {
 			if (ele.value) {
-				var imgs = ele.value.split(',');
+				var imgs = ele.value.split(',').filter(o => o.length > 0)
 				for (var i = 0; i < imgs.length; i++) {
 					_showone(imgs[i])
 				}
+				ele.value = imgs.join()
 			}
 		}
 		function _upback(rlt) {
@@ -318,7 +319,7 @@
 				pro.style.width = (_temp > o.width ? o.width : _temp) + 'px'
 				pro.style.display = 'block'
 			}
-			if (o.to == 'oss') {
+			if (o.to === 'oss') {
 				if (!o.ossdomain) {
 					_tipback({ success: false, message: 'not set ossdomain' })
 				} else if (!o.ossaccesskeyid) {
@@ -332,7 +333,7 @@
 						obj.oss(file, _upback)
 					})
 				}
-			} else if (o.to == 'upyun') {
+			} else if (o.to === 'upyun') {
 				_w.upyun(function (data) {
 					__pro.hide();
 					if (data.success) {
