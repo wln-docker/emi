@@ -66,6 +66,9 @@
                     <el-form-item label="部门">
                         <el-cascader v-model="form.department" :options="organs" :props="{ multiple:true,checkStrictly:true}" style="width:240px"></el-cascader>
                     </el-form-item>
+                    <el-form-item label="电话">
+                        <el-input v-model="form.telphone" placeholder="手机、座机、分机号等" style="width:240px"></el-input>
+                    </el-form-item>
                     <el-form-item label="工号">
                         <el-input v-model="form.jobnumber" placeholder="" style="width:240px"></el-input>
                     </el-form-item>
@@ -90,11 +93,12 @@
     var form = {
         sid: '',
         name: '',
+        avatar: '',
         account: '',
         position: '',
         department: [],
         jobnumber: '',
-        avatar: '',
+        telphone: '',
         role: '',
         state: true
     };
