@@ -71,6 +71,9 @@
                 <el-form-item label="ICP备案号">
                     <input type="text" v-model="other.miiticp" style="width:270px" /><span class="tips">选填</span>
                 </el-form-item>
+                <el-form-item label="收起菜单栏">
+                    <el-switch v-model="other.minmenu" active-value="min" inactive-value="default"></el-switch>
+                </el-form-item>
                 <el-form-item>
                     <el-button size="mini" icon="el-icon-edit" type="primary" @@click="other_save">保存配置</el-button>
                     <el-button size="mini" icon="el-icon-news" type="info" onclick="window.open('/export')">导出备份数据</el-button>
@@ -89,16 +92,17 @@
                 token: '',
                 system_name: '',
                 system_organ: '',
-                mobile_platform: ''
+                mobile_platform: '',
             }
             ds.other = {
                 emain: '',
-                miiticp: ''
+                miiticp: '',
+                minmenu: '',
             }
             ds.dingtalk = {
                 ding_corpid: '',
                 ding_appkey: '',
-                ding_secret: ''
+                ding_secret: '',
             }
             ds.wxwork = { }
             ds.hostname = location.hostname
