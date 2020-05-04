@@ -16,8 +16,8 @@
             </div>
             <div class="wln-line"></div>
             <el-table :data="rows" :empty-text="message">
-                <el-table-column width="120" align="center" label="所属应用" property="appname" column-key="app" :filters="apps" :filter-multiple="false"></el-table-column>
                 <el-table-column width="200" property="name" label="权限名称"></el-table-column>
+                <el-table-column width="120" align="center" label="所属应用" property="appname" column-key="app" :filters="apps" :filter-multiple="false" v-if="codetype!==0"></el-table-column>
                 <el-table-column property="description" label="权限说明"></el-table-column>
                 <el-table-column width="220" property="code" label="编码"></el-table-column>
                 <el-table-column align="right">
@@ -33,16 +33,21 @@
             <div class="wln-mask-form" style="width:500px;">
                 <div class="wln-title">权限信息</div>
                 <el-form label-width="120px">
+                    <el-form-item label="权限类型">
+                        <el-select v-model="form.type" @@change="typeChange" placeholder="请选择" style="width:120px">
+                            <el-option v-for="item in types" :label="item.label" :value="item.value"></el-option>
+                        </el-select> {{form.text}}
+                    </el-form-item>
+                    <el-form-item label="所属应用">
+                        <el-select v-model="form.app" placeholder="请选择" style="width:120px">
+                            <el-option v-for="item in apps" :label="item.text" :value="item.value"></el-option>
+                        </el-select>
+                    </el-form-item>
                     <el-form-item label="权限名称">
                         <el-input v-model="form.name" placeholder="必填" style="width:320px"></el-input>
                     </el-form-item>
                     <el-form-item label="权限编码">
                         <el-input v-model="form.code" placeholder="必填" style="width:320px" :disabled="form.editcode.length > 0"></el-input>
-                    </el-form-item>
-                    <el-form-item label="权限类型">
-                        <el-select v-model="form.type" @@change="typeChange" placeholder="请选择" style="width:120px">
-                            <el-option v-for="item in types" :label="item.label" :value="item.value"></el-option>
-                        </el-select> {{form.text}}
                     </el-form-item>
                     <el-form-item label="权限说明">
                         <el-input v-model="form.description" placeholder="" style="width:320px"></el-input>
