@@ -6,7 +6,7 @@
                 <el-table-column align="left" label="组织机构名称">
                     <template scope="scope">
                         <el-popover trigger="hover" placement="right">
-                            <p>编号: {{ scope.row.id }}</p>
+                            <p>编码: {{ scope.row.id }}</p>
                             <p>全称: {{ scope.row.fullname }}</p>
                             <p>权重: {{ scope.row.sort }}</p>
                             <div slot="reference" class="name-wrapper">{{ scope.row.name }}</div>
@@ -42,6 +42,9 @@
                     <el-form-item label="名称">
                         <el-input v-model="form.name" placeholder="（必填）" style="width:320px"></el-input>
                     </el-form-item>
+                    <el-form-item label="编码">
+                        <el-input v-model="form.code" placeholder="自编码时需要填写，不填写自动生成" style="width:320px"></el-input>
+                    </el-form-item>
                     <el-form-item label="全称">
                         <el-input v-model="form.fullname" placeholder="部门、子公司等子机构全称" style="width:320px"></el-input>
                     </el-form-item>
@@ -67,7 +70,7 @@
 </div>
 <script type="text/javascript">
     var types = @Html.Raw(ViewBag.OrganType);
-    var form = { id: '', name: '', fullname: '', type: '', sort: '', parent: '', parentName: '无', state: true };
+    var form = { id: '', code: '', name: '', fullname: '', type: '', sort: '', parent: '', parentName: '无', state: true };
     new Vue({
         el: '#app', router: new VueRouter({ mode: 'history' }),
         data: function () {
