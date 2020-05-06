@@ -11,6 +11,7 @@
                             <p>权重: {{ scope.row.sort }}</p>
                             <div slot="reference" class="name-wrapper">{{ scope.row.name }}</div>
                         </el-popover>
+                        <el-button size="mini" icon="el-icon-plus" type="none" @@click="toChild(scope.row.id,scope.row.name)" v-if="scope.row.children.length > 0"></el-button>
                     </template>
                 </el-table-column>
                 <el-table-column width="160" label="分类" property="type"></el-table-column>
@@ -53,9 +54,9 @@
                             <el-option v-for="item in types" :label="item.label" :value="item.value"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="权重">
+                    @*<el-form-item label="权重">
                         <el-input v-model="form.sort" style="width:60px"></el-input> <span style="color:#808080">数值越大越靠前</span>
-                    </el-form-item>
+                    </el-form-item>*@
                     <el-form-item label="状态">
                         <el-switch on-text="启用" off-text="停用" v-model="form.state"></el-switch>
                     </el-form-item>
