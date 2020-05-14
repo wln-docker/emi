@@ -1,0 +1,209 @@
+﻿<div id="app" class="wln-layout">
+    <template>
+        <div class="wln">
+            <div>
+                <span style="float:right"><el-button type="primary" icon="el-icon-list" onclick="location.href='/system/labels'">标签名称管理</el-button></span>
+                <el-input v-model="key" placeholder="按 名称 进行筛选" @@keydown.enter.native="refresh" style="width:300px"></el-input>
+                <el-button type="info" icon="el-icon-refresh" @@click="refresh">筛选</el-button>
+                <el-button type="primary" icon="el-icon-plus" @@click="toAdd">新建应用</el-button>
+                <el-button type="warning" icon="el-icon-upload" @@click="toImport">导入应用</el-button>
+            </div>
+            <div class="wln-line"></div>
+            <el-table :data="rows" :empty-text="message">
+                <el-table-column width="50" align="center" type="index"></el-table-column>
+                <el-table-column width="100" align="center" label="@Html.Raw(ViewBag.LabelApp)">
+                    <template scope="scope">
+                        <el-popover trigger="hover" placement="right">
+                            <p>服务端: {{ scope.row.host }}</p>
+                            <div slot="reference" class="name-wrapper">{{ scope.row.app }}</div>
+                        </el-popover>
+                    </template>
+                </el-table-column>
+                <el-table-column width="150" property="name" label="名称"></el-table-column>
+                <el-table-column></el-table-column>
+                <el-table-column width="180" align="center" label="HTTPS安全协议">
+                    <template scope="scope">
+                        <el-tooltip :content="scope.row.https == '0' ? '点击开启HTTPS访问' : '点击关闭HTTPS访问'" placement="bottom">
+                            <el-button size="mini" type="info" @@click="setHttps(scope.row)" v-if="scope.row.https == '0'">未开启</el-button>
+                            <el-button size="mini" type="primary" @@click="setHttps(scope.row)" v-else>已开启</el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+                <el-table-column width="168" align="center" label="Api Token">
+                    <template scope="scope">
+                        <el-button size="mini" type="primary" @@click="token(scope.row)">点击查看/更新</el-button>
+                    </template>
+                </el-table-column>
+                <el-table-column width="390" align="center" label="操作">
+                    <template scope="scope">
+                        <el-button size="mini" icon="el-icon-remove-outline" type="danger" @@click="setState(scope.row.app)" v-if="scope.row.sort < 0">未启用</el-button>
+                        <el-button size="mini" icon="el-icon-check" type="success" @@click="setState(scope.row.app)" v-else>已启用</el-button>
+                        <el-button size="mini" icon="el-icon-download" type="primary" v-on:click.native="window.open('apps?do=export&app=' + scope.row.app)">导出配置</el-button>
+                        <el-button size="mini" icon="el-icon-menu" type="primary" @@click="toMenus(scope.row.app)">菜单管理</el-button>
+                        <el-button size="mini" icon="el-icon-edit" type="primary" @@click="toEdit(scope.row.app)">编辑</el-button>
+                        <el-button size="mini" icon="el-icon-delete" type="info" @@click="doDel(scope.row.app)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+        <div class="wln-mask-layout" v-if="mask">
+            <div class="wln-mask-form" style="width:520px;">
+                <div class="wln-title">应用信息</div>
+                <el-form label-width="120px">
+                    <el-form-item label="应用编码">
+                        <el-input v-model="form.app" placeholder="英文，如：demo" :disabled="form.id.length > 0" style="width:200px"></el-input> <span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item label="应用名称">
+                        <el-input v-model="form.name" placeholder="" style="width:200px"></el-input> <span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item label="访问地址">
+                        <el-input v-model="form.host" placeholder="" style="width:270px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="通讯密钥">
+                        <el-input v-model="form.token" placeholder="接口通讯密钥" style="width:270px"></el-input> <el-button size="small" type="primary" @@click="newtoken">随机生成</el-button>
+                    </el-form-item>
+                    <el-form-item label="https">
+                        <el-select v-model="form.https" style="width:100px">
+                            <el-option label="不支持" :value="0"></el-option>
+                            <el-option label="支持" :value="1"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="排序">
+                        <el-input v-model="form.sort" placeholder="" style="width:100px"></el-input> <span class="tips">小于零则停用</span>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button size="small" icon="el-icon-check" type="primary" v-on:click="onSubmit">提交</el-button>
+                        <el-button size="small" icon="el-icon-close" v-on:click="close">取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+    </template>
+</div>
+<script type="text/javascript">
+    var form = { id: '', app: '', name: '', host: '', token: '', https: 0, sort: 1 };
+    new Vue({
+        el: '#app',
+        router: new VueRouter({ mode: 'history' }),
+        data: function () {
+            ds.form = {}
+            ds.mask = false
+            for (var i in form) { ds.form[i] = form[i] };
+            return ds
+        },
+        methods: {
+            refresh() {
+                asyncPost(location.pathname + '?do=pager', { key: this.key }).then(res => {
+                    this.rows = res.rows;
+                    this.message = res.message;
+                })
+            },
+            close() {
+                this.mask = false
+            },
+            toImport() {
+                let t = this
+                uploader(location.pathname + '?do=import', '.json', (res) => {
+                    if (res.success) {
+                        t.refresh()
+                        Vue.prototype.$alert(res.message)
+                    } else {
+                        Vue.prototype.$alert(res.message)
+                    }
+                })
+            },
+            toAdd() {
+                for (var i in form) { this.form[i] = form[i] }
+                this.mask = true
+            },
+            toEdit(app) {
+                let t = this;
+                for (var i in form) { t.form[i] = form[i] }
+                post(location.pathname + '?do=get', { app: app }).then(res => {
+                    if (res.success) {
+                        for (var i in form) { t.form[i] = res[i] }
+                        t.mask = true
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                });
+            },
+            toMenus(app) {
+                openTab('/system/appmenu/' + app, '应用菜单')
+            },
+            token(row) {
+                let t = this
+                post(location.pathname + '?do=token', { app: row.app }).then(res => {
+                    if (res.success) {
+                        Vue.prototype.$prompt('此应用的API Token为', 'Api Token查看', { inputValue: res.token, confirmButtonText: '更新Token', cancelButtonText: '关闭' }).then(({ value }) => {
+                            post(location.pathname + '?do=settoken', { app: row.app, token: value }).then(res => {
+                                Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                            })
+                        }).catch(() => { });
+                    } else {
+                        Vue.prototype.$message({ type: 'error', message: res.message });
+                    }
+                })
+            },
+            newtoken() {
+                let t = this
+                post(location.pathname + '?do=newtoken').then(res => {
+                    if (res.success) {
+                        t.form.token = res.token
+                    }
+                })
+            },
+            setHttps(row) {
+                let t = this
+                Vue.prototype.$confirm((row.https === 0 ? '开启前请确认模块可通过HTTPS地址访问' : '关闭后将可能面临流量劫持等安全问题') + ', 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    post(location.pathname + '?do=https', { app: row.app }).then(res => {
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                        t.refresh();
+                    })
+                }).catch(() => {
+                    Vue.prototype.$message({ type: 'info', message: '操作已取消' });
+                });
+            },
+            setState(app) {
+                post(location.pathname + '?do=state', { app: app }).then(res => {
+                    this.refresh();
+                    sessionStorage.removeItem('session');
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                })
+            },
+            onSubmit: function () {
+                post(location.pathname + '?do=set', this.form).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    if (res.success) {
+                        this.refresh();
+                        this.mask = false;
+                    }
+                });
+            },
+            doDel(app) {
+                let t = this
+                Vue.prototype.$confirm('应用移除后相关功能将无法使用，但数据不会删除, 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    post(location.pathname + '?do=del', { app: app }).then(res => {
+                        t.refresh();
+                        sessionStorage.removeItem('session');
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    })
+                }).catch(() => {
+                    Vue.prototype.$message({ type: 'info', message: '操作已取消' });
+                });
+            }
+        },
+        mounted() {
+            let t = this
+            this.refresh();
+        }
+    })
+</script>
