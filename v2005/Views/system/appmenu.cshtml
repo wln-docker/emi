@@ -40,16 +40,16 @@
                         <el-input v-model="form.name" placeholder="必填" style="width:320px"></el-input><span class="tips notnull"></span>
                     </el-form-item>
                     <el-form-item label="路径连接">
-                        <el-input v-model="form.link" placeholder="" style="width:320px"></el-input><span class="tips"></span>
+                        <el-input v-model="form.link" placeholder="" style="width:320px"></el-input>
                     </el-form-item>
                     <el-form-item label="图标连接">
                         <el-input v-model="form.icon" placeholder="" style="width:320px"></el-input><em class="menu-icon" :style="{'background':'url(' + iconUrl + ')','backgroundSize':'100%','backgroundRepeat':'no-repeat','marginLeft':'5px'}"></em>
                     </el-form-item>
                     <el-form-item label="验证权限点">
-                        <el-input v-model="form.authority" placeholder="" style="width:320px"></el-input><span class="tips"></span>
+                        <el-input v-model="form.authority" placeholder="" style="width:320px"></el-input>
                     </el-form-item>
                     <el-form-item label="菜单排序">
-                        <el-input v-model="form.sort" placeholder="" style="width:80px"></el-input><span class="tips"></span>
+                        <el-input v-model="form.sort" placeholder="" style="width:80px"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button size="small" icon="el-icon-check" type="primary" v-on:click="doSave">提交</el-button>
