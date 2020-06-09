@@ -12,7 +12,9 @@
             </div>
             <div class="wln-line"></div>
             <el-table :data="rows" :empty-text="message" style="width:100%">
-                <el-table-column label="#" property="index" align="center" width="50"></el-table-column>
+                <el-table-column width="40" align="center" label="#">
+                    <template slot-scope="scope">{{scope.$index + (page - 1) * size + 1}}</template>
+                </el-table-column>
                 <el-table-column width="150" property="account" label="帐号"></el-table-column>
                 <el-table-column label="姓名">
                     <template scope="scope">
