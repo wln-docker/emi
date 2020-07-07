@@ -6,9 +6,9 @@
             </div>
             <div class="wln-line"></div>
             <el-tree class="filter-tree" :data="tree" :props="defaultProps" :load="loadNode" :filter-node-method="filterNode" node-key="key" :default-expanded-keys="['_empty']" ref="tree" lazy>
-                <span class="el-tree-node-custom" slot-scope="{ node, data }">
+                <span class="el-tree-node-custom" slot-scope="{ node, data }" :style="{color: data.state || data.key == '_empty'? '#111111' : '#9C9C9C' }">
                     <font>{{data.label}}</font>
-                    <font style="font-size:0.8em;position:absolute;left: 300px;color: rgb(51, 51, 51);" :style="{color: data.key == '_empty' ? '#333333' : '#20a0ff' }">{{data.key == '_empty' ? data.description : data.key}}</font>
+                    <font style="font-size:0.8em;position:absolute;left:300px;" :style="{color: data.key == '_empty' ? '#9C9C9C' : '' }">{{data.key == '_empty' ? data.description : data.key}}</font>
                     <span>
                         <el-button type="info" size="mini" icon="el-icon-delete" @@click.stop="doDel(data, node)" v-if="data.key != '_empty'">删除</el-button>
                         <el-button type="success" size="mini" icon="el-icon-edit" @@click.stop="toEdit(data, node)" v-if="data.key != '_empty'">编辑</el-button>
@@ -26,9 +26,7 @@
                     </el-form-item>
                     <el-form-item label="Key值">
                         <el-input placeholder="必填" v-model="form.key" style="width:300px">
-                            <template slot="prepend" v-if="form.parent">
-                                {{form.parent}}
-                            </template>
+                            <template slot="prepend" v-if="form.parent">{{form.parent}}</template>
                         </el-input>
                     </el-form-item>
                     <el-form-item label="字段说明">
@@ -38,7 +36,7 @@
                         <el-input v-model="form.sort" placeholder="" style="width:60px"></el-input>&nbsp;<span class="tips">数值越小越靠前</span>
                     </el-form-item>
                     <el-form-item label="状态">
-                        <el-switch on-text="启用" off-text="停用" on-value="1" off-value="0" v-model="form.state"></el-switch>
+                        <el-switch on-text="启用" off-text="停用" v-model="form.state"></el-switch>
                     </el-form-item>
                     <el-form-item>
                         <el-button size="small" icon="el-icon-check" type="primary" v-on:click="onSubmit">提交</el-button>
@@ -72,7 +70,7 @@
 <script type="text/javascript">
     var ctxData;
     var ctxStore;
-    var form = { id: '', app: '', key: '', label: '', description: '', parent: '', sort: '', state: '1' };
+    var form = { id: '', app: '', key: '', label: '', description: '', parent: '', sort: '', state: true };
     new Vue({
         el: '#app',
         data: function () {
@@ -106,7 +104,6 @@
                 let t = this;
                 ctxData = data
                 ctxStore = node.store
-                console.log(node.store)
                 for (var i in form) { t.form[i] = form[i] }
                 if (data.app && data.app != '_empty') {
                     t.form.app = data.app
@@ -125,7 +122,8 @@
                 for (var i in form) { t.form[i] = form[i] }
                 post(location.pathname + '?do=get', { id: data.id }).then(res => {
                     if (res.success) {
-                        for (var i in form) { t.form[i] = res[i] || form[i] }
+                        for (var i in res) { t.form[i] = res[i] }
+                        t.form.state = res.state > 0
                         t.mask = true
                     } else {
                         Vue.prototype.$message({ type: 'info', message: res.message });
@@ -153,15 +151,19 @@
             },
             onSubmit: function () {
                 let t = this;
-                post(location.pathname + '?do=set', t.form).then(res => {
+                let obj = {}
+                for (let i in t.form) { obj[i] = t.form[i] }
+                obj.state = t.form.state ? "1" : "0";
+                post(location.pathname + '?do=set', obj).then(res => {
                     if (res.success) {
                         if (!ctxData) {
                             ctxData = t.form;
                         } else if (t.form.id) {
-                            ctxData.key = t.form.parent + '-' + t.form.key;
-                            ctxData.label = t.form.label;
+                            ctxData.key = res.key;
+                            ctxData.label = res.label;
+                            ctxData.state = res.state;
                         } else if (ctxStore) {
-                            t.$refs.tree.append({ id: res.data, app: t.form.app, key: t.form.parent + '-' + t.form.key, label: t.form.label }, t.form.parent);
+                            t.$refs.tree.append({ id: res.id, app: t.form.app, key: res.key, label: res.label, state: res.state }, res.parent);
                         }
                         t.mask = false;
                         Vue.prototype.$message({ type: 'success', message: res.message });
