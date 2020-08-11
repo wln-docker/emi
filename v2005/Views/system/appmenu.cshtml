@@ -28,7 +28,7 @@
         </div>
         <div class="wln-mask-layout" v-if="mask">
             <div class="wln-mask-form" style="width:500px;">
-                <div class="wln-title">菜单信息</div>
+                <div class="wln-title">菜单信息<span><i class="el-icon-close" v-on:click="close"></i></span></div>
                 <el-form label-width="120px">
                     <el-form-item label="上级菜单">
                         <font style="color:#FF9800">{{form.parentName}}</font>

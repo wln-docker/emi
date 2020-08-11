@@ -39,7 +39,7 @@
         </div>
         <div class="wln-mask-layout" v-if="mask">
             <div class="wln-mask-form" style="width:500px;">
-                <div class="wln-title">{{form.id ? '编辑组织机构' : '新增组织机构'}}</div>
+                <div class="wln-title">{{form.id ? '编辑组织机构' : '新增组织机构'}}<span><i class="el-icon-close" v-on:click="close"></i></span></div>
                 <div class="h20"></div>
                 <el-form label-width="120px">
                     <el-form-item label="上级">

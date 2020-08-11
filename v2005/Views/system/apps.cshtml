@@ -48,7 +48,7 @@
         </div>
         <div class="wln-mask-layout" v-if="mask">
             <div class="wln-mask-form" style="width:520px;">
-                <div class="wln-title">应用信息</div>
+                <div class="wln-title">应用信息<span><i class="el-icon-close" v-on:click="close"></i></span></div>
                 <el-form label-width="120px">
                     <el-form-item label="应用编码">
                         <el-input v-model="form.app" placeholder="英文，如：demo" :disabled="form.id.length > 0" style="width:200px"></el-input> <span class="tips notnull"></span>

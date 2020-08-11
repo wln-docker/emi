@@ -19,7 +19,7 @@
         </div>
         <div class="wln-mask-layout" v-if="mask">
             <div class="wln-mask-form" style="width:500px;">
-                <div class="wln-title">数据管理</div>
+                <div class="wln-title">数据管理<span><i class="el-icon-close" v-on:click="close"></i></span></div>
                 <el-form label-width="120px">
                     <el-form-item label="Label名称">
                         <el-input v-model="form.label" placeholder="必填" style="width:300px"></el-input>

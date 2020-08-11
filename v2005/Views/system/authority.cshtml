@@ -31,7 +31,7 @@
         </div>
         <div class="wln-mask-layout" v-if="mask">
             <div class="wln-mask-form" style="width:500px;">
-                <div class="wln-title">权限信息</div>
+                <div class="wln-title">权限信息<span><i class="el-icon-close" v-on:click="close"></i></span></div>
                 <el-form label-width="120px">
                     <el-form-item label="权限类型">
                         <el-select v-model="form.type" @@change="typeChange" placeholder="请选择" style="width:120px">
