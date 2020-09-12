@@ -58,139 +58,140 @@
     </el-table>
 </template>
 <script type="text/javascript">
-        var more = '@ViewBag.MoreOrgans' === 'True';
-        var appPermission = Vue.extend({
-            template: '#app-permission',
-            data: function () {
-                return ds
+    document.title = '权限控制'
+    var more = '@ViewBag.MoreOrgans' === 'True';
+    var appPermission = Vue.extend({
+        template: '#app-permission',
+        data: function () {
+            return ds
+        },
+        methods: {
+            refresh() {
+                post(location.pathname + '?do=authority', { sid: ds.sid, organ: ds.organ, app: ds.app, type: ds.type, key: ds.key }).then(res => {
+                    ds.message = res.message;
+                    ds.rows = res.rows;
+                })
             },
-            methods: {
-                refresh() {
-                    post(location.pathname + '?do=authority', { sid: ds.sid, organ: ds.organ, app: ds.app, type: ds.type, key: ds.key }).then(res => {
-                        ds.message = res.message;
-                        ds.rows = res.rows;
-                    })
-                },
-                filterChange(filters) {
-                    ds.total = 0;
-                    ds.page = 1;
-                    ds.rows = [];
-                    if (filters.app && filters.app.length > 0) {
-                        ds.app = filters.app[0];
-                    } else {
-                        ds.app = '';
-                    }
-                    this.refresh();
-                },
-                Change(code) {
-                    post(location.pathname + '?do=change', { sid: ds.sid, type: ds.type, organ: ds.organ, code: code }).then(res => {
-                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
-                        if (res.success) {
-                            this.refresh();
-                        }
-                    });
-                },
-                Remove(code) {
-                    post(location.pathname + '?do=remove', { sid: ds.sid, type: ds.type, organ: ds.organ, code: code }).then(res => {
-                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
-                        if (res.success) {
-                            this.refresh();
-                        }
-                    });
+            filterChange(filters) {
+                ds.total = 0;
+                ds.page = 1;
+                ds.rows = [];
+                if (filters.app && filters.app.length > 0) {
+                    ds.app = filters.app[0];
+                } else {
+                    ds.app = '';
                 }
-            }
-        })
-        var appOrgans = Vue.extend({
-            template: '#app-organs',
-            data: function () {
-                return ds
+                this.refresh();
             },
-            methods: {
-                refresh() {
-                    post(location.pathname + '?do=organs', { sid: ds.sid }).then(res => {
-                        if (res && res.length > 0) {
-                            ds.rows = res;
-                        } else {
-                            ds.message = '暂无可配置权限的机构';
-                        }
-                    });
-                },
-                setRoles(role, organ) {
-                    ds.role = role;
-                    ds.organ = organ;
-                    ds.dialogFormVisible = true;
-                },
-                toPermission(organ) {
-                    ds.rows = [];
-                    ds.type = 2;
-                    ds.organ = organ;
-                    app.$router.push('/system/permission/type' + ds.type + '?sid=' + ds.sid + '&organ=' + organ + '&type=' + ds.type);
+            Change(code) {
+                post(location.pathname + '?do=change', { sid: ds.sid, type: ds.type, organ: ds.organ, code: code }).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    if (res.success) {
+                        this.refresh();
+                    }
+                });
+            },
+            Remove(code) {
+                post(location.pathname + '?do=remove', { sid: ds.sid, type: ds.type, organ: ds.organ, code: code }).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    if (res.success) {
+                        this.refresh();
+                    }
+                });
+            }
+        }
+    })
+    var appOrgans = Vue.extend({
+        template: '#app-organs',
+        data: function () {
+            return ds
+        },
+        methods: {
+            refresh() {
+                post(location.pathname + '?do=organs', { sid: ds.sid }).then(res => {
+                    if (res && res.length > 0) {
+                        ds.rows = res;
+                    } else {
+                        ds.message = '暂无可配置权限的机构';
+                    }
+                });
+            },
+            setRoles(role, organ) {
+                ds.role = role;
+                ds.organ = organ;
+                ds.dialogFormVisible = true;
+            },
+            toPermission(organ) {
+                ds.rows = [];
+                ds.type = 2;
+                ds.organ = organ;
+                app.$router.push('/system/permission/type' + ds.type + '?sid=' + ds.sid + '&organ=' + organ + '&type=' + ds.type);
+                appPermission.options.methods.refresh();
+            }
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        data: function () {
+            ds.app = '';
+            ds.apps = [];
+            ds.roles = [];
+            ds.sid = this.$route.query.sid;
+            ds.type = this.$route.query.type ? parseInt(this.$route.query.type) : 0;
+            ds.organ = this.$route.query.organ;
+            ds.role = '';
+            ds.dialogFormVisible = false;
+            return ds
+        },
+        router: new VueRouter({
+            mode: 'history', routes: [
+                { path: '/system/permission/type0', component: appPermission },
+                { path: '/system/permission/type1', component: appPermission },
+                { path: '/system/permission/type2', component: appPermission },
+                { path: '/system/permission/organ', component: appOrgans }
+            ]
+        }),
+        methods: {
+            back() {
+                if (location.pathname === '/system/permission/type2') {
+                    this.$router.back()
+                    appOrgans.options.methods.refresh()
+                } else {
+                    backTab('用户账号')
+                }
+            },
+            refresh() {
+                if (location.pathname =='/system/permission/organ') {
+                    appOrgans.options.methods.refresh()
+                } else {
+                    appPermission.options.methods.refresh()
+                }
+            },
+            toType(to, organ) {
+                ds.rows = [];
+                ds.type = to;
+                ds.organ = organ;
+                if (to === 2 && organ == '') {
+                    this.$router.push('/system/permission/organ?sid=' + ds.sid + '&type=' + to);
+                    appOrgans.options.methods.refresh();
+                } else {
+                    this.$router.push('/system/permission/type' + to + '?sid=' + ds.sid + '&organ=' + organ + '&type=' + to);
                     appPermission.options.methods.refresh();
                 }
-            }
-        })
-        var app = new Vue({
-            el: '#app',
-            data: function () {
-                ds.app = '';
-                ds.apps = [];
-                ds.roles = [];
-                ds.sid = this.$route.query.sid;
-                ds.type = this.$route.query.type ? parseInt(this.$route.query.type) : 0;
-                ds.organ = this.$route.query.organ;
-                ds.role = '';
-                ds.dialogFormVisible = false;
-                return ds
             },
-            router: new VueRouter({
-                mode: 'history', routes: [
-                    { path: '/system/permission/type0', component: appPermission },
-                    { path: '/system/permission/type1', component: appPermission },
-                    { path: '/system/permission/type2', component: appPermission },
-                    { path: '/system/permission/organ', component: appOrgans }
-                ]
-            }),
-            methods: {
-                back() {
-                    if (location.pathname === '/system/permission/type2') {
-                        this.$router.back()
-                        appOrgans.options.methods.refresh()
-                    } else {
-                        backTab('用户账号')
-                    }
-                },
-                refresh() {
-                    if (location.pathname =='/system/permission/organ') {
-                        appOrgans.options.methods.refresh()
-                    } else {
-                        appPermission.options.methods.refresh()
-                    }
-                },
-                toType(to, organ) {
-                    ds.rows = [];
-                    ds.type = to;
-                    ds.organ = organ;
-                    if (to === 2 && organ == '') {
-                        this.$router.push('/system/permission/organ?sid=' + ds.sid + '&type=' + to);
+            setRole(action) {
+                post(location.pathname + '?do=setrole', { sid: ds.sid, role: action == 'del' ? '' : ds.role, organ: ds.organ }).then(res => {
+                    if (res.success) {
+                        ds.dialogFormVisible = false;
                         appOrgans.options.methods.refresh();
-                    } else {
-                        this.$router.push('/system/permission/type' + to + '?sid=' + ds.sid + '&organ=' + organ + '&type=' + to);
-                        appPermission.options.methods.refresh();
                     }
-                },
-                setRole(action) {
-                    post(location.pathname + '?do=setrole', { sid: ds.sid, role: action == 'del' ? '' : ds.role, organ: ds.organ }).then(res => {
-                        if (res.success) {
-                            ds.dialogFormVisible = false;
-                            appOrgans.options.methods.refresh();
-                        }
-                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
-                    });
-                }
-            },
-            mounted() {
-                this.refresh();
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                });
             }
+        },
+        mounted() {
+            this.refresh();
+        }
     });
     asyncGet('/system/apps?do=filters').then(apps => { ds.apps = apps });
     asyncGet(location.pathname + '?do=roles').then(roles => { ds.roles = roles })

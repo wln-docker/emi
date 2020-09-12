@@ -15,7 +15,7 @@
                 <el-button type="info" icon="el-icon-refresh" @@click="refresh">筛选</el-button>
             </div>
             <div class="wln-line"></div>
-            <el-table :data="rows" :empty-text="message">
+            <el-table :data="rows" :empty-text="message" @@filter-change="filterChange">
                 <el-table-column width="200" property="name" label="权限名称"></el-table-column>
                 <el-table-column width="120" align="center" label="所属应用" property="appname" column-key="app" :filters="apps" :filter-multiple="false" v-if="codetype!==0"></el-table-column>
                 <el-table-column property="description" label="权限说明"></el-table-column>
@@ -62,6 +62,7 @@
     </template>
 </div>
 <script type="text/javascript">
+    document.title = '权限点管理'
     get('/system/apps?do=filters').then(apps => {
         var more = '@ViewBag.MoreOrgans' === 'True';
         var form = { editcode: '', app: '', code: '', name: '', type: 0, description: '', text: '' };
@@ -72,6 +73,7 @@
             data: function () {
                 ds.form = {}
                 ds.mask = false
+                ds.app = ''
                 ds.apps = apps
                 ds.codetype = 0
                 ds.more = more
@@ -81,8 +83,19 @@
                 return ds
             },
             methods: {
+                filterChange(filters) {
+                    this.total = 0;
+                    this.page = 1;
+                    this.rows = [];
+                    if (filters.app && filters.app.length > 0) {
+                        this.app = filters.app[0];
+                    } else {
+                        this.app = '';
+                    }
+                    this.refresh();
+                },
                 pager() {
-                    post(location.pathname + '?do=list', { page: this.page, key: this.key, type: this.codetype }).then(res => {
+                    post(location.pathname + '?do=list', { page: this.page, key: this.key, app: this.app, type: this.codetype }).then(res => {
                         this.rows = res.rows;
                         this.page = res.page;
                         this.total = res.total;
