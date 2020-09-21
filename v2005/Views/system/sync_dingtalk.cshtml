@@ -65,7 +65,7 @@
         data() {
             ds.lock = false
             ds.tree = []
-            ds.dingKeys = ['1']
+            ds.dingKeys = ['NONE']
             ds.workKeys = ['NONE']
             ds.organKeys = []
             ds.height = document.body.clientHeight - 50;
@@ -79,7 +79,7 @@
                         Vue.prototype.$message({ type: 'info', message: res.message });
                     }
                     if (sessionStorage.accountOrgan) {
-                        this.$refs.tree.setCheckedKeys(sessionStorage.accountOrgan.split(','))                       
+                        //this.$refs.tree.setCheckedKeys(sessionStorage.accountOrgan.split(','))                       
                     }
                 });
             },
@@ -87,22 +87,20 @@
                 var t = this;
                 asyncPost(location.pathname + '?do=user', { key: t.key, organ: t.organKeys.join(), ding: t.dingKeys.join(), work: t.workKeys.join() }).then(res => {
                     t.rows = res;
+                    t.message = '加载完成，暂无记录'
                 });
             },
             checkDept: function () {
                 var t = this;
                 var nodes = t.$refs.tree.getCheckedNodes()
-                if (sessionStorage.accountOrgan && nodes.length > 1) {
+                if (nodes.length > 1) {
                     let tmp = nodes.filter(a => sessionStorage.accountOrgan.indexOf(a.value) < 0)
                     if (tmp.length > 0) {
                         nodes = tmp
-                        let keys = nodes.map(a => a.value)
-                        sessionStorage.setItem('accountOrgan', keys.join())
-                        t.$refs.tree.setCheckedKeys(keys)
+                        t.$refs.tree.setCheckedKeys(nodes.map(a => a.value))
                     }
-                } else if (nodes.length > 0) {
-                    sessionStorage.setItem('accountOrgan', nodes.map(a => a.value).join())
                 }
+                sessionStorage.setItem('accountOrgan', nodes.map(a => a.value).join(','))
                 t.lock = true
                 setTimeout(function () {
                     if (t.lock) {
@@ -189,8 +187,10 @@
                     Vue.prototype.$alert('此用户已添加了内部账号！')
                 }
             }
-        }, created() {
-            sessionStorage.setItem('accountOrgan', 'root')
+        },
+        mounted() {
+            sessionStorage.removeItem('accountOrgan')
+            this.$refs.tree.setCheckedKeys(['root'])
             this.loadTree()
             this.loadUser()
         }

@@ -178,7 +178,7 @@
                             if (pid) {
                                 t.loadNode(id, pid)
                             } else {
-                                t.refresh()
+                                t.pager()
                             }                            
                             Vue.prototype.$message({ type: 'success', message: res.message });
                         } else {
@@ -192,7 +192,11 @@
                 post(location.pathname + '?do=set', t.form).then(res => {
                     if (res.success) {
                         t.mask = false;
-                        t.loadNode(t.form.id, t.form.parent)
+                        if (t.form.parent) {
+                            t.loadNode(t.form.id, t.form.parent)
+                        } else {
+                            t.pager()
+                        }
                         Vue.prototype.$message({ type: 'success', message: res.message });
                     } else {
                         Vue.prototype.$message({ type: 'info', message: res.message });
