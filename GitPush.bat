@@ -1,5 +1,5 @@
 @echo off
-set /p tags=请输入当前发布的版本号（latest）：
+set /p tags=璇疯緭鍏ュ綋鍓嶅彂甯冪殑鐗堟湰鍙凤紙latest锛夛細
 if "%tags%"=="" (
     git add -A && git commit -a -m "GitPush" && git push -u origin master
 ) else (
