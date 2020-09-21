@@ -65,7 +65,7 @@
         data() {
             ds.lock = false
             ds.tree = []
-            ds.dingKeys = ['NONE']
+            ds.dingKeys = ['1']
             ds.workKeys = ['NONE']
             ds.organKeys = []
             ds.height = document.body.clientHeight - 50;
@@ -94,7 +94,8 @@
                 var t = this;
                 var nodes = t.$refs.tree.getCheckedNodes()
                 if (nodes.length > 1) {
-                    let tmp = nodes.filter(a => sessionStorage.accountOrgan.indexOf(a.value) < 0)
+                    let ids = sessionStorage.accountOrgan ? sessionStorage.accountOrgan : 'root';
+                    let tmp = nodes.filter(a => ids.indexOf(a.value) < 0)
                     if (tmp.length > 0) {
                         nodes = tmp
                         t.$refs.tree.setCheckedKeys(nodes.map(a => a.value))
