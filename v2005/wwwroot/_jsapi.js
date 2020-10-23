@@ -19,6 +19,14 @@ function emiBackTab(name) {
 	ifr.style.display = 'none';
 	document.body.appendChild(ifr);
 }
+function emiCloseTab(name) {
+	let ifr = document.createElement('iframe');
+	ifr.id = 'emifr';
+	ifr.name = 'emifr';
+	ifr.src = '//' + ehost + '/jsapi?do=closeTab&name=' + encodeURI(name);
+	ifr.style.display = 'none';
+	document.body.appendChild(ifr);
+}
 function emiToLogin() {
 	let ifr = document.createElement('iframe');
 	ifr.id = 'emifr';
