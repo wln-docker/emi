@@ -10,7 +10,7 @@
             </div>
             <div class="wln-line"></div>
             <el-table :data="rows" :empty-text="message">
-                <el-table-column width="50" align="center" type="index"></el-table-column>
+                <el-table-column width="50" align="center" property="sort"></el-table-column>
                 <el-table-column width="100" align="center" label="@Html.Raw(ViewBag.LabelApp)">
                     <template scope="scope">
                         <el-popover trigger="hover" placement="right">
