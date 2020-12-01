@@ -176,6 +176,7 @@
                 },
                 save() {
                     sessionStorage.setItem('session', JSON.stringify({ tab: this.tab, menu: this.menu, active: this.active, tabs: this.tabs, groups: this.groups }));
+                    this.$forceUpdate()
                 }
             },
             mounted: function () {
