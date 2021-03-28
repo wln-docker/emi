@@ -156,7 +156,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -210,7 +215,7 @@ module.exports = require("element-ui/lib/utils/clickoutside");
 
 /***/ }),
 
-/***/ 14:
+/***/ 15:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/scrollbar");
@@ -290,7 +295,8 @@ var render = function() {
           {
             ref: "input",
             on: {
-              input: _vm.handleChange,
+              input: _vm.handleInput,
+              change: _vm.handleChange,
               focus: _vm.handleFocus,
               blur: _vm.handleBlur,
               clear: _vm.handleClear
@@ -495,7 +501,7 @@ var emitter_ = __webpack_require__(4);
 var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
 // EXTERNAL MODULE: external "element-ui/lib/scrollbar"
-var scrollbar_ = __webpack_require__(14);
+var scrollbar_ = __webpack_require__(15);
 var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/autocomplete/src/autocomplete-suggestions.vue?vue&type=script&lang=js&
@@ -563,7 +569,7 @@ var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
   },
   mounted: function mounted() {
     this.$parent.popperElm = this.popperElm = this.$el;
-    this.referenceElm = this.$parent.$refs.input.$refs.input;
+    this.referenceElm = this.$parent.$refs.input.$refs.input || this.$parent.$refs.input.$refs.textarea;
     this.referenceList = this.$el.querySelector('.el-autocomplete-suggestion__list');
     this.referenceList.setAttribute('role', 'listbox');
     this.referenceList.setAttribute('id', this.id);
@@ -617,6 +623,7 @@ var focus_ = __webpack_require__(22);
 var focus_default = /*#__PURE__*/__webpack_require__.n(focus_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/autocomplete/src/autocomplete.vue?vue&type=script&lang=js&
+//
 //
 //
 //
@@ -808,7 +815,7 @@ var focus_default = /*#__PURE__*/__webpack_require__.n(focus_);
         }
       });
     },
-    handleChange: function handleChange(value) {
+    handleInput: function handleInput(value) {
       this.$emit('input', value);
       this.suggestionDisabled = false;
       if (!this.triggerOnFocus && !value) {
@@ -817,6 +824,9 @@ var focus_default = /*#__PURE__*/__webpack_require__.n(focus_);
         return;
       }
       this.debouncedGetData(value);
+    },
+    handleChange: function handleChange(value) {
+      this.$emit('change', value);
     },
     handleFocus: function handleFocus(event) {
       this.activated = true;

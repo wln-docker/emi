@@ -156,7 +156,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -199,21 +204,14 @@ module.exports = require("element-ui/lib/input");
 /***/ 13:
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/button");
-
-/***/ }),
-
-/***/ 15:
-/***/ (function(module, exports) {
-
 module.exports = require("element-ui/lib/utils/popup");
 
 /***/ }),
 
-/***/ 19:
+/***/ 14:
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/locale");
+module.exports = require("element-ui/lib/button");
 
 /***/ }),
 
@@ -221,6 +219,13 @@ module.exports = require("element-ui/lib/locale");
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/utils/dom");
+
+/***/ }),
+
+/***/ 20:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/locale");
 
 /***/ }),
 
@@ -558,7 +563,7 @@ render._withStripped = true
 // CONCATENATED MODULE: ./packages/message-box/src/main.vue?vue&type=template&id=6b29b012&
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/popup"
-var popup_ = __webpack_require__(15);
+var popup_ = __webpack_require__(13);
 var popup_default = /*#__PURE__*/__webpack_require__.n(popup_);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/locale"
@@ -570,14 +575,14 @@ var input_ = __webpack_require__(10);
 var input_default = /*#__PURE__*/__webpack_require__.n(input_);
 
 // EXTERNAL MODULE: external "element-ui/lib/button"
-var button_ = __webpack_require__(13);
+var button_ = __webpack_require__(14);
 var button_default = /*#__PURE__*/__webpack_require__.n(button_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/dom"
 var dom_ = __webpack_require__(2);
 
 // EXTERNAL MODULE: external "element-ui/lib/locale"
-var lib_locale_ = __webpack_require__(19);
+var lib_locale_ = __webpack_require__(20);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/aria-dialog"
 var aria_dialog_ = __webpack_require__(47);

@@ -156,7 +156,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -189,7 +194,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 14:
+/***/ 15:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/scrollbar");
@@ -231,7 +236,7 @@ module.exports = require("element-ui/lib/utils/scroll-into-view");
 
 /***/ }),
 
-/***/ 32:
+/***/ 40:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/utils/aria-utils");
@@ -285,7 +290,7 @@ var external_babel_helper_vue_jsx_merge_props_ = __webpack_require__(26);
 var external_babel_helper_vue_jsx_merge_props_default = /*#__PURE__*/__webpack_require__.n(external_babel_helper_vue_jsx_merge_props_);
 
 // EXTERNAL MODULE: external "element-ui/lib/scrollbar"
-var scrollbar_ = __webpack_require__(14);
+var scrollbar_ = __webpack_require__(15);
 var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
 
 // EXTERNAL MODULE: external "element-ui/lib/checkbox"
@@ -1069,7 +1074,7 @@ var merge_ = __webpack_require__(9);
 var merge_default = /*#__PURE__*/__webpack_require__.n(merge_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/aria-utils"
-var aria_utils_ = __webpack_require__(32);
+var aria_utils_ = __webpack_require__(40);
 var aria_utils_default = /*#__PURE__*/__webpack_require__.n(aria_utils_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/scroll-into-view"
@@ -1223,6 +1228,7 @@ var checkNode = function checkNode(el) {
       deep: true
     },
     value: function value() {
+      this.clearCheckedNodes();
       this.syncCheckedValue();
       this.checkStrictly && this.calculateCheckedNodePaths();
     },
@@ -1260,6 +1266,7 @@ var checkNode = function checkNode(el) {
           checkedValue = this.checkedValue;
 
       if (!Object(util_["isEqual"])(value, checkedValue)) {
+        this.activePath = [];
         this.checkedValue = value;
         this.syncMenuState();
       }
@@ -1497,6 +1504,9 @@ var checkNode = function checkNode(el) {
         this.calculateMultiCheckedValue();
       } else {
         this.checkedValue = emitPath ? [] : null;
+        this.activePath = [];
+        this.calculateCheckedNodePaths();
+        this.syncActivePath();
       }
     }
   }

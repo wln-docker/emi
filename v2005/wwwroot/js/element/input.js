@@ -156,7 +156,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -918,8 +923,12 @@ var shared_ = __webpack_require__(21);
       this.$emit('clear');
     },
     handlePasswordVisible: function handlePasswordVisible() {
+      var _this2 = this;
+
       this.passwordVisible = !this.passwordVisible;
-      this.focus();
+      this.$nextTick(function () {
+        _this2.focus();
+      });
     },
     getInput: function getInput() {
       return this.$refs.input || this.$refs.textarea;

@@ -156,7 +156,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -201,7 +206,7 @@ var collapse_transition_ = __webpack_require__(28);
 var collapse_transition_default = /*#__PURE__*/__webpack_require__.n(collapse_transition_);
 
 // EXTERNAL MODULE: ./packages/menu/src/menu-mixin.js
-var menu_mixin = __webpack_require__(37);
+var menu_mixin = __webpack_require__(36);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/emitter"
 var emitter_ = __webpack_require__(4);
@@ -636,7 +641,7 @@ module.exports = require("element-ui/lib/transitions/collapse-transition");
 
 /***/ }),
 
-/***/ 37:
+/***/ 36:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

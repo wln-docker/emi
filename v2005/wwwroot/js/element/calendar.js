@@ -156,7 +156,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -196,7 +201,7 @@ module.exports = require("element-ui/lib/utils/date-util");
 
 /***/ }),
 
-/***/ 13:
+/***/ 14:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/button");
@@ -210,7 +215,7 @@ module.exports = require("element-ui/lib/utils/date");
 
 /***/ }),
 
-/***/ 36:
+/***/ 35:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/button-group");
@@ -362,11 +367,11 @@ var date_ = __webpack_require__(24);
 var date_default = /*#__PURE__*/__webpack_require__.n(date_);
 
 // EXTERNAL MODULE: external "element-ui/lib/button"
-var button_ = __webpack_require__(13);
+var button_ = __webpack_require__(14);
 var button_default = /*#__PURE__*/__webpack_require__.n(button_);
 
 // EXTERNAL MODULE: external "element-ui/lib/button-group"
-var button_group_ = __webpack_require__(36);
+var button_group_ = __webpack_require__(35);
 var button_group_default = /*#__PURE__*/__webpack_require__.n(button_group_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/date-util"
@@ -396,13 +401,6 @@ var date_util_ = __webpack_require__(1);
   },
 
   inject: ['elCalendar'],
-
-  data: function data() {
-    return {
-      WEEK_DAYS: Object(date_util_["getI18nSettings"])().dayNames
-    };
-  },
-
 
   methods: {
     toNestedArr: function toNestedArr(days) {
@@ -467,6 +465,9 @@ var date_util_ = __webpack_require__(1);
   },
 
   computed: {
+    WEEK_DAYS: function WEEK_DAYS() {
+      return Object(date_util_["getI18nSettings"])().dayNames;
+    },
     prevMonthDatePrefix: function prevMonthDatePrefix() {
       var temp = new Date(this.date.getTime());
       temp.setDate(0);

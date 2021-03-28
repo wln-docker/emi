@@ -156,7 +156,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -340,7 +345,7 @@ var CARD_SCALE = 0.83;
       }
       if (parentType === 'card') {
         if (parentDirection === 'vertical') {
-          console.warn('[Element Warn][Carousel]vertical directionis not supported in card mode');
+          console.warn('[Element Warn][Carousel]vertical direction is not supported in card mode');
         }
         this.inStage = Math.round(Math.abs(index - activeIndex)) <= 1;
         this.active = index === activeIndex;

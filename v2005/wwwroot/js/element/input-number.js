@@ -156,7 +156,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -586,7 +591,7 @@ var repeat_click = __webpack_require__(30);
       return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;
     },
     inputNumberDisabled: function inputNumberDisabled() {
-      return this.disabled || (this.elForm || {}).disabled;
+      return this.disabled || !!(this.elForm || {}).disabled;
     },
     displayValue: function displayValue() {
       if (this.userInput !== null) {

@@ -156,7 +156,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -277,9 +282,14 @@ var render = function() {
           )
         ]
       ),
-      _vm._t("reference")
+      _c(
+        "span",
+        { ref: "wrapper", staticClass: "el-popover__reference-wrapper" },
+        [_vm._t("reference")],
+        2
+      )
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -299,6 +309,8 @@ var dom_ = __webpack_require__(2);
 var util_ = __webpack_require__(3);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/popover/src/main.vue?vue&type=script&lang=js&
+//
+//
 //
 //
 //
@@ -392,8 +404,8 @@ var util_ = __webpack_require__(3);
     var reference = this.referenceElm = this.reference || this.$refs.reference;
     var popper = this.popper || this.$refs.popper;
 
-    if (!reference && this.$slots.reference && this.$slots.reference[0]) {
-      reference = this.referenceElm = this.$slots.reference[0].elm;
+    if (!reference && this.$refs.wrapper.children) {
+      reference = this.referenceElm = this.$refs.wrapper.children[0];
     }
     // 可访问性
     if (reference) {
@@ -501,8 +513,8 @@ var util_ = __webpack_require__(3);
       var reference = this.reference || this.$refs.reference;
       var popper = this.popper || this.$refs.popper;
 
-      if (!reference && this.$slots.reference && this.$slots.reference[0]) {
-        reference = this.referenceElm = this.$slots.reference[0].elm;
+      if (!reference && this.$refs.wrapper.children) {
+        reference = this.referenceElm = this.$refs.wrapper.children[0];
       }
       if (!this.$el || !reference || this.$el.contains(e.target) || reference.contains(e.target) || !popper || popper.contains(e.target)) return;
       this.showPopper = false;

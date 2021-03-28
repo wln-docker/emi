@@ -156,7 +156,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -541,11 +546,11 @@ var input_ = __webpack_require__(10);
 var input_default = /*#__PURE__*/__webpack_require__.n(input_);
 
 // EXTERNAL MODULE: external "element-ui/lib/tag"
-var tag_ = __webpack_require__(38);
+var tag_ = __webpack_require__(37);
 var tag_default = /*#__PURE__*/__webpack_require__.n(tag_);
 
 // EXTERNAL MODULE: external "element-ui/lib/scrollbar"
-var scrollbar_ = __webpack_require__(14);
+var scrollbar_ = __webpack_require__(15);
 var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
 
 // EXTERNAL MODULE: external "element-ui/lib/cascader-panel"
@@ -553,17 +558,17 @@ var cascader_panel_ = __webpack_require__(50);
 var cascader_panel_default = /*#__PURE__*/__webpack_require__.n(cascader_panel_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/aria-utils"
-var aria_utils_ = __webpack_require__(32);
+var aria_utils_ = __webpack_require__(40);
 var aria_utils_default = /*#__PURE__*/__webpack_require__.n(aria_utils_);
 
 // EXTERNAL MODULE: external "element-ui/lib/locale"
-var lib_locale_ = __webpack_require__(19);
+var lib_locale_ = __webpack_require__(20);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/util"
 var util_ = __webpack_require__(3);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/types"
-var types_ = __webpack_require__(20);
+var types_ = __webpack_require__(19);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/shared"
 var shared_ = __webpack_require__(21);
@@ -1328,7 +1333,7 @@ module.exports = require("element-ui/lib/utils/clickoutside");
 
 /***/ }),
 
-/***/ 14:
+/***/ 15:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/scrollbar");
@@ -1352,14 +1357,14 @@ module.exports = require("throttle-debounce/debounce");
 /***/ 19:
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/locale");
+module.exports = require("element-ui/lib/utils/types");
 
 /***/ }),
 
 /***/ 20:
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/utils/types");
+module.exports = require("element-ui/lib/locale");
 
 /***/ }),
 
@@ -1377,14 +1382,7 @@ module.exports = require("element-ui/lib/utils/util");
 
 /***/ }),
 
-/***/ 32:
-/***/ (function(module, exports) {
-
-module.exports = require("element-ui/lib/utils/aria-utils");
-
-/***/ }),
-
-/***/ 38:
+/***/ 37:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/tag");
@@ -1395,6 +1393,13 @@ module.exports = require("element-ui/lib/tag");
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/mixins/emitter");
+
+/***/ }),
+
+/***/ 40:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/utils/aria-utils");
 
 /***/ }),
 

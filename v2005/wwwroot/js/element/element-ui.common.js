@@ -155,7 +155,7 @@ module.exports = require("element-ui/lib/utils/clickoutside");
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/locale");
+module.exports = require("element-ui/lib/utils/popup");
 
 /***/ }),
 /* 12 */
@@ -173,13 +173,13 @@ module.exports = require("element-ui/lib/utils/resize-event");
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/utils/popup");
+module.exports = require("throttle-debounce/debounce");
 
 /***/ }),
 /* 15 */
 /***/ (function(module, exports) {
 
-module.exports = require("throttle-debounce/debounce");
+module.exports = require("element-ui/lib/locale");
 
 /***/ }),
 /* 16 */
@@ -257,43 +257,43 @@ module.exports = require("element-ui/lib/utils/scroll-into-view");
 /* 28 */
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/utils/aria-utils");
+module.exports = require("element-ui/lib/button-group");
 
 /***/ }),
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/button-group");
+module.exports = require("element-ui/lib/tag");
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/tag");
+module.exports = require("element-ui/lib/utils/scrollbar-width");
 
 /***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/utils/scrollbar-width");
+module.exports = require("element-ui/lib/checkbox-group");
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/checkbox-group");
+module.exports = require("element-ui/lib/utils/after-leave");
 
 /***/ }),
 /* 33 */
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/utils/after-leave");
+module.exports = require("element-ui/lib/progress");
 
 /***/ }),
 /* 34 */
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/progress");
+module.exports = require("element-ui/lib/utils/aria-utils");
 
 /***/ }),
 /* 35 */
@@ -679,7 +679,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -1285,7 +1290,7 @@ componentvue_type_template_id_60140e62_render._withStripped = true
 // CONCATENATED MODULE: ./packages/dialog/src/component.vue?vue&type=template&id=60140e62&
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/popup"
-var popup_ = __webpack_require__(14);
+var popup_ = __webpack_require__(11);
 var popup_default = /*#__PURE__*/__webpack_require__.n(popup_);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/migrating"
@@ -1575,7 +1580,8 @@ var autocompletevue_type_template_id_152f2ee6_render = function() {
           {
             ref: "input",
             on: {
-              input: _vm.handleChange,
+              input: _vm.handleInput,
+              change: _vm.handleChange,
               focus: _vm.handleFocus,
               blur: _vm.handleBlur,
               clear: _vm.handleClear
@@ -1704,7 +1710,7 @@ autocompletevue_type_template_id_152f2ee6_render._withStripped = true
 // CONCATENATED MODULE: ./packages/autocomplete/src/autocomplete.vue?vue&type=template&id=152f2ee6&
 
 // EXTERNAL MODULE: external "throttle-debounce/debounce"
-var debounce_ = __webpack_require__(15);
+var debounce_ = __webpack_require__(14);
 var debounce_default = /*#__PURE__*/__webpack_require__.n(debounce_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/clickoutside"
@@ -1840,7 +1846,7 @@ var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
   },
   mounted: function mounted() {
     this.$parent.popperElm = this.popperElm = this.$el;
-    this.referenceElm = this.$parent.$refs.input.$refs.input;
+    this.referenceElm = this.$parent.$refs.input.$refs.input || this.$parent.$refs.input.$refs.textarea;
     this.referenceList = this.$el.querySelector('.el-autocomplete-suggestion__list');
     this.referenceList.setAttribute('role', 'listbox');
     this.referenceList.setAttribute('id', this.id);
@@ -1884,6 +1890,7 @@ var focus_ = __webpack_require__(22);
 var focus_default = /*#__PURE__*/__webpack_require__.n(focus_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/autocomplete/src/autocomplete.vue?vue&type=script&lang=js&
+//
 //
 //
 //
@@ -2075,7 +2082,7 @@ var focus_default = /*#__PURE__*/__webpack_require__.n(focus_);
         }
       });
     },
-    handleChange: function handleChange(value) {
+    handleInput: function handleInput(value) {
       this.$emit('input', value);
       this.suggestionDisabled = false;
       if (!this.triggerOnFocus && !value) {
@@ -2084,6 +2091,9 @@ var focus_default = /*#__PURE__*/__webpack_require__.n(focus_);
         return;
       }
       this.debouncedGetData(value);
+    },
+    handleChange: function handleChange(value) {
+      this.$emit('change', value);
     },
     handleFocus: function handleFocus(event) {
       this.activated = true;
@@ -2214,7 +2224,7 @@ var button_ = __webpack_require__(12);
 var button_default = /*#__PURE__*/__webpack_require__.n(button_);
 
 // EXTERNAL MODULE: external "element-ui/lib/button-group"
-var button_group_ = __webpack_require__(29);
+var button_group_ = __webpack_require__(28);
 var button_group_default = /*#__PURE__*/__webpack_require__.n(button_group_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/dropdown/src/dropdown.vue?vue&type=script&lang=js&
@@ -4907,8 +4917,12 @@ var shared_ = __webpack_require__(19);
       this.$emit('clear');
     },
     handlePasswordVisible: function handlePasswordVisible() {
+      var _this2 = this;
+
       this.passwordVisible = !this.passwordVisible;
-      this.focus();
+      this.$nextTick(function () {
+        _this2.focus();
+      });
     },
     getInput: function getInput() {
       return this.$refs.input || this.$refs.textarea;
@@ -5314,7 +5328,7 @@ input_numbervue_type_template_id_42f8cf66_render._withStripped = true
       return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;
     },
     inputNumberDisabled: function inputNumberDisabled() {
-      return this.disabled || (this.elForm || {}).disabled;
+      return this.disabled || !!(this.elForm || {}).disabled;
     },
     displayValue: function displayValue() {
       if (this.userInput !== null) {
@@ -8178,15 +8192,11 @@ if (false) { var option_api; }
 option_component.options.__file = "packages/select/src/option.vue"
 /* harmony default export */ var src_option = (option_component.exports);
 // EXTERNAL MODULE: external "element-ui/lib/tag"
-var tag_ = __webpack_require__(30);
+var tag_ = __webpack_require__(29);
 var tag_default = /*#__PURE__*/__webpack_require__.n(tag_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/resize-event"
 var resize_event_ = __webpack_require__(13);
-
-// EXTERNAL MODULE: external "element-ui/lib/locale"
-var lib_locale_ = __webpack_require__(11);
-var lib_locale_default = /*#__PURE__*/__webpack_require__.n(lib_locale_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/scroll-into-view"
 var scroll_into_view_ = __webpack_require__(27);
@@ -8409,7 +8419,6 @@ var scroll_into_view_default = /*#__PURE__*/__webpack_require__.n(scroll_into_vi
 
 
 
-
 /* harmony default export */ var selectvue_type_script_lang_js_ = ({
   mixins: [emitter_default.a, locale_default.a, focus_default()('reference'), navigation_mixin],
 
@@ -8484,6 +8493,9 @@ var scroll_into_view_default = /*#__PURE__*/__webpack_require__.n(scroll_into_vi
     },
     collapseTagSize: function collapseTagSize() {
       return ['small', 'mini'].indexOf(this.selectSize) > -1 ? 'mini' : 'small';
+    },
+    propPlaceholder: function propPlaceholder() {
+      return typeof this.placeholder !== 'undefined' ? this.placeholder : this.t('el.select.placeholder');
     }
   },
 
@@ -8536,9 +8548,7 @@ var scroll_into_view_default = /*#__PURE__*/__webpack_require__.n(scroll_into_vi
     },
     placeholder: {
       type: String,
-      default: function _default() {
-        return Object(lib_locale_["t"])('el.select.placeholder');
-      }
+      required: false
     },
     defaultFirstOption: Boolean,
     reserveKeyword: Boolean,
@@ -8589,7 +8599,7 @@ var scroll_into_view_default = /*#__PURE__*/__webpack_require__.n(scroll_into_vi
         _this2.resetInputHeight();
       });
     },
-    placeholder: function placeholder(val) {
+    propPlaceholder: function propPlaceholder(val) {
       this.cachedPlaceHolder = this.currentPlaceholder = val;
     },
     value: function value(val, oldVal) {
@@ -9074,7 +9084,7 @@ var scroll_into_view_default = /*#__PURE__*/__webpack_require__.n(scroll_into_vi
   created: function created() {
     var _this13 = this;
 
-    this.cachedPlaceHolder = this.currentPlaceholder = this.placeholder;
+    this.cachedPlaceHolder = this.currentPlaceholder = this.propPlaceholder;
     if (this.multiple && !Array.isArray(this.value)) {
       this.$emit('input', []);
     }
@@ -11265,7 +11275,7 @@ function mapStates(mapper) {
   return res;
 };
 // EXTERNAL MODULE: external "element-ui/lib/utils/scrollbar-width"
-var scrollbar_width_ = __webpack_require__(31);
+var scrollbar_width_ = __webpack_require__(30);
 var scrollbar_width_default = /*#__PURE__*/__webpack_require__.n(scrollbar_width_);
 
 // CONCATENATED MODULE: ./packages/table/src/table-layout.js
@@ -12328,7 +12338,7 @@ var dropdowns = [];
   }
 });
 // EXTERNAL MODULE: external "element-ui/lib/checkbox-group"
-var checkbox_group_ = __webpack_require__(32);
+var checkbox_group_ = __webpack_require__(31);
 var checkbox_group_default = /*#__PURE__*/__webpack_require__.n(checkbox_group_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/table/src/filter-panel.vue?vue&type=script&lang=js&
@@ -21141,9 +21151,14 @@ var mainvue_type_template_id_52060272_render = function() {
           )
         ]
       ),
-      _vm._t("reference")
+      _c(
+        "span",
+        { ref: "wrapper", staticClass: "el-popover__reference-wrapper" },
+        [_vm._t("reference")],
+        2
+      )
     ],
-    2
+    1
   )
 }
 var mainvue_type_template_id_52060272_staticRenderFns = []
@@ -21153,6 +21168,8 @@ mainvue_type_template_id_52060272_render._withStripped = true
 // CONCATENATED MODULE: ./packages/popover/src/main.vue?vue&type=template&id=52060272&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/popover/src/main.vue?vue&type=script&lang=js&
+//
+//
 //
 //
 //
@@ -21246,8 +21263,8 @@ mainvue_type_template_id_52060272_render._withStripped = true
     var reference = this.referenceElm = this.reference || this.$refs.reference;
     var popper = this.popper || this.$refs.popper;
 
-    if (!reference && this.$slots.reference && this.$slots.reference[0]) {
-      reference = this.referenceElm = this.$slots.reference[0].elm;
+    if (!reference && this.$refs.wrapper.children) {
+      reference = this.referenceElm = this.$refs.wrapper.children[0];
     }
     // 可访问性
     if (reference) {
@@ -21355,8 +21372,8 @@ mainvue_type_template_id_52060272_render._withStripped = true
       var reference = this.reference || this.$refs.reference;
       var popper = this.popper || this.$refs.popper;
 
-      if (!reference && this.$slots.reference && this.$slots.reference[0]) {
-        reference = this.referenceElm = this.$slots.reference[0].elm;
+      if (!reference && this.$refs.wrapper.children) {
+        reference = this.referenceElm = this.$refs.wrapper.children[0];
       }
       if (!this.$el || !reference || this.$el.contains(e.target) || reference.contains(e.target) || !popper || popper.contains(e.target)) return;
       this.showPopper = false;
@@ -22015,6 +22032,10 @@ mainvue_type_template_id_6b29b012_render._withStripped = true
 
 
 // CONCATENATED MODULE: ./packages/message-box/src/main.vue?vue&type=template&id=6b29b012&
+
+// EXTERNAL MODULE: external "element-ui/lib/locale"
+var lib_locale_ = __webpack_require__(15);
+var lib_locale_default = /*#__PURE__*/__webpack_require__.n(lib_locale_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/aria-dialog"
 var aria_dialog_ = __webpack_require__(39);
@@ -28239,7 +28260,7 @@ if (false) { var loading_api; }
 loading_component.options.__file = "packages/loading/src/loading.vue"
 /* harmony default export */ var loading = (loading_component.exports);
 // EXTERNAL MODULE: external "element-ui/lib/utils/after-leave"
-var after_leave_ = __webpack_require__(33);
+var after_leave_ = __webpack_require__(32);
 var after_leave_default = /*#__PURE__*/__webpack_require__.n(after_leave_);
 
 // CONCATENATED MODULE: ./packages/loading/src/directive.js
@@ -28840,7 +28861,7 @@ upload_listvue_type_template_id_173fedf5_render._withStripped = true
 // CONCATENATED MODULE: ./packages/upload/src/upload-list.vue?vue&type=template&id=173fedf5&
 
 // EXTERNAL MODULE: external "element-ui/lib/progress"
-var progress_ = __webpack_require__(34);
+var progress_ = __webpack_require__(33);
 var progress_default = /*#__PURE__*/__webpack_require__.n(progress_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/upload/src/upload-list.vue?vue&type=script&lang=js&
@@ -30163,7 +30184,7 @@ progressvue_type_template_id_229ee406_render._withStripped = true
         if (typeof seriesColor === 'string') {
           return {
             color: seriesColor,
-            progress: (index + 1) * span
+            percentage: (index + 1) * span
           };
         }
         return seriesColor;
@@ -32598,7 +32619,7 @@ var CARD_SCALE = 0.83;
       }
       if (parentType === 'card') {
         if (parentDirection === 'vertical') {
-          console.warn('[Element Warn][Carousel]vertical directionis not supported in card mode');
+          console.warn('[Element Warn][Carousel]vertical direction is not supported in card mode');
         }
         this.inStage = Math.round(Math.abs(index - activeIndex)) <= 1;
         this.active = index === activeIndex;
@@ -33370,7 +33391,7 @@ var cascader_panel_ = __webpack_require__(42);
 var cascader_panel_default = /*#__PURE__*/__webpack_require__.n(cascader_panel_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/aria-utils"
-var aria_utils_ = __webpack_require__(28);
+var aria_utils_ = __webpack_require__(34);
 var aria_utils_default = /*#__PURE__*/__webpack_require__.n(aria_utils_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/cascader/src/cascader.vue?vue&type=script&lang=js&
@@ -34484,7 +34505,7 @@ var Color = function () {
       }
     } else if (value.indexOf('#') !== -1) {
       var hex = value.replace('#', '').trim();
-      if (!/^(?:[0-9a-fA-F]{3}){1,2}$/.test(hex)) return;
+      if (!/^(?:[0-9a-fA-F]{3}){1,2}|[0-9a-fA-F]{8}$/.test(hex)) return;
       var r = void 0,
           g = void 0,
           b = void 0;
@@ -37481,22 +37502,16 @@ var mainvue_type_template_id_44d84a7c_render = function() {
           ),
       _vm.preview
         ? [
-            _c("image-viewer", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.showViewer,
-                  expression: "showViewer"
-                }
-              ],
-              attrs: {
-                "z-index": _vm.zIndex,
-                "initial-index": _vm.imageIndex,
-                "on-close": _vm.closeViewer,
-                "url-list": _vm.previewSrcList
-              }
-            })
+            _vm.showViewer
+              ? _c("image-viewer", {
+                  attrs: {
+                    "z-index": _vm.zIndex,
+                    "initial-index": _vm.imageIndex,
+                    "on-close": _vm.closeViewer,
+                    "url-list": _vm.previewSrcList
+                  }
+                })
+              : _vm._e()
           ]
         : _vm._e()
     ],
@@ -37520,18 +37535,28 @@ var image_viewervue_type_template_id_5e73b307_render = function() {
       {
         ref: "el-image-viewer__wrapper",
         staticClass: "el-image-viewer__wrapper",
-        style: { "z-index": _vm.zIndex },
+        style: { "z-index": _vm.viewerZIndex },
         attrs: { tabindex: "-1" }
       },
       [
-        _c("div", { staticClass: "el-image-viewer__mask" }),
+        _c("div", {
+          staticClass: "el-image-viewer__mask",
+          on: {
+            click: function($event) {
+              if ($event.target !== $event.currentTarget) {
+                return null
+              }
+              return _vm.handleMaskClick($event)
+            }
+          }
+        }),
         _c(
           "span",
           {
             staticClass: "el-image-viewer__btn el-image-viewer__close",
             on: { click: _vm.hide }
           },
-          [_c("i", { staticClass: "el-icon-circle-close" })]
+          [_c("i", { staticClass: "el-icon-close" })]
         ),
         !_vm.isSingle
           ? [
@@ -37691,6 +37716,7 @@ var image_viewervue_type_script_lang_js_extends = Object.assign || function (tar
 
 
 
+
 var Mode = {
   CONTAIN: {
     name: 'contain',
@@ -37729,6 +37755,14 @@ var mousewheelEventName = Object(util_["isFirefox"])() ? 'DOMMouseScroll' : 'mou
     initialIndex: {
       type: Number,
       default: 0
+    },
+    appendToBody: {
+      type: Boolean,
+      default: true
+    },
+    maskClosable: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -37780,6 +37814,10 @@ var mousewheelEventName = Object(util_["isFirefox"])() ? 'DOMMouseScroll' : 'mou
         style.maxWidth = style.maxHeight = '100%';
       }
       return style;
+    },
+    viewerZIndex: function viewerZIndex() {
+      var nextZIndex = popup_["PopupManager"].nextZIndex();
+      return this.zIndex > nextZIndex ? this.zIndex : nextZIndex;
     }
   },
   watch: {
@@ -37808,7 +37846,8 @@ var mousewheelEventName = Object(util_["isFirefox"])() ? 'DOMMouseScroll' : 'mou
     deviceSupportInstall: function deviceSupportInstall() {
       var _this2 = this;
 
-      this._keyDownHandler = Object(util_["rafThrottle"])(function (e) {
+      this._keyDownHandler = function (e) {
+        e.stopPropagation();
         var keyCode = e.keyCode;
         switch (keyCode) {
           // ESC
@@ -37836,7 +37875,7 @@ var mousewheelEventName = Object(util_["isFirefox"])() ? 'DOMMouseScroll' : 'mou
             _this2.handleActions('zoomOut');
             break;
         }
-      });
+      };
       this._mouseWheelHandler = Object(util_["rafThrottle"])(function (e) {
         var delta = e.wheelDelta ? e.wheelDelta : -e.detail;
         if (delta > 0) {
@@ -37888,6 +37927,11 @@ var mousewheelEventName = Object(util_["isFirefox"])() ? 'DOMMouseScroll' : 'mou
       });
 
       e.preventDefault();
+    },
+    handleMaskClick: function handleMaskClick() {
+      if (this.maskClosable) {
+        this.hide();
+      }
     },
     reset: function reset() {
       this.transform = {
@@ -37955,9 +37999,18 @@ var mousewheelEventName = Object(util_["isFirefox"])() ? 'DOMMouseScroll' : 'mou
   },
   mounted: function mounted() {
     this.deviceSupportInstall();
+    if (this.appendToBody) {
+      document.body.appendChild(this.$el);
+    }
     // add tabindex then wrapper can be focusable via Javascript
     // focus wrapper so arrow key can't cause inner scroll behavior underneath
     this.$refs['el-image-viewer__wrapper'].focus();
+  },
+  destroyed: function destroyed() {
+    // if appendToBody is true, remove DOM node after destroy
+    if (this.appendToBody && this.$el && this.$el.parentNode) {
+      this.$el.parentNode.removeChild(this.$el);
+    }
   }
 });
 // CONCATENATED MODULE: ./packages/image/src/image-viewer.vue?vue&type=script&lang=js&
@@ -38087,7 +38140,12 @@ var prevOverflow = '';
       return Array.isArray(previewSrcList) && previewSrcList.length > 0;
     },
     imageIndex: function imageIndex() {
-      return this.previewSrcList.indexOf(this.src);
+      var previewIndex = 0;
+      var srcIndex = this.previewSrcList.indexOf(this.src);
+      if (srcIndex >= 0) {
+        previewIndex = srcIndex;
+      }
+      return previewIndex;
     }
   },
 
@@ -38140,6 +38198,7 @@ var prevOverflow = '';
       this.imageWidth = img.width;
       this.imageHeight = img.height;
       this.loading = false;
+      this.error = false;
     },
     handleError: function handleError(e) {
       this.loading = false;
@@ -38199,7 +38258,8 @@ var prevOverflow = '';
 
       if (!imageWidth || !imageHeight || !containerWidth || !containerHeight) return {};
 
-      var vertical = imageWidth / imageHeight < 1;
+      var imageAspectRatio = imageWidth / imageHeight;
+      var containerAspectRatio = containerWidth / containerHeight;
 
       if (fit === ObjectFit.SCALE_DOWN) {
         var isSmaller = imageWidth < containerWidth && imageHeight < containerHeight;
@@ -38210,14 +38270,18 @@ var prevOverflow = '';
         case ObjectFit.NONE:
           return { width: 'auto', height: 'auto' };
         case ObjectFit.CONTAIN:
-          return vertical ? { width: 'auto' } : { height: 'auto' };
+          return imageAspectRatio < containerAspectRatio ? { width: 'auto' } : { height: 'auto' };
         case ObjectFit.COVER:
-          return vertical ? { height: 'auto' } : { width: 'auto' };
+          return imageAspectRatio < containerAspectRatio ? { height: 'auto' } : { width: 'auto' };
         default:
           return {};
       }
     },
     clickHandler: function clickHandler() {
+      // don't show viewer when preview is false
+      if (!this.preview) {
+        return;
+      }
       // prevent body scroll
       prevOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
@@ -38414,13 +38478,6 @@ var date_default = /*#__PURE__*/__webpack_require__.n(date_);
 
   inject: ['elCalendar'],
 
-  data: function data() {
-    return {
-      WEEK_DAYS: Object(date_util_["getI18nSettings"])().dayNames
-    };
-  },
-
-
   methods: {
     toNestedArr: function toNestedArr(days) {
       return Object(date_util_["range"])(days.length / 7).map(function (_, index) {
@@ -38484,6 +38541,9 @@ var date_default = /*#__PURE__*/__webpack_require__.n(date_);
   },
 
   computed: {
+    WEEK_DAYS: function WEEK_DAYS() {
+      return Object(date_util_["getI18nSettings"])().dayNames;
+    },
     prevMonthDatePrefix: function prevMonthDatePrefix() {
       var temp = new Date(this.date.getTime());
       temp.setDate(0);
@@ -40341,6 +40401,7 @@ var checkNode = function checkNode(el) {
       deep: true
     },
     value: function value() {
+      this.clearCheckedNodes();
       this.syncCheckedValue();
       this.checkStrictly && this.calculateCheckedNodePaths();
     },
@@ -40378,6 +40439,7 @@ var checkNode = function checkNode(el) {
           checkedValue = this.checkedValue;
 
       if (!Object(util_["isEqual"])(value, checkedValue)) {
+        this.activePath = [];
         this.checkedValue = value;
         this.syncMenuState();
       }
@@ -40615,6 +40677,9 @@ var checkNode = function checkNode(el) {
         this.calculateMultiCheckedValue();
       } else {
         this.checkedValue = emitPath ? [] : null;
+        this.activePath = [];
+        this.calculateCheckedNodePaths();
+        this.syncActivePath();
       }
     }
   }
@@ -40861,8 +40926,8 @@ var mainvue_type_template_id_a4885264_render = function() {
                   staticClass: "el-drawer",
                   class: [_vm.direction, _vm.customClass],
                   style: _vm.isHorizontal
-                    ? "width: " + _vm.size
-                    : "height: " + _vm.size,
+                    ? "width: " + _vm.drawerSize
+                    : "height: " + _vm.drawerSize,
                   attrs: {
                     "aria-modal": "true",
                     "aria-labelledby": "el-drawer__title",
@@ -40883,13 +40948,7 @@ var mainvue_type_template_id_a4885264_render = function() {
                           _vm._t("title", [
                             _c(
                               "span",
-                              {
-                                attrs: {
-                                  role: "heading",
-                                  tabindex: "0",
-                                  title: _vm.title
-                                }
-                              },
+                              { attrs: { role: "heading", title: _vm.title } },
                               [_vm._v(_vm._s(_vm.title))]
                             )
                           ]),
@@ -40993,7 +41052,6 @@ mainvue_type_template_id_a4885264_render._withStripped = true
 
 
 
-
 /* harmony default export */ var drawer_src_mainvue_type_script_lang_js_ = ({
   name: 'ElDrawer',
   mixins: [popup_default.a, emitter_default.a],
@@ -41037,7 +41095,7 @@ mainvue_type_template_id_a4885264_render._withStripped = true
       default: true
     },
     size: {
-      type: String,
+      type: [Number, String],
       default: '30%'
     },
     title: {
@@ -41059,6 +41117,9 @@ mainvue_type_template_id_a4885264_render._withStripped = true
   computed: {
     isHorizontal: function isHorizontal() {
       return this.direction === 'rtl' || this.direction === 'ltr';
+    },
+    drawerSize: function drawerSize() {
+      return typeof this.size === 'number' ? this.size + 'px' : this.size;
     }
   },
   data: function data() {
@@ -41079,9 +41140,6 @@ mainvue_type_template_id_a4885264_render._withStripped = true
           document.body.appendChild(this.$el);
         }
         this.prevActiveElement = document.activeElement;
-        this.$nextTick(function () {
-          aria_utils_default.a.focusFirstDescendant(_this.$refs.drawer);
-        });
       } else {
         if (!this.closed) this.$emit('close');
         this.$nextTick(function () {
@@ -41219,7 +41277,13 @@ var mainvue_type_template_id_048de730_render = function() {
                 attrs: { size: "mini", type: _vm.cancelButtonType },
                 on: { click: _vm.cancel }
               },
-              [_vm._v("\n        " + _vm._s(_vm.cancelButtonText) + "\n      ")]
+              [
+                _vm._v(
+                  "\n        " +
+                    _vm._s(_vm.displayCancelButtonText) +
+                    "\n      "
+                )
+              ]
             ),
             _c(
               "el-button",
@@ -41229,7 +41293,9 @@ var mainvue_type_template_id_048de730_render = function() {
               },
               [
                 _vm._v(
-                  "\n        " + _vm._s(_vm.confirmButtonText) + "\n      "
+                  "\n        " +
+                    _vm._s(_vm.displayConfirmButtonText) +
+                    "\n      "
                 )
               ]
             )
@@ -41302,12 +41368,10 @@ var popover_default = /*#__PURE__*/__webpack_require__.n(popover_);
       type: String
     },
     confirmButtonText: {
-      type: String,
-      default: Object(lib_locale_["t"])('el.popconfirm.confirmButtonText')
+      type: String
     },
     cancelButtonText: {
-      type: String,
-      default: Object(lib_locale_["t"])('el.popconfirm.cancelButtonText')
+      type: String
     },
     confirmButtonType: {
       type: String,
@@ -41340,14 +41404,22 @@ var popover_default = /*#__PURE__*/__webpack_require__.n(popover_);
     };
   },
 
+  computed: {
+    displayConfirmButtonText: function displayConfirmButtonText() {
+      return this.confirmButtonText || Object(lib_locale_["t"])('el.popconfirm.confirmButtonText');
+    },
+    displayCancelButtonText: function displayCancelButtonText() {
+      return this.cancelButtonText || Object(lib_locale_["t"])('el.popconfirm.cancelButtonText');
+    }
+  },
   methods: {
     confirm: function confirm() {
       this.visible = false;
-      this.$emit('onConfirm');
+      this.$emit('confirm');
     },
     cancel: function cancel() {
       this.visible = false;
-      this.$emit('onCancel');
+      this.$emit('cancel');
     }
   }
 });
@@ -41508,7 +41580,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 /* harmony default export */ var src_0 = __webpack_exports__["default"] = ({
-  version: '2.13.0',
+  version: '2.15.1',
   locale: lib_locale_default.a.use,
   i18n: lib_locale_default.a.i18n,
   install: src_install,
