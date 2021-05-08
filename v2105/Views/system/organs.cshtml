@@ -1,0 +1,210 @@
+﻿<div id="app" class="wln-layout">
+    <template>
+        <div class="wln">
+            <el-table :data="rows" :empty-text="message" row-key="id" :default-expand-all="true" lazy :load="load" ref="multipleTable">
+                <el-table-column align="left" label="组织机构名称">
+                    <template scope="scope">
+                        <el-popover trigger="hover" placement="right">
+                            <p>编码: {{ scope.row.id }}</p>
+                            <p>全称: {{ scope.row.fullname }}</p>
+                            <p>权重: {{ scope.row.sort }}</p>
+                            <div slot="reference" class="name-wrapper">{{ scope.row.name }}</div>
+                        </el-popover>
+                        <el-button size="mini" icon="el-icon-plus" type="none" @@click="toChild(scope.row.id,scope.row.name)" v-if="scope.row.children && scope.row.children.length > 0"></el-button>
+                    </template>
+                </el-table-column>
+                <el-table-column width="60" align="center" label="排序">
+                    <template scope="scope">
+                        <font v-if="scope.row.sort > 0">{{scope.row.sort}}</font>
+                        <font v-else style="color:#cccccc">-</font>
+                    </template>
+                </el-table-column>
+                <el-table-column width="60" align="left" label="状态">
+                    <template scope="scope">
+                        <font v-if="scope.row.state > 0">正常</font>
+                        <font v-else style="color:#cccccc">停用</font>
+                    </template>
+                </el-table-column>
+                <el-table-column width="250" align="right">
+                    <template slot="header">
+                        <el-button size="small" type="danger" icon="el-icon-plus" v-on:click="toAdd">新增一级组织机构(部门)</el-button>
+                    </template>
+                    <template scope="scope">
+                        <el-button size="mini" icon="el-icon-plus" type="primary" @@click="toChild(scope.row.id,scope.row.name)">添加下级</el-button>
+                        <el-button size="mini" icon="el-icon-edit" type="warning" @@click="toEdit(scope.row.id)">编辑</el-button>
+                        <el-button size="mini" icon="el-icon-delete" @@click="doDel(scope.row.id,scope.row.parent)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+        <div class="wln-mask-layout" v-if="mask">
+            <div class="wln-mask-form" style="width:500px;">
+                <div class="wln-title">{{form.id ? '编辑组织机构' : '新增组织机构'}}<span><i class="el-icon-close" v-on:click="close"></i></span></div>
+                <div class="h20"></div>
+                <el-form label-width="120px">
+                    <el-form-item label="上级">
+                        <el-input v-model="form.parentName" :disabled="true" style="width:320px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="名称">
+                        <el-input v-model="form.name" placeholder="（必填）" style="width:320px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="编码">
+                        <el-input v-model="form.code" placeholder="（选填）自编码时需要填写，不填写自动生成" style="width:320px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="全称">
+                        <el-input v-model="form.fullname" placeholder="（选填）部门、子公司等子机构全称" style="width:320px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="分类" v-if="types.length > 0">
+                        <el-select v-model="form.type" clearable placeholder="请选择">
+                            <el-option v-for="item in types" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="状态">
+                        <el-switch on-text="启用" off-text="停用" v-model="form.state"></el-switch>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button size="small" icon="el-icon-check" type="primary" v-on:click="onSubmit">提交</el-button>
+                        <el-button size="small" icon="el-icon-close" v-on:click="close">取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+    </template>
+</div>
+<script type="text/javascript">
+    var types = @Html.Raw(ViewBag.OrganType);
+    var form = { id: '', code: '', name: '', fullname: '', type: '', sort: '', parent: '', parentName: '无', state: true };
+    new Vue({
+        el: '#app', router: new VueRouter({ mode: 'history' }),
+        data: function () {
+            ds.form = {}
+            ds.mask = false
+            ds.maps = new Map()
+            ds.types = types
+            for (var i in form) { ds.form[i] = form[i] };
+            return ds
+        },
+        methods: {
+            load(tree, treeNode, resolve) {
+                this.maps.set(tree.id, { tree, treeNode, resolve })
+                asyncPost(location.pathname + '?do=tree', { pid: tree.id }).then(res => {
+                    if (res.success) {
+                        resolve(res.children)
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                });
+            },
+            loadNode(id, pid) {
+                let that = this;
+                try {
+                    const { tree, treeNode, resolve } = that.maps.get(pid)
+                    that.$set(that.$refs.multipleTable.store.states.lazyTreeNodeMap, pid, [])
+                    that.load(tree, treeNode, resolve);
+                } catch (e) {
+                    asyncPost(location.pathname + '?do=tree', { id: id, pid: pid }).then(res => {
+                        if (res.success) {
+                            let node = {}
+                            let list = that.rows
+                            for (let l = 0; l < res.path.length; l++) {
+                                for (let i = 0; i < list.length; i++) {
+                                    if (list[i].id == res.path[l]) {
+                                        node = list[i];
+                                        list = node.children ? node.children : [];
+                                        break;
+                                    }
+                                }
+                            }
+                            if (node.id) {
+                                node.name = res.name
+                                node.type = res.type
+                                node.sort = res.sort
+                                node.state = res.state
+                                node.fullname = res.fullname
+                                node.children = res.children
+                                node.hasChildren = true
+                            }
+                        } else {
+                            Vue.prototype.$message({ type: 'info', message: res.message });
+                        }
+                    });
+                }
+            },
+            pager() {
+                post(location.pathname + '?do=load', { key: this.key }).then(res => {
+                    this.rows = res.rows;
+                    this.message = res.message;
+                })
+            },
+            refresh() {
+                this.rows = []
+                this.page = 1
+                this.pager()
+            },
+            pageset(val) {
+                this.page = val
+                this.pager()
+            },
+            close() {
+                this.mask = false
+            },
+            toAdd() {
+                for (var i in form) { this.form[i] = form[i] }
+                this.mask = true
+            },
+            toChild(id, name) {
+                for (var i in form) { this.form[i] = form[i] }
+                this.form.parent = id
+                this.form.parentName = name
+                this.mask = true
+            },
+            toEdit(id) {
+                let t = this;
+                for (var i in form) { t.form[i] = form[i] };
+                post(location.pathname + '?do=get', { id: id }).then(res => {
+                    if (res.success) {
+                        for (var i in form) { t.form[i] = res[i] || form[i] };
+                        t.mask = true;
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                });
+            },
+            doDel(id, pid) {
+                let t = this
+                Vue.prototype.$confirm('此操作将永久删除此组织机构, 是否继续?', '提示', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).then(() => {
+                    post(location.pathname + '?do=del', { id: id }).then(res => {
+                        if (res.success) {
+                            if (pid) {
+                                t.loadNode(id, pid)
+                            } else {
+                                t.pager()
+                            }                            
+                            Vue.prototype.$message({ type: 'success', message: res.message });
+                        } else {
+                            Vue.prototype.$message({ type: 'info', message: res.message });
+                        }
+                    })
+                }).catch(() => { return Vue.prototype.$message({ type: 'info', message: '操作已取消' }); });
+            },
+            onSubmit: function () {
+                let t = this;
+                post(location.pathname + '?do=set', t.form).then(res => {
+                    if (res.success) {
+                        t.mask = false;
+                        if (t.form.parent) {
+                            t.loadNode(t.form.id, t.form.parent)
+                        } else {
+                            t.pager()
+                        }
+                        Vue.prototype.$message({ type: 'success', message: res.message });
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                })
+            },
+        }, mounted() {
+            this.pager()
+        }
+    })
+</script>
