@@ -6,7 +6,7 @@
                     <el-button icon="el-icon-news" type="more" onclick="openTab('/system/authority','权限点管理')">权限点管理</el-button>
                 </span>
                 <span><el-input v-model="key" placeholder="按 名称 进行筛选" @@keydown.enter.native="refresh" style="width:300px"></el-input></span>
-                <el-button type="info" icon="el-icon-refresh" v-on:click="refresh">筛选</el-button>
+                <el-button type="info" icon="el-icon-refresh" v-on:click="refresh">重新加载</el-button>
                 <el-button type="primary" icon="el-icon-plus" v-on:click="toAdd">新增角色</el-button>
             </div>
             <div class="wln-line"></div>
@@ -22,7 +22,7 @@
                 <el-table-column width="80" property="count" label="用户数" align="center"></el-table-column>
                 <el-table-column align="right">
                     <template scope="scope">
-                        <el-button size="mini" icon="el-icon-tickets" type="primary" @@click="toPermission(scope.row.code,scope.row.type)">角色权限</el-button>
+                        <el-button size="mini" icon="el-icon-tickets" type="primary" @@click="toPermission(scope.row.code,scope.row.type)">{{scope.row.type == 0 ? '基础':'机构'}}权限详情</el-button>
                         <el-button size="mini" icon="el-icon-edit" type="warning" @@click="toEdit(scope.row.code)">编辑</el-button>
                         <el-button size="mini" icon="el-icon-delete" type="danger" @@click="doDel(scope.row.code)">删除</el-button>
                     </template>
@@ -30,29 +30,34 @@
             </el-table>
             <el-pagination @@current-change="pageset" layout="total, prev, pager, next, jumper" :total="total" :current-page="page" :page-size="size"></el-pagination>
         </div>
-        <div class="wln-mask-layout" v-if="body">
-            <div class="wln-mask-body" style="width:800px;height:700px;overflow-y:auto;margin-top:5%;">
-                <div class="wln-mask-head">
-                    角色权限明细<el-button size="none" @@click="close" style="position:absolute;right:0;color:#607D8B;font-size:20px;padding:5px;margin-left:0px;"><i class="el-icon-close"></i></el-button>
+        <div class="wln-mask-layout" v-if="dialog.show">
+            <div class="wln-mask-body" style="width:980px;overflow-y:auto;margin-top:5%;" :style="{height: dialog.height + 'px'}">
+                <div class="wln-mask-form">
+                    <div class="wln-title">角色{{roletype == 0 ? '基础':'机构'}}权限详情<span><i class="el-icon-close" v-on:click="close"></i></span></div>
+                    <div style="padding-left:8px">
+                        <div style="text-align:center" v-if="roletype==0">
+                            <el-button-group>
+                                <el-button size="mini" v-bind:plain="codetype!==0" type="primary" @@click="toType(0)">系统权限</el-button>
+                                <el-button size="mini" v-bind:plain="codetype!==1" type="primary" @@click="toType(1)">业务权限</el-button>
+                            </el-button-group>
+                            <div class="wln-line"></div>
+                        </div>
+                        <el-table :data="dialog.rows" :height="dialog.height - (roletype > 0 ? 57 : 98)" @@filter-change="dialogSearch">
+                            <el-table-column width="210" property="code" label="编码"></el-table-column>
+                            <el-table-column width="210" property="name" label="权限名" column-key="app" :filters="apps" :filter-multiple="false"></el-table-column>
+                            <el-table-column property="description" label="权限说明"></el-table-column>
+                            <el-table-column width="180" label="操作" align="center">
+                                <template slot="header" slot-scope="scope">
+                                    <el-input v-model="dialog.key" size="mini" placeholder="输入关键字筛选" v-on:input="dialogSearch" style="width:160px" />
+                                </template>
+                                <template scope="scope">
+                                    <el-button size="mini" plain type="success" @@click="setAuthority(scope.row)" v-if="scope.row.inlist">已授权</el-button>
+                                    <el-button size="mini" plain type="warning" @@click="setAuthority(scope.row)" v-else>未授权</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
                 </div>
-                <div style="text-align:center" v-if="roletype==0">
-                    <el-button-group>
-                        <el-button size="mini" v-bind:plain="codetype!==0" type="primary" @@click="toType(0)">系统权限</el-button>
-                        <el-button size="mini" v-bind:plain="codetype!==1" type="primary" @@click="toType(1)">业务权限</el-button>
-                    </el-button-group>
-                    <div class="wln-line"></div>
-                </div>
-                <el-table :data="coderows" :empty-text="codemessage" v-loading="loading" @@filter-change="searchCode">
-                    <el-table-column width="180" align="center" label="所属应用" property="app" column-key="app" :filters="apps" :filter-multiple="false"></el-table-column>
-                    <el-table-column width="210" property="name" label="权限名称"></el-table-column>
-                    <el-table-column property="description" label="权限说明"></el-table-column>
-                    <el-table-column width="180" label="操作" align="center">
-                        <template scope="scope">
-                            <el-button size="mini" plain type="success" @@click="setAuthority(scope.row)" v-if="scope.row.inlist">已授权</el-button>
-                            <el-button size="mini" plain type="warning" @@click="setAuthority(scope.row)" v-else>未授权</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
             </div>
         </div>
         <div class="wln-mask-layout" v-if="mask">
@@ -104,6 +109,13 @@
                 ds.coderows = []
                 ds.codemessage = ''
                 ds.loading = false
+                ds.dialog = {
+                    key: '',
+                    data: [],
+                    rows: [],
+                    show: false,
+                    height: 700
+                }
                 return ds
             },
             methods: {
@@ -126,7 +138,7 @@
                 },
                 close() {
                     this.mask = false
-                    this.body = false
+                    this.dialog.show = false
                 },
                 toAdd() {
                     for (var i in form) { this.form[i] = form[i] }
@@ -148,9 +160,10 @@
                     });
                 },
                 toPermission(code, type) {
+                    this.app = ''
                     this.code = code
                     this.roletype = type
-                    this.loadCode()
+                    this.dialogLoad()
                 },
                 doDel(code) {
                     let t = this
@@ -187,33 +200,34 @@
                 },
                 toType(to) {
                     this.codetype = to;
-                    this.loadCode();
+                    this.dialogLoad();
                 },
-                loadCode() {
-                    let t = this
-                    t.coderows = []
-                    t.codemessage = '权限明细正在加载中'
-                    t.body = true
-                    t.loading = true
-                    post(location.pathname + '?do=authority', { code: t.code, app: t.app, type: t.codetype }).then(res => {
-                        t.loading = false
-                        t.coderows = res.rows;
-                        t.codemessage = res.message
+                dialogLoad() {
+                    this.dialog.key = ''
+                    this.dialog.data = []
+                    this.dialog.rows = []
+                    post(location.pathname + '?do=authority', { code: this.code, app: this.app, type: this.codetype }).then(res => {
+                        this.dialog.data = res.rows
+                        this.dialog.show = true
+                        this.dialogSearch()
                     });
                 },
-                searchCode(filters) {
-                    if (filters.app && filters.app.length > 0) {
-                        this.app = filters.app[0];
+                dialogSearch(fit) {
+                    if (fit && fit.app) {
+                        this.app = fit.app.length > 0 ? fit.app[0] : '';
+                        this.dialogLoad()
+                    } else if (this.dialog.key) {
+                        this.dialog.rows = this.dialog.data.filter(o => o.code.indexOf(this.dialog.key) >= 0 || o.name.indexOf(this.dialog.key) >= 0 || o.description.indexOf(this.dialog.key) >= 0)
                     } else {
-                        this.app = '';
+                        this.dialog.rows = this.dialog.data
                     }
-                    this.loadCode()
                 },
                 setAuthority(row) {
-                    let t = this
-                    post(location.pathname + '?do=setauthority', { code: t.code, authority: row.code }).then(res => {
-                        res.success && (row.inlist = !row.inlist)
+                    post(location.pathname + '?do=setauthority', { code: this.code, authority: row.code }).then(res => {
                         Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                        if (res.success) {
+                            row.inlist = !row.inlist
+                        }
                     });
                 }
             },
