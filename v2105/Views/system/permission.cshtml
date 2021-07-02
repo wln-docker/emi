@@ -29,7 +29,7 @@
                 <el-table-column width="200" label="操作" align="center">
                     <template scope="scope">
                         <el-button size="mini" icon="el-icon-check" type="success" @@click="Change(scope.row.code)" v-if="scope.row.inlist" :plain="scope.row.empty">已授权</el-button>
-                        <el-button size="mini" icon="el-icon-close" type="warning" @@click="Change(scope.row.code)" v-else :plain="scope.row.empty">未授权</el-button>
+                        <el-button size="mini" icon="el-icon-close" type="warning" @@click="Change(scope.row.code)" v-else :plain="scope.row.empty">{{scope.row.empty?'未授权':'拒授权'}}</el-button>
                         <el-button size="mini" icon="el-icon-refresh" type="danger" @@click="Remove(scope.row.code)" :plain="scope.row.empty" :disabled="scope.row.empty">重置</el-button>
                     </template>
                 </el-table-column>
@@ -50,7 +50,7 @@
 
         <div class="wln-mask-layout" v-if="details.show">
             <div class="wln-mask-body" style="width:980px;overflow-y:auto;margin-top:5%;" :style="{height: details.height + 'px'}">
-                <div class="wln-mask-form">
+                <div class="wln-mask-form" style="width:100%">
                     <div class="wln-title">机构权限明细<span><i class="el-icon-close" v-on:click="close"></i></span></div>
                     <div style="padding-left:8px">
                         <el-table :data="details.rows" :height="details.height - 57" @@filter-change="detailsSearch">
@@ -64,7 +64,7 @@
                                 </template>
                                 <template scope="scope">
                                     <el-button size="mini" icon="el-icon-check" type="success" @@click="organChange(scope.row.code)" v-if="scope.row.inlist" :plain="scope.row.empty">已授权</el-button>
-                                    <el-button size="mini" icon="el-icon-close" type="warning" @@click="organChange(scope.row.code)" v-else :plain="scope.row.empty">未授权</el-button>
+                                    <el-button size="mini" icon="el-icon-close" type="warning" @@click="organChange(scope.row.code)" v-else :plain="scope.row.empty">{{scope.row.empty?'未授权':'拒授权'}}</el-button>
                                     <el-button size="mini" icon="el-icon-refresh" type="danger" @@click="organRemove(scope.row.code)" :plain="scope.row.empty" :disabled="scope.row.empty">重置</el-button>
                                 </template>
                             </el-table-column>
@@ -123,7 +123,7 @@
             },
             showDetails(organ) {
                 this.details.show = true
-                this.details.organ = organ
+                this.details.oid = organ
                 this.loadAuthority()
             },
             setType(to) {
@@ -148,7 +148,7 @@
                 if (this.query.type == 2) {
                     this.details.key = ''
                     this.details.app = ''
-                    post(location.pathname + '?do=authority', { sid: this.query.sid, app: this.details.app, type: this.query.type, organ: this.details.organ }).then(res => {
+                    post(location.pathname + '?do=authority', { sid: this.query.sid, app: this.details.app, type: this.query.type, organ: this.details.oid }).then(res => {
                         this.details.data = res.rows
                         this.details.rows = res.rows
                     })
@@ -191,18 +191,18 @@
                 });
             },
             organChange(code) {
-                post(location.pathname + '?do=organ_change', { sid: this.query.sid, organ: this.query.oid, code: code }).then(res => {
+                post(location.pathname + '?do=organ_change', { sid: this.query.sid, organ: this.details.oid, code: code }).then(res => {
                     Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
                     if (res.success) {
-                        this.loadOrgans()
+                        this.loadAuthority()
                     }
                 });
             },
             organRemove(code) {
-                post(location.pathname + '?do=organ_remove', { sid: this.query.sid, organ: this.query.oid, code: code }).then(res => {
+                post(location.pathname + '?do=organ_remove', { sid: this.query.sid, organ: this.details.oid, code: code }).then(res => {
                     Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
                     if (res.success) {
-                        this.loadOrgans()
+                        this.loadAuthority()
                     }
                 });
             }

@@ -32,7 +32,7 @@
         </div>
         <div class="wln-mask-layout" v-if="dialog.show">
             <div class="wln-mask-body" style="width:980px;overflow-y:auto;margin-top:5%;" :style="{height: dialog.height + 'px'}">
-                <div class="wln-mask-form">
+                <div class="wln-mask-form" style="width:100%">
                     <div class="wln-title">角色{{roletype == 0 ? '基础':'机构'}}权限详情<span><i class="el-icon-close" v-on:click="close"></i></span></div>
                     <div style="padding-left:8px">
                         <div style="text-align:center" v-if="roletype==0">
