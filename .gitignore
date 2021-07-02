@@ -3,5 +3,6 @@
 *.pid
 *.user
 *.wkey
+*.dev.config
 /*/cache
 /*/GitPush.bat

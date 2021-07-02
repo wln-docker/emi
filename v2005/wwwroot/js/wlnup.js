@@ -14,7 +14,10 @@
 	}
 	obj.value = function () {
 		let ele = document.getElementById(obj.opt.el)
-		return ele.value
+		if (ele.value) {
+			return ele.value.split(',').join(',')
+		}
+		return ''
 	}
 	obj.bind = function (a0, a1, a2, a3) {
 		let opt = {}
@@ -35,8 +38,8 @@
 		let rmi = document.createElement('div');
 		let img = document.createElement('img');
 		let pro = document.createElement('div');
-		function _show() {
-			if (ele.value) {
+		function _show(url) {
+			if (url) {
 				if (o._filter.indexOf(obj.ext) < 0) {
 					img.src = _extIcon();
 				} else {
@@ -49,6 +52,8 @@
 							_u = _u + o.suffix;
 						} else if (o.to === 'oss') {
 							_u = _u + '?x-oss-process=image/resize,m_pad,w_' + o.width + ',h_' + o.height
+						} else if (o.to === 'cos') {
+							_u = _u + '?imageMogr2/crop/' + o.width + 'x' + o.height
 						} else if (o.to === 'upyun') {
 							_u = _u + '!/both/' + o.width + 'x' + o.height;
 						}
@@ -62,7 +67,7 @@
 			pro.style.display = 'none'
 			if (rlt.success) {
 				ele.value = rlt.path
-				_show()
+				_show(rlt.url)
 			}
 			_tipback(rlt)
 		}
@@ -85,17 +90,31 @@
 				pro.style.display = 'block'
 			}
 			if (o.to === 'oss') {
-				if (!o.ossdomain) {
-					_tipback({ success: false, message: 'not set ossdomain' })
+				if (!o.policy) {
+					_tipback({ success: false, message: 'not set policy' })
 				} else if (!o.ossaccesskeyid) {
 					_tipback({ success: false, message: 'not set ossaccesskeyid' })
-				} else if (!o.policy) {
-					_tipback({ success: false, message: 'not set policy' })
+				} else if (!o.ossdomain) {
+					_tipback({ success: false, message: 'not set ossdomain' })
 				} else if (!o.signature) {
 					_tipback({ success: false, message: 'not set signature' })
 				} else {
 					obj.select(function (file) {
 						obj.oss(file, _upback)
+					})
+				}
+			} else if (o.to === 'cos') {
+				if (!o.policy) {
+					_tipback({ success: false, message: 'not set policy' })
+				} else if (!o.secretid) {
+					_tipback({ success: false, message: 'not set secretid' })
+				} else if (!o.keytime) {
+					_tipback({ success: false, message: 'not set keytime' })
+				} else if (!o.signature) {
+					_tipback({ success: false, message: 'not set signature' })
+				} else {
+					obj.select(function (file) {
+						obj.cos(file, _upback)
 					})
 				}
 			} else if (o.to === 'upyun') {
@@ -173,9 +192,8 @@
 		box.appendChild(pro)
 		ele.parentNode.insertBefore(box, ele)
 		if (ele.value) {
-			let _u = ele.value
-			obj.ext = _u.substring(_u.lastIndexOf('.'))
-			_show()
+			obj.ext = ele.value.substring(ele.value.lastIndexOf('.'))
+			_show(ele.value)
 		}
 	}
 	obj.bindlist = function (a0, a1, a2, a3) {
@@ -258,6 +276,8 @@
 						url = url + o.suffix;
 					} else if (o.to === 'oss') {
 						url = url + '?x-oss-process=image/resize,m_pad,w_' + o.width + ',h_' + o.height;
+					} else if (o.to === 'cos') {
+						url = url + '?imageMogr2/crop/' + o.width + 'x' + o.height
 					} else if (o.to === 'upyun') {
 						url = url + '!/both/' + o.width + 'x' + o.height;
 					}
@@ -268,19 +288,18 @@
 			box.appendChild(img)
 			lst.insertBefore(box, add)
 		}
-		function _show() {
-			if (ele.value) {
-				var imgs = ele.value.split(',').filter(o => o.length > 0)
+		function _show(urls) {
+			if (urls) {
+				var imgs = urls.split(',').filter(o => o.length > 0)
 				for (var i = 0; i < imgs.length; i++) {
 					_showone(imgs[i])
 				}
-				ele.value = imgs.join()
 			}
 		}
 		function _upback(rlt) {
 			pro.style.display = 'none'
 			if (rlt.success) {
-				_showone(rlt.path)
+				_showone(rlt.url)
 				let imgs = ele.value.split(',')
 				imgs.push(rlt.path)
 				ele.value = imgs.join(',')
@@ -333,6 +352,20 @@
 						obj.oss(file, _upback)
 					})
 				}
+			} else if (o.to === 'cos') {
+				if (!o.policy) {
+					_tipback({ success: false, message: 'not set policy' })
+				} else if (!o.secretid) {
+					_tipback({ success: false, message: 'not set secretid' })
+				} else if (!o.keytime) {
+					_tipback({ success: false, message: 'not set keytime' })
+				} else if (!o.signature) {
+					_tipback({ success: false, message: 'not set signature' })
+				} else {
+					obj.select(function (file) {
+						obj.cos(file, _upback)
+					})
+				}
 			} else if (o.to === 'upyun') {
 				_w.upyun(function (data) {
 					__pro.hide();
@@ -367,7 +400,7 @@
 		lst.appendChild(add)
 		ele.parentNode.insertBefore(lst, ele)
 		if (ele.value) {
-			_show()
+			_show(ele.value)
 		}
 	}
 	obj.oss = function (file, fn) {
@@ -392,7 +425,43 @@
 			ajax.onreadystatechange = function () {
 				if (ajax.readyState == 4) {
 					if (ajax.status >= 200 && ajax.status < 300) {
-						fn({ success: true, message: 'success', url: obj.cfg.host + '/' + key, name, path: '/' + key, name: file.name })
+						fn({ success: true, message: 'success', url: obj.cfg.host + '/' + key, name, path: key[0] == '/' ? key : '/' + key, name: file.name })
+					}
+					else {
+						var xmlDoc = new DOMParser().parseFromString(ajax.responseText, "text/xml")
+						fn({ success: false, message: xmlDoc.getElementsByTagName('Message')[0].innerHTML })
+					}
+				}
+			}
+			ajax.upload.onprogress = obj.progress
+			ajax.send(fd)
+		}
+	}
+	obj.cos = function (file, fn) {
+		let rdname = ''
+		let chars = 'abcdefghijklmnoparstuvwxyz0123456789'
+		for (i = 0; i < 10; i++) {
+			rdname += chars.charAt(Math.floor(Math.random() * chars.length))
+		}
+		obj.ext = file.name ? file.name.substring(file.name.lastIndexOf('.')).toLowerCase() : '.jpg'
+		if (obj.cfg.filter != '.*' && obj.cfg.filter.indexOf(obj.ext) < 0) {
+			_tipback({ success: false, message: 'server not accept upload ' + obj.ext });
+		} else {
+			let key = obj.cfg.dir + rdname + obj.ext
+			let fd = new FormData()
+			fd.append("key", key)
+			fd.append("policy", obj.cfg.policy)
+			fd.append("q-sign-algorithm", 'sha1')
+			fd.append("q-ak", obj.cfg.secretid)
+			fd.append("q-key-time", obj.cfg.keytime)
+			fd.append("q-signature", obj.cfg.signature)
+			fd.append("file", file)
+			let ajax = _ajax()
+			ajax.open("post", obj.cfg.domain, true)
+			ajax.onreadystatechange = function () {
+				if (ajax.readyState == 4) {
+					if (ajax.status >= 200 && ajax.status < 300) {
+						fn({ success: true, message: 'success', url: obj.cfg.host + '/' + key, name, path: key[0] == '/' ? key : '/' + key, name: file.name })
 					}
 					else {
 						var xmlDoc = new DOMParser().parseFromString(ajax.responseText, "text/xml")

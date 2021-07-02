@@ -156,17 +156,21 @@
                 obj.state = t.form.state ? "1" : "0";
                 post(location.pathname + '?do=set', obj).then(res => {
                     if (res.success) {
-                        if (!ctxData) {
-                            ctxData = t.form;
-                        } else if (t.form.id) {
-                            ctxData.key = res.key;
-                            ctxData.label = res.label;
-                            ctxData.state = res.state;
-                        } else if (ctxStore) {
-                            t.$refs.tree.append({ id: res.id, app: t.form.app, key: res.key, label: res.label, state: res.state }, res.parent);
-                        }
-                        t.mask = false;
                         Vue.prototype.$message({ type: 'success', message: res.message });
+                        if (obj.id || obj.parent) {
+                            if (!ctxData) {
+                                ctxData = t.form;
+                            } else if (t.form.id) {
+                                ctxData.key = res.key;
+                                ctxData.label = res.label;
+                                ctxData.state = res.state;
+                            } else if (ctxStore) {
+                                t.$refs.tree.append({ id: res.id, app: t.form.app, key: res.key, label: res.label, state: res.state }, res.parent);
+                            }
+                            t.mask = false;
+                        } else {
+                            location.reload();
+                        }
                     } else {
                         Vue.prototype.$message({ type: 'info', message: res.message });
                     }

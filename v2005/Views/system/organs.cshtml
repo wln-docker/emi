@@ -59,6 +59,9 @@
                             <el-option v-for="item in types" :label="item.label" :value="item.value"></el-option>
                         </el-select>
                     </el-form-item>
+                    <el-form-item label="排序">
+                        <el-input v-model="form.sort" placeholder="" style="width:80px"></el-input>
+                    </el-form-item>
                     <el-form-item label="状态">
                         <el-switch on-text="启用" off-text="停用" v-model="form.state"></el-switch>
                     </el-form-item>
