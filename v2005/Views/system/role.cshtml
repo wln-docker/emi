@@ -31,7 +31,7 @@
             <el-pagination @@current-change="pageset" layout="total, prev, pager, next, jumper" :total="total" :current-page="page" :page-size="size"></el-pagination>
         </div>
         <div class="wln-mask-layout" v-if="body">
-            <div class="wln-mask-body" style="width:800px;height:700px;margin-top:5%;">
+            <div class="wln-mask-body" style="width:800px;height:700px;overflow-y:auto;margin-top:5%;">
                 <div class="wln-mask-head">
                     角色权限明细<el-button size="none" @@click="close" style="position:absolute;right:0;color:#607D8B;font-size:20px;padding:5px;margin-left:0px;"><i class="el-icon-close"></i></el-button>
                 </div>

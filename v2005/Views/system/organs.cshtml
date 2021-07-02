@@ -5,14 +5,13 @@
                 <el-table-column align="left" label="组织机构名称">
                     <template scope="scope">
                         <el-popover trigger="hover" placement="right">
-                            <p>编码: {{ scope.row.id }}</p>
-                            <p>全称: {{ scope.row.fullname }}</p>
-                            <p>权重: {{ scope.row.sort }}</p>
+                            <p>全称: {{scope.row.fullname}}</p>
                             <div slot="reference" class="name-wrapper">{{ scope.row.name }}</div>
                         </el-popover>
                         <el-button size="mini" icon="el-icon-plus" type="none" @@click="toChild(scope.row.id,scope.row.name)" v-if="scope.row.children && scope.row.children.length > 0"></el-button>
                     </template>
                 </el-table-column>
+                <el-table-column width="120" property="id" label="编号"></el-table-column>
                 <el-table-column width="60" align="center" label="排序">
                     <template scope="scope">
                         <font v-if="scope.row.sort > 0">{{scope.row.sort}}</font>
@@ -30,8 +29,8 @@
                         <el-button size="small" type="danger" icon="el-icon-plus" v-on:click="toAdd">新增一级组织机构(部门)</el-button>
                     </template>
                     <template scope="scope">
-                        <el-button size="mini" icon="el-icon-plus" type="primary" @@click="toChild(scope.row.id,scope.row.name)">添加下级</el-button>
-                        <el-button size="mini" icon="el-icon-edit" type="warning" @@click="toEdit(scope.row.id)">编辑</el-button>
+                        <el-button size="mini" icon="el-icon-plus" type="primary" @@click="toChild(scope.row.id,scope.row.parent,scope.row.name)">添加下级</el-button>
+                        <el-button size="mini" icon="el-icon-edit" type="warning" @@click="toEdit(scope.row.key)">编辑</el-button>
                         <el-button size="mini" icon="el-icon-delete" @@click="doDel(scope.row.id,scope.row.parent)">删除</el-button>
                     </template>
                 </el-table-column>
@@ -49,7 +48,7 @@
                         <el-input v-model="form.name" placeholder="（必填）" style="width:320px"></el-input>
                     </el-form-item>
                     <el-form-item label="编码">
-                        <el-input v-model="form.code" placeholder="（选填）自编码时需要填写，不填写自动生成" style="width:320px"></el-input>
+                        <el-input v-model="form.id" :disabled="form.key.length > 0" placeholder="（选填）自编码时需要填写，不填写自动生成" style="width:320px"></el-input>
                     </el-form-item>
                     <el-form-item label="全称">
                         <el-input v-model="form.fullname" placeholder="（选填）部门、子公司等子机构全称" style="width:320px"></el-input>
@@ -76,7 +75,7 @@
 </div>
 <script type="text/javascript">
     var types = @Html.Raw(ViewBag.OrganType);
-    var form = { id: '', code: '', name: '', fullname: '', type: '', sort: '', parent: '', parentName: '无', state: true };
+    var form = { key: '', id: '', name: '', fullname: '', type: '', sort: '', top: '', parent: '', parentName: '无', state: true };
     new Vue({
         el: '#app', router: new VueRouter({ mode: 'history' }),
         data: function () {
@@ -155,16 +154,17 @@
                 for (var i in form) { this.form[i] = form[i] }
                 this.mask = true
             },
-            toChild(id, name) {
+            toChild(id, parent, name) {
                 for (var i in form) { this.form[i] = form[i] }
+                this.form.top = parent
                 this.form.parent = id
                 this.form.parentName = name
                 this.mask = true
             },
-            toEdit(id) {
+            toEdit(key) {
                 let t = this;
                 for (var i in form) { t.form[i] = form[i] };
-                post(location.pathname + '?do=get', { id: id }).then(res => {
+                post(location.pathname + '?do=get', { key: key }).then(res => {
                     if (res.success) {
                         for (var i in form) { t.form[i] = res[i] || form[i] };
                         t.mask = true;
@@ -196,7 +196,7 @@
                     if (res.success) {
                         t.mask = false;
                         if (t.form.parent) {
-                            t.loadNode(t.form.id, t.form.parent)
+                            t.loadNode(t.form.top, t.form.parent)
                         } else {
                             t.pager()
                         }
