@@ -110,7 +110,7 @@
             },
             methods: {
                 updateTab(action, name) {
-                    name = name || t.tab
+                    name = name || this.tab
                     let t = this
                     let i = t.tabs.map(o => o.name).indexOf(name)
                     if (i < 0) {
@@ -127,9 +127,12 @@
                     }
                 },
                 activeTab(name) {
-                    if (this.tabs.map(o => o.name).indexOf(name) >= 0) {
-                        this.tab = name
-                        this.save()
+                    let t = this
+                    let i = t.tabs.map(o => o.name).indexOf(name)
+                    if (i >= 0) {
+                        t.tabs[i].show = new Date().getTime()
+                        t.tab = name
+                        t.save()
                     }
                 },
                 openTab(name, action) {

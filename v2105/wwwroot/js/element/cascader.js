@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 111);
+/******/ 	return __webpack_require__(__webpack_require__.s = 114);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -208,14 +208,14 @@ module.exports = require("element-ui/lib/mixins/migrating");
 
 /***/ }),
 
-/***/ 111:
+/***/ 114:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/cascader/src/cascader.vue?vue&type=template&id=032537a6&
+// CONCATENATED MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/cascader/src/cascader.vue?vue&type=template&id=032537a6&
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -314,7 +314,7 @@ var render = function() {
             "div",
             { staticClass: "el-cascader__tags" },
             [
-              _vm._l(_vm.presentTags, function(tag, index) {
+              _vm._l(_vm.presentTags, function(tag) {
                 return _c(
                   "el-tag",
                   {
@@ -328,7 +328,7 @@ var render = function() {
                     },
                     on: {
                       close: function($event) {
-                        _vm.deleteTag(index)
+                        _vm.deleteTag(tag)
                       }
                     }
                   },
@@ -568,7 +568,7 @@ var lib_locale_ = __webpack_require__(20);
 var util_ = __webpack_require__(3);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/types"
-var types_ = __webpack_require__(19);
+var types_ = __webpack_require__(17);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/shared"
 var shared_ = __webpack_require__(21);
@@ -577,10 +577,10 @@ var shared_ = __webpack_require__(21);
 var resize_event_ = __webpack_require__(16);
 
 // EXTERNAL MODULE: external "throttle-debounce/debounce"
-var debounce_ = __webpack_require__(17);
+var debounce_ = __webpack_require__(18);
 var debounce_default = /*#__PURE__*/__webpack_require__.n(debounce_);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/cascader/src/cascader.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/cascader/src/cascader.vue?vue&type=script&lang=js&
 //
 //
 //
@@ -1218,7 +1218,7 @@ var InputSizeMap = {
 
       if (this.pressDeleteCount) {
         if (lastTag.hitState) {
-          this.deleteTag(lastIndex);
+          this.deleteTag(lastTag);
         } else {
           lastTag.hitState = true;
         }
@@ -1239,12 +1239,15 @@ var InputSizeMap = {
         this.toggleDropDownVisible(false);
       }
     },
-    deleteTag: function deleteTag(index) {
+    deleteTag: function deleteTag(tag) {
       var checkedValue = this.checkedValue;
 
-      var val = checkedValue[index];
-      this.checkedValue = checkedValue.filter(function (n, i) {
-        return i !== index;
+      var current = tag.node.getValueByOption();
+      var val = checkedValue.find(function (n) {
+        return Object(util_["isEqual"])(n, current);
+      });
+      this.checkedValue = checkedValue.filter(function (n) {
+        return !Object(util_["isEqual"])(n, current);
       });
       this.$emit('remove-tag', val);
     },
@@ -1288,7 +1291,7 @@ var InputSizeMap = {
 });
 // CONCATENATED MODULE: ./packages/cascader/src/cascader.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_cascadervue_type_script_lang_js_ = (cascadervue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+// EXTERNAL MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/cascader/src/cascader.vue
@@ -1350,14 +1353,14 @@ module.exports = require("element-ui/lib/utils/resize-event");
 /***/ 17:
 /***/ (function(module, exports) {
 
-module.exports = require("throttle-debounce/debounce");
+module.exports = require("element-ui/lib/utils/types");
 
 /***/ }),
 
-/***/ 19:
+/***/ 18:
 /***/ (function(module, exports) {
 
-module.exports = require("element-ui/lib/utils/types");
+module.exports = require("throttle-debounce/debounce");
 
 /***/ }),
 

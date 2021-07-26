@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 59);
+/******/ 	return __webpack_require__(__webpack_require__.s = 60);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -201,7 +201,7 @@ module.exports = require("element-ui/lib/scrollbar");
 
 /***/ }),
 
-/***/ 18:
+/***/ 19:
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/checkbox");
@@ -250,14 +250,21 @@ module.exports = require("element-ui/lib/radio");
 
 /***/ }),
 
-/***/ 59:
+/***/ 6:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/mixins/locale");
+
+/***/ }),
+
+/***/ 60:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/cascader-panel/src/cascader-panel.vue?vue&type=template&id=34932346&
+// CONCATENATED MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/cascader-panel/src/cascader-panel.vue?vue&type=template&id=34932346&
 var cascader_panelvue_type_template_id_34932346_render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -294,7 +301,7 @@ var scrollbar_ = __webpack_require__(15);
 var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
 
 // EXTERNAL MODULE: external "element-ui/lib/checkbox"
-var checkbox_ = __webpack_require__(18);
+var checkbox_ = __webpack_require__(19);
 var checkbox_default = /*#__PURE__*/__webpack_require__.n(checkbox_);
 
 // EXTERNAL MODULE: external "element-ui/lib/radio"
@@ -304,7 +311,7 @@ var radio_default = /*#__PURE__*/__webpack_require__.n(radio_);
 // EXTERNAL MODULE: external "element-ui/lib/utils/util"
 var util_ = __webpack_require__(3);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/cascader-panel/src/cascader-node.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/cascader-panel/src/cascader-node.vue?vue&type=script&lang=js&
 
 
 
@@ -576,7 +583,7 @@ var stopPropagation = function stopPropagation(e) {
 });
 // CONCATENATED MODULE: ./packages/cascader-panel/src/cascader-node.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_cascader_nodevue_type_script_lang_js_ = (cascader_nodevue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+// EXTERNAL MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/cascader-panel/src/cascader-node.vue
@@ -606,7 +613,7 @@ component.options.__file = "packages/cascader-panel/src/cascader-node.vue"
 var locale_ = __webpack_require__(6);
 var locale_default = /*#__PURE__*/__webpack_require__.n(locale_);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/cascader-panel/src/cascader-menu.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/cascader-panel/src/cascader-menu.vue?vue&type=script&lang=js&
 
 
 
@@ -1081,7 +1088,7 @@ var aria_utils_default = /*#__PURE__*/__webpack_require__.n(aria_utils_);
 var scroll_into_view_ = __webpack_require__(31);
 var scroll_into_view_default = /*#__PURE__*/__webpack_require__.n(scroll_into_view_);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/cascader-panel/src/cascader-panel.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/cascader-panel/src/cascader-panel.vue?vue&type=script&lang=js&
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -1228,7 +1235,7 @@ var checkNode = function checkNode(el) {
       deep: true
     },
     value: function value() {
-      this.clearCheckedNodes();
+      this.clearCheckedNodes(); // add this line
       this.syncCheckedValue();
       this.checkStrictly && this.calculateCheckedNodePaths();
     },
@@ -1504,9 +1511,9 @@ var checkNode = function checkNode(el) {
         this.calculateMultiCheckedValue();
       } else {
         this.checkedValue = emitPath ? [] : null;
-        this.activePath = [];
-        this.calculateCheckedNodePaths();
-        this.syncActivePath();
+        this.activePath = []; // add this line
+        this.calculateCheckedNodePaths(); // add this line
+        this.syncActivePath(); // add this line
       }
     }
   }
@@ -1545,13 +1552,6 @@ cascader_panel.install = function (Vue) {
 };
 
 /* harmony default export */ var packages_cascader_panel = __webpack_exports__["default"] = (cascader_panel);
-
-/***/ }),
-
-/***/ 6:
-/***/ (function(module, exports) {
-
-module.exports = require("element-ui/lib/mixins/locale");
 
 /***/ }),
 

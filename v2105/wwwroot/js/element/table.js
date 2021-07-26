@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 56);
+/******/ 	return __webpack_require__(__webpack_require__.s = 57);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -558,19 +558,19 @@ module.exports = require("element-ui/lib/scrollbar");
 module.exports = require("element-ui/lib/utils/resize-event");
 
 /***/ }),
-/* 17 */
+/* 17 */,
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("throttle-debounce/debounce");
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("element-ui/lib/checkbox");
 
 /***/ }),
-/* 19 */,
 /* 20 */,
 /* 21 */,
 /* 22 */,
@@ -632,14 +632,15 @@ module.exports = require("normalize-wheel");
 /* 53 */,
 /* 54 */,
 /* 55 */,
-/* 56 */
+/* 56 */,
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/table/src/table.vue?vue&type=template&id=493fe34e&
+// CONCATENATED MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/table/src/table.vue?vue&type=template&id=493fe34e&
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -1082,7 +1083,7 @@ render._withStripped = true
 // CONCATENATED MODULE: ./packages/table/src/table.vue?vue&type=template&id=493fe34e&
 
 // EXTERNAL MODULE: external "element-ui/lib/checkbox"
-var checkbox_ = __webpack_require__(18);
+var checkbox_ = __webpack_require__(19);
 var checkbox_default = /*#__PURE__*/__webpack_require__.n(checkbox_);
 
 // EXTERNAL MODULE: external "throttle-debounce"
@@ -1504,16 +1505,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       var _this = this;
 
       var load = this.table.load;
-      var _states6 = this.states,
-          lazyTreeNodeMap = _states6.lazyTreeNodeMap,
-          treeData = _states6.treeData;
+      var rawTreeData = this.states.treeData;
 
-      if (load && !treeData[key].loaded) {
-        treeData[key].loading = true;
+      if (load && !rawTreeData[key].loaded) {
+        rawTreeData[key].loading = true;
         load(row, treeNode, function (data) {
           if (!Array.isArray(data)) {
             throw new Error('[ElTable] data must be an array');
           }
+          var _states6 = _this.states,
+              lazyTreeNodeMap = _states6.lazyTreeNodeMap,
+              treeData = _states6.treeData;
+
           treeData[key].loading = false;
           treeData[key].loaded = true;
           treeData[key].expanded = true;
@@ -2101,7 +2104,7 @@ watcher.prototype.updateTableScrollY = function () {
 
 /* harmony default export */ var src_store = (watcher);
 // EXTERNAL MODULE: external "throttle-debounce/debounce"
-var debounce_ = __webpack_require__(17);
+var debounce_ = __webpack_require__(18);
 var debounce_default = /*#__PURE__*/__webpack_require__.n(debounce_);
 
 // CONCATENATED MODULE: ./packages/table/src/store/helper.js
@@ -3041,7 +3044,7 @@ var table_body_extends = Object.assign || function (target) { for (var i = 1; i 
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/table/src/filter-panel.vue?vue&type=template&id=7f2c919f&
+// CONCATENATED MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/table/src/filter-panel.vue?vue&type=template&id=7f2c919f&
 var filter_panelvue_type_template_id_7f2c919f_render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -3237,7 +3240,7 @@ var checkbox_group_default = /*#__PURE__*/__webpack_require__.n(checkbox_group_)
 var scrollbar_ = __webpack_require__(15);
 var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/table/src/filter-panel.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/table/src/filter-panel.vue?vue&type=script&lang=js&
 //
 //
 //
@@ -3435,7 +3438,7 @@ var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
 });
 // CONCATENATED MODULE: ./packages/table/src/filter-panel.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_filter_panelvue_type_script_lang_js_ = (filter_panelvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+// EXTERNAL MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/table/src/filter-panel.vue
@@ -4167,7 +4170,7 @@ var table_footer_extends = Object.assign || function (target) { for (var i = 1; 
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/table/src/table.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/table/src/table.vue?vue&type=script&lang=js&
 var tablevue_type_script_lang_js_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //

@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 75);
+/******/ 	return __webpack_require__(__webpack_require__.s = 78);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -257,7 +257,7 @@ module.exports = require("vue");
 
 /***/ }),
 
-/***/ 75:
+/***/ 78:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -268,7 +268,7 @@ __webpack_require__.r(__webpack_exports__);
 var external_vue_ = __webpack_require__(7);
 var external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/message-box/src/main.vue?vue&type=template&id=6b29b012&
+// CONCATENATED MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/message-box/src/main.vue?vue&type=template&id=6b29b012&
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -588,7 +588,7 @@ var lib_locale_ = __webpack_require__(20);
 var aria_dialog_ = __webpack_require__(47);
 var aria_dialog_default = /*#__PURE__*/__webpack_require__.n(aria_dialog_);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/message-box/src/main.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/message-box/src/main.vue?vue&type=script&lang=js&
 //
 //
 //
@@ -927,7 +927,7 @@ var typeMap = {
 });
 // CONCATENATED MODULE: ./packages/message-box/src/main.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_mainvue_type_script_lang_js_ = (mainvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+// EXTERNAL MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/message-box/src/main.vue

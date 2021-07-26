@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 77);
+/******/ 	return __webpack_require__(__webpack_require__.s = 80);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -201,6 +201,13 @@ module.exports = require("element-ui/lib/utils/popup");
 
 /***/ }),
 
+/***/ 17:
+/***/ (function(module, exports) {
+
+module.exports = require("element-ui/lib/utils/types");
+
+/***/ }),
+
 /***/ 23:
 /***/ (function(module, exports) {
 
@@ -215,7 +222,7 @@ module.exports = require("vue");
 
 /***/ }),
 
-/***/ 77:
+/***/ 80:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -226,7 +233,7 @@ __webpack_require__.r(__webpack_exports__);
 var external_vue_ = __webpack_require__(7);
 var external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/message/src/main.vue?vue&type=template&id=455b9f60&
+// CONCATENATED MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/message/src/main.vue?vue&type=template&id=455b9f60&
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -292,7 +299,7 @@ render._withStripped = true
 
 // CONCATENATED MODULE: ./packages/message/src/main.vue?vue&type=template&id=455b9f60&
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/message/src/main.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/message/src/main.vue?vue&type=script&lang=js&
 //
 //
 //
@@ -410,7 +417,7 @@ var typeMap = {
 });
 // CONCATENATED MODULE: ./packages/message/src/main.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_mainvue_type_script_lang_js_ = (mainvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+// EXTERNAL MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/message/src/main.vue
@@ -442,7 +449,13 @@ var popup_ = __webpack_require__(13);
 // EXTERNAL MODULE: external "element-ui/lib/utils/vdom"
 var vdom_ = __webpack_require__(23);
 
+// EXTERNAL MODULE: external "element-ui/lib/utils/types"
+var types_ = __webpack_require__(17);
+
 // CONCATENATED MODULE: ./packages/message/src/main.js
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
 
 
 
@@ -490,13 +503,15 @@ var main_Message = function Message(options) {
 
 ['success', 'warning', 'info', 'error'].forEach(function (type) {
   main_Message[type] = function (options) {
-    if (typeof options === 'string') {
-      options = {
-        message: options
-      };
+    if (Object(types_["isObject"])(options) && !Object(vdom_["isVNode"])(options)) {
+      return main_Message(_extends({}, options, {
+        type: type
+      }));
     }
-    options.type = type;
-    return main_Message(options);
+    return main_Message({
+      type: type,
+      message: options
+    });
   };
 });
 

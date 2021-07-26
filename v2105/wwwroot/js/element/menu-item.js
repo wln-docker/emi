@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 81);
+/******/ 	return __webpack_require__(__webpack_require__.s = 84);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -256,14 +256,14 @@ module.exports = require("element-ui/lib/mixins/emitter");
 
 /***/ }),
 
-/***/ 81:
+/***/ 84:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/menu/src/menu-item.vue?vue&type=template&id=2a5dbfea&
+// CONCATENATED MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/menu/src/menu-item.vue?vue&type=template&id=2a5dbfea&
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -341,7 +341,7 @@ var tooltip_default = /*#__PURE__*/__webpack_require__.n(tooltip_);
 var emitter_ = __webpack_require__(4);
 var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/menu/src/menu-item.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/menu/src/menu-item.vue?vue&type=script&lang=js&
 //
 //
 //
@@ -455,7 +455,7 @@ var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 });
 // CONCATENATED MODULE: ./packages/menu/src/menu-item.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_menu_itemvue_type_script_lang_js_ = (menu_itemvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+// EXTERNAL MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/menu/src/menu-item.vue

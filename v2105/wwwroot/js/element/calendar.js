@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 67);
+/******/ 	return __webpack_require__(__webpack_require__.s = 70);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -229,14 +229,14 @@ module.exports = require("element-ui/lib/mixins/locale");
 
 /***/ }),
 
-/***/ 67:
+/***/ 70:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/calendar/src/main.vue?vue&type=template&id=6d9756be&
+// CONCATENATED MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/calendar/src/main.vue?vue&type=template&id=6d9756be&
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -377,7 +377,7 @@ var button_group_default = /*#__PURE__*/__webpack_require__.n(button_group_);
 // EXTERNAL MODULE: external "element-ui/lib/utils/date-util"
 var date_util_ = __webpack_require__(1);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/calendar/src/date-table.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/calendar/src/date-table.vue?vue&type=script&lang=js&
 
 
 
@@ -514,7 +514,8 @@ var date_util_ = __webpack_require__(1);
         var firstDay = Object(date_util_["getFirstDayOfMonth"])(date);
         firstDay = firstDay === 0 ? 7 : firstDay;
         var firstDayOfWeek = typeof this.firstDayOfWeek === 'number' ? this.firstDayOfWeek : 1;
-        var prevMonthDays = Object(date_util_["getPrevMonthLastDays"])(date, firstDay - firstDayOfWeek).map(function (day) {
+        var offset = (7 + firstDay - firstDayOfWeek) % 7;
+        var prevMonthDays = Object(date_util_["getPrevMonthLastDays"])(date, offset).map(function (day) {
           return {
             text: day,
             type: 'prev'
@@ -604,7 +605,7 @@ var date_util_ = __webpack_require__(1);
 });
 // CONCATENATED MODULE: ./packages/calendar/src/date-table.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_date_tablevue_type_script_lang_js_ = (date_tablevue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+// EXTERNAL MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/calendar/src/date-table.vue
@@ -630,7 +631,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 if (false) { var api; }
 component.options.__file = "packages/calendar/src/date-table.vue"
 /* harmony default export */ var date_table = (component.exports);
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/calendar/src/main.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/calendar/src/main.vue?vue&type=script&lang=js&
 //
 //
 //

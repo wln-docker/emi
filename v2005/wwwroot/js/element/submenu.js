@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 125);
+/******/ 	return __webpack_require__(__webpack_require__.s = 129);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -194,7 +194,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 125:
+/***/ 129:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -216,7 +216,7 @@ var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 var vue_popper_ = __webpack_require__(5);
 var vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/menu/src/submenu.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.6@vue-loader/lib??vue-loader-options!./packages/menu/src/submenu.vue?vue&type=script&lang=js&
 
 
 
@@ -596,7 +596,7 @@ var poperMixins = {
 });
 // CONCATENATED MODULE: ./packages/menu/src/submenu.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_submenuvue_type_script_lang_js_ = (submenuvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+// EXTERNAL MODULE: ./node_modules/_vue-loader@15.9.6@vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/menu/src/submenu.vue
