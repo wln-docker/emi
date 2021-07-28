@@ -28,11 +28,10 @@
           "Microsoft.EntityFrameworkCore.Design": "3.1.13",
           "Pomelo.EntityFrameworkCore.MySql": "3.2.4",
           "SharpZipLib.NETStandard": "1.0.7",
-          "Wlniao.Dingtalk": "0.0.6",
+          "Wlniao.Dingtalk": "0.0.7",
           "Wlniao.Flow": "1.0.0",
-          "Wlniao.WxWork": "0.0.1",
-          "Wlniao.XCore": "3.1.4",
-          "Wlniao.XCore.Aliyun": "2.0.3",
+          "Wlniao.WxWork": "0.0.2",
+          "Wlniao.XCore": "3.1.5",
           "Microsoft.AspNetCore.Antiforgery.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -250,7 +249,7 @@
           "System.Runtime.Serialization": "4.0.0.0",
           "System.Runtime.Serialization.Formatters": "4.0.4.0",
           "System.Runtime.Serialization.Json": "4.0.5.0",
-          "System.Runtime.Serialization.Primitives.Reference": "4.2.2.0",
+          "System.Runtime.Serialization.Primitives": "4.2.2.0",
           "System.Runtime.Serialization.Xml": "4.1.5.0",
           "System.Security.AccessControl.Reference": "4.1.1.0",
           "System.Security.Claims.Reference": "4.1.2.0",
@@ -295,7 +294,7 @@
           "System.Xml.Serialization": "4.0.0.0",
           "System.Xml.XDocument.Reference": "4.1.2.0",
           "System.Xml.XmlDocument.Reference": "4.1.2.0",
-          "System.Xml.XmlSerializer.Reference": "4.1.2.0",
+          "System.Xml.XmlSerializer": "4.1.2.0",
           "System.Xml.XPath": "4.1.2.0",
           "System.Xml.XPath.XDocument": "4.1.2.0",
           "WindowsBase": "4.0.0.0"
@@ -1389,7 +1388,7 @@
           "System.Runtime.Serialization.Json.dll": {}
         }
       },
-      "System.Runtime.Serialization.Primitives.Reference/4.2.2.0": {
+      "System.Runtime.Serialization.Primitives/4.2.2.0": {
         "compile": {
           "System.Runtime.Serialization.Primitives.dll": {}
         }
@@ -1614,7 +1613,7 @@
           "System.Xml.XmlDocument.dll": {}
         }
       },
-      "System.Xml.XmlSerializer.Reference/4.1.2.0": {
+      "System.Xml.XmlSerializer/4.1.2.0": {
         "compile": {
           "System.Xml.XmlSerializer.dll": {}
         }
@@ -2487,20 +2486,6 @@
           "lib/netstandard2.0/Pomelo.JsonObject.dll": {}
         }
       },
-      "protobuf-net/2.3.3": {
-        "dependencies": {
-          "NETStandard.Library": "1.6.1",
-          "System.Reflection.Emit": "4.3.0",
-          "System.Reflection.Emit.ILGeneration": "4.3.0",
-          "System.Reflection.Emit.Lightweight": "4.3.0",
-          "System.Reflection.TypeExtensions": "4.3.0",
-          "System.Runtime.Serialization.Primitives": "4.3.0",
-          "System.Xml.XmlSerializer": "4.3.0"
-        },
-        "compile": {
-          "lib/netstandard1.3/protobuf-net.dll": {}
-        }
-      },
       "runtime.any.System.Collections/4.3.0": {
         "dependencies": {
           "System.Runtime": "4.3.0"
@@ -3135,12 +3120,6 @@
           "System.Runtime.Extensions": "4.3.0"
         }
       },
-      "System.Runtime.Serialization.Primitives/4.3.0": {
-        "dependencies": {
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0"
-        }
-      },
       "System.Security.AccessControl/4.5.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.0",
@@ -3408,44 +3387,23 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "System.Xml.XmlSerializer/4.3.0": {
+      "Wlniao.Dingtalk/0.0.7": {
         "dependencies": {
-          "System.Collections": "4.3.0",
-          "System.Globalization": "4.3.0",
-          "System.IO": "4.3.0",
-          "System.Linq": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Emit": "4.3.0",
-          "System.Reflection.Emit.ILGeneration": "4.3.0",
-          "System.Reflection.Extensions": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Reflection.TypeExtensions": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "System.Runtime.Extensions": "4.3.0",
-          "System.Text.RegularExpressions": "4.3.0",
-          "System.Threading": "4.3.0",
-          "System.Xml.ReaderWriter": "4.3.0",
-          "System.Xml.XmlDocument": "4.3.0"
-        }
-      },
-      "Wlniao.Dingtalk/0.0.6": {
-        "dependencies": {
-          "Wlniao.XCore": "3.1.4"
+          "Wlniao.XCore": "3.1.5"
         },
         "compile": {
-          "lib/netcoreapp2.0/Wlniao.Dingtalk.dll": {}
+          "lib/netcoreapp3.1/Wlniao.Dingtalk.dll": {}
         }
       },
-      "Wlniao.WxWork/0.0.1": {
+      "Wlniao.WxWork/0.0.2": {
         "dependencies": {
-          "Wlniao.XCore": "3.1.4"
+          "Wlniao.XCore": "3.1.5"
         },
         "compile": {
-          "lib/netcoreapp2.0/Wlniao.WxWork.dll": {}
+          "lib/netcoreapp3.1/Wlniao.WxWork.dll": {}
         }
       },
-      "Wlniao.XCore/3.1.4": {
+      "Wlniao.XCore/3.1.5": {
         "dependencies": {
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Hosting": "2.2.7",
@@ -3469,20 +3427,11 @@
           "lib/netcoreapp3.1/Wlniao.XCore.dll": {}
         }
       },
-      "Wlniao.XCore.Aliyun/2.0.3": {
-        "dependencies": {
-          "Wlniao.XCore": "3.1.4",
-          "protobuf-net": "2.3.3"
-        },
-        "compile": {
-          "lib/netcoreapp2.0/Wlniao.XCore.Aliyun.dll": {}
-        }
-      },
       "Wlniao.Flow/1.0.0": {
         "dependencies": {
           "Autofac": "4.9.2",
           "Autofac.Extensions.DependencyInjection": "4.4.0",
-          "Wlniao.XCore": "3.1.4"
+          "Wlniao.XCore": "3.1.5"
         },
         "compile": {
           "Wlniao.Flow.dll": {}
@@ -3496,11 +3445,10 @@
           "Microsoft.EntityFrameworkCore.Design": "3.1.13",
           "Pomelo.EntityFrameworkCore.MySql": "3.2.4",
           "SharpZipLib.NETStandard": "1.0.7",
-          "Wlniao.Dingtalk": "0.0.6",
+          "Wlniao.Dingtalk": "0.0.7",
           "Wlniao.Flow": "1.0.0",
-          "Wlniao.WxWork": "0.0.1",
-          "Wlniao.XCore": "3.1.4",
-          "Wlniao.XCore.Aliyun": "2.0.3",
+          "Wlniao.WxWork": "0.0.2",
+          "Wlniao.XCore": "3.1.5",
           "Microsoft.AspNetCore.Antiforgery.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -3718,7 +3666,7 @@
           "System.Runtime.Serialization": "4.0.0.0",
           "System.Runtime.Serialization.Formatters": "4.0.4.0",
           "System.Runtime.Serialization.Json": "4.0.5.0",
-          "System.Runtime.Serialization.Primitives.Reference": "4.2.2.0",
+          "System.Runtime.Serialization.Primitives": "4.2.2.0",
           "System.Runtime.Serialization.Xml": "4.1.5.0",
           "System.Security.AccessControl.Reference": "4.1.1.0",
           "System.Security.Claims.Reference": "4.1.2.0",
@@ -3763,7 +3711,7 @@
           "System.Xml.Serialization": "4.0.0.0",
           "System.Xml.XDocument.Reference": "4.1.2.0",
           "System.Xml.XmlDocument.Reference": "4.1.2.0",
-          "System.Xml.XmlSerializer.Reference": "4.1.2.0",
+          "System.Xml.XmlSerializer": "4.1.2.0",
           "System.Xml.XPath": "4.1.2.0",
           "System.Xml.XPath.XDocument": "4.1.2.0",
           "WindowsBase": "4.0.0.0"
@@ -4806,23 +4754,6 @@
           }
         }
       },
-      "protobuf-net/2.3.3": {
-        "dependencies": {
-          "NETStandard.Library": "1.6.1",
-          "System.Reflection.Emit": "4.3.0",
-          "System.Reflection.Emit.ILGeneration": "4.3.0",
-          "System.Reflection.Emit.Lightweight": "4.3.0",
-          "System.Reflection.TypeExtensions": "4.3.0",
-          "System.Runtime.Serialization.Primitives": "4.3.0",
-          "System.Xml.XmlSerializer": "4.3.0"
-        },
-        "runtime": {
-          "lib/netstandard1.3/protobuf-net.dll": {
-            "assemblyVersion": "2.3.3.0",
-            "fileVersion": "2.3.3.0"
-          }
-        }
-      },
       "runtime.any.System.Collections/4.3.0": {
         "dependencies": {
           "System.Runtime": "4.3.0"
@@ -5465,12 +5396,6 @@
           "System.Runtime.Extensions": "4.3.0"
         }
       },
-      "System.Runtime.Serialization.Primitives/4.3.0": {
-        "dependencies": {
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0"
-        }
-      },
       "System.Security.AccessControl/4.5.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.0",
@@ -5744,50 +5669,29 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "System.Xml.XmlSerializer/4.3.0": {
+      "Wlniao.Dingtalk/0.0.7": {
         "dependencies": {
-          "System.Collections": "4.3.0",
-          "System.Globalization": "4.3.0",
-          "System.IO": "4.3.0",
-          "System.Linq": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Emit": "4.3.0",
-          "System.Reflection.Emit.ILGeneration": "4.3.0",
-          "System.Reflection.Extensions": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Reflection.TypeExtensions": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "System.Runtime.Extensions": "4.3.0",
-          "System.Text.RegularExpressions": "4.3.0",
-          "System.Threading": "4.3.0",
-          "System.Xml.ReaderWriter": "4.3.0",
-          "System.Xml.XmlDocument": "4.3.0"
-        }
-      },
-      "Wlniao.Dingtalk/0.0.6": {
-        "dependencies": {
-          "Wlniao.XCore": "3.1.4"
+          "Wlniao.XCore": "3.1.5"
         },
         "runtime": {
-          "lib/netcoreapp2.0/Wlniao.Dingtalk.dll": {
-            "assemblyVersion": "0.0.6.0",
-            "fileVersion": "0.0.6.0"
+          "lib/netcoreapp3.1/Wlniao.Dingtalk.dll": {
+            "assemblyVersion": "0.0.7.0",
+            "fileVersion": "0.0.7.0"
           }
         }
       },
-      "Wlniao.WxWork/0.0.1": {
+      "Wlniao.WxWork/0.0.2": {
         "dependencies": {
-          "Wlniao.XCore": "3.1.4"
+          "Wlniao.XCore": "3.1.5"
         },
         "runtime": {
-          "lib/netcoreapp2.0/Wlniao.WxWork.dll": {
-            "assemblyVersion": "0.0.1.0",
-            "fileVersion": "0.0.1.0"
+          "lib/netcoreapp3.1/Wlniao.WxWork.dll": {
+            "assemblyVersion": "0.0.2.0",
+            "fileVersion": "0.0.2.0"
           }
         }
       },
-      "Wlniao.XCore/3.1.4": {
+      "Wlniao.XCore/3.1.5": {
         "dependencies": {
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Hosting": "2.2.7",
@@ -5809,20 +5713,8 @@
         },
         "runtime": {
           "lib/netcoreapp3.1/Wlniao.XCore.dll": {
-            "assemblyVersion": "3.1.4.0",
-            "fileVersion": "3.1.4.0"
-          }
-        }
-      },
-      "Wlniao.XCore.Aliyun/2.0.3": {
-        "dependencies": {
-          "Wlniao.XCore": "3.1.4",
-          "protobuf-net": "2.3.3"
-        },
-        "runtime": {
-          "lib/netcoreapp2.0/Wlniao.XCore.Aliyun.dll": {
-            "assemblyVersion": "2.0.3.0",
-            "fileVersion": "2.0.3.0"
+            "assemblyVersion": "3.1.5.0",
+            "fileVersion": "3.1.5.0"
           }
         }
       },
@@ -5830,7 +5722,7 @@
         "dependencies": {
           "Autofac": "4.9.2",
           "Autofac.Extensions.DependencyInjection": "4.4.0",
-          "Wlniao.XCore": "3.1.4"
+          "Wlniao.XCore": "3.1.5"
         },
         "runtime": {
           "Wlniao.Flow.dll": {}
@@ -6628,13 +6520,6 @@
       "path": "pomelo.jsonobject/2.2.1",
       "hashPath": "pomelo.jsonobject.2.2.1.nupkg.sha512"
     },
-    "protobuf-net/2.3.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-MEuTGpAb1XOZiagzivejRst8njhRFa2OMprlIm753cwhHE1igEQt8aPqVYfw81zlfCZ24SHMjpJv8aNPphSwPQ==",
-      "path": "protobuf-net/2.3.3",
-      "hashPath": "protobuf-net.2.3.3.nupkg.sha512"
-    },
     "runtime.any.System.Collections/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -7272,13 +7157,6 @@
       "path": "system.runtime.numerics/4.3.0",
       "hashPath": "system.runtime.numerics.4.3.0.nupkg.sha512"
     },
-    "System.Runtime.Serialization.Primitives/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Wz+0KOukJGAlXjtKr+5Xpuxf8+c8739RI1C+A2BoQZT+wMCCoMDDdO8/4IRHfaVINqL78GO8dW8G2lW/e45Mcw==",
-      "path": "system.runtime.serialization.primitives/4.3.0",
-      "hashPath": "system.runtime.serialization.primitives.4.3.0.nupkg.sha512"
-    },
     "System.Security.AccessControl/4.5.0": {
       "type": "package",
       "serviceable": true,
@@ -7475,40 +7353,26 @@
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
     },
-    "System.Xml.XmlSerializer/4.3.0": {
+    "Wlniao.Dingtalk/0.0.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-MYoTCP7EZ98RrANESW05J5ZwskKDoN0AuZ06ZflnowE50LTpbR5yRg3tHckTVm5j/m47stuGgCrCHWePyHS70Q==",
-      "path": "system.xml.xmlserializer/4.3.0",
-      "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+      "sha512": "sha512-t8MRy2RxAuEiL64sGOLQUQbMRh5uTFauO6EqL2uFB6YskRnj7e8ccVHEPgqNX1A5ET41iIfHtrvVRQwmZA+ZFg==",
+      "path": "wlniao.dingtalk/0.0.7",
+      "hashPath": "wlniao.dingtalk.0.0.7.nupkg.sha512"
     },
-    "Wlniao.Dingtalk/0.0.6": {
+    "Wlniao.WxWork/0.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-F0zXFJx1Y41wFXm8QgQ5/qKyze4u+avfNExl3xx5iHGdUZnoT53PvyDfgPgiuKoLFJ/vE6WCOPm6An0LpeqP/A==",
-      "path": "wlniao.dingtalk/0.0.6",
-      "hashPath": "wlniao.dingtalk.0.0.6.nupkg.sha512"
+      "sha512": "sha512-L2As+iKoKz3Z/NpyEnI1dhems0nMsvHwd9NBJ6BpFa+AkmGyVewC8pI75xG72vD2MlNM1X6jyOn5zIREVuuFhw==",
+      "path": "wlniao.wxwork/0.0.2",
+      "hashPath": "wlniao.wxwork.0.0.2.nupkg.sha512"
     },
-    "Wlniao.WxWork/0.0.1": {
+    "Wlniao.XCore/3.1.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-8IlRwNaboW77wc9bS7jOUyWyVxStHMDp9KoLIuMXbSW2/FDFklvfxrn4d1qIYytgAlK6aDsCj+CDNl6yd9jKgg==",
-      "path": "wlniao.wxwork/0.0.1",
-      "hashPath": "wlniao.wxwork.0.0.1.nupkg.sha512"
-    },
-    "Wlniao.XCore/3.1.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ZbB6ecdgvCeY6/kkM96ik7QzrExx/2v7YSltsfDYDel7l7PZSb2GKqh2+f/pkE5VFo8Xd6aCShGzGoCJbc0SXw==",
-      "path": "wlniao.xcore/3.1.4",
-      "hashPath": "wlniao.xcore.3.1.4.nupkg.sha512"
-    },
-    "Wlniao.XCore.Aliyun/2.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ZQVPDtORMlaeeKPs3JXaPkkf/h6QOrf64WYP48XoIrR/DGq1ab6oZ9AAeJlorhfqaVER5GzIcz2iVWtol1uY6Q==",
-      "path": "wlniao.xcore.aliyun/2.0.3",
-      "hashPath": "wlniao.xcore.aliyun.2.0.3.nupkg.sha512"
+      "sha512": "sha512-p1HpvkmFWi5EIehP2MvvuAT/3kvK93aV1TfxPL0Yv+sg9lVGdVt2KlHGv/I0wtqrasZeTcx1SW9lqNBM859HGA==",
+      "path": "wlniao.xcore/3.1.5",
+      "hashPath": "wlniao.xcore.3.1.5.nupkg.sha512"
     },
     "Wlniao.Flow/1.0.0": {
       "type": "project",
@@ -8600,7 +8464,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Runtime.Serialization.Primitives.Reference/4.2.2.0": {
+    "System.Runtime.Serialization.Primitives/4.2.2.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
@@ -8825,7 +8689,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Xml.XmlSerializer.Reference/4.1.2.0": {
+    "System.Xml.XmlSerializer/4.1.2.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

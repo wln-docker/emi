@@ -220,6 +220,15 @@
         function setTab(url, title) {
             app.updateTab(url, title)
         }
+        try {
+            // 注册消息事件监听，接受子元素给的数据，并转发给子页面
+            window.addEventListener('message', (e) => {
+                let iframes = document.getElementsByTagName("iframe")
+                for (let i = 0; i < iframes.length; i++) {
+                    try { iframes[i].contentWindow.postMessage(e.data, '*') } catch (e) { }
+                }
+            }, false)
+        } catch (e) { }
     </script>
 }
 

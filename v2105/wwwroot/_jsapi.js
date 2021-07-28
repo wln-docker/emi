@@ -1,4 +1,16 @@
 ﻿var ehost = '';
+function emiPost(data) {
+	if (!parent || parent === self) {
+		location.href = url
+	} else {
+		let ifr = document.createElement('iframe');
+		ifr.id = 'emifr';
+		ifr.name = 'emifr';
+		ifr.src = '//' + ehost + '/jsapi?do=post&data=' + encodeURIComponent(data);
+		ifr.style.display = 'none';
+		document.body.appendChild(ifr);
+	}
+}
 function emiOpenTab(url, name) {
 	if (!parent || parent === self) {
 		location.href = url
