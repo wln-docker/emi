@@ -5,7 +5,7 @@
                 <el-table-column width="90" label="排序" align="center" property="sort"></el-table-column>
                 <el-table-column width="100" label="图标" align="center">
                     <template slot-scope="scope">
-                        <img :src="scope.row.icon" class="menu-icon" />
+                        <em class="menu-icon" :style="{'mask-image':'url(' + scope.row.icon + ')'}"></em>
                     </template>
                 </el-table-column>
                 <el-table-column width="210" label="名称" align="left" property="name"></el-table-column>
@@ -43,7 +43,7 @@
                         <el-input v-model="form.link" placeholder="" style="width:320px"></el-input>
                     </el-form-item>
                     <el-form-item label="图标连接">
-                        <el-input v-model="form.icon" placeholder="" style="width:320px"></el-input><em class="menu-icon" :style="{'background':'url(' + iconUrl + ')','backgroundSize':'100%','backgroundRepeat':'no-repeat','marginLeft':'5px'}"></em>
+                        <el-input v-model="form.icon" placeholder="" style="width:320px"></el-input><em class="menu-icon" style="margin-left:3px" :style="{'mask-image':'url(' + iconUrl + ')'}"></em>
                     </el-form-item>
                     <el-form-item label="验证权限点">
                         <el-input v-model="form.authority" placeholder="" style="width:320px"></el-input>
@@ -62,11 +62,12 @@
 </div>
 <style>
     .menu-icon {
+        background: #464e5a;
         width: 20px;
         height: 20px;
         display: inline-block;
         vertical-align: middle;
-        background-repeat: no-repeat;
+        -webkit-mask: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAANSURBVBhXY2BgYGAAAAAFAAGKM+MAAAAAAElFTkSuQmCC") no-repeat 50% 50% /20px;
     }
 </style>
 <script type="text/javascript">

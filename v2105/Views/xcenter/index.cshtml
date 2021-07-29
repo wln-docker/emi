@@ -12,7 +12,7 @@
         .menu::-webkit-scrollbar-track {background-color:#F5F5F5;}
         .menu::-webkit-scrollbar-thumb {background-color:#ff4949;}
         .menu-title {font-size:12px;color:#585858;padding:12px 10px 0 10px;font-weight:400;}
-        .menu-item {display:block;margin:4px 0px;padding:2px 0px 2px 18px;font-weight:100;color:#9ba3af;cursor:pointer;}
+        .menu-item {color:#d0d0d0;display:block;margin:4px 0px;padding:2px 0px 2px 18px;font-weight:100;cursor:pointer;}
         .menu-item > span {max-width:120px;display:inline-block;vertical-align:text-top}
         .menu-item.has-sub {padding-left:0px;}.menu-item.has-sub.is-active {background-color:#465067bf;}
         .menu-item.active,.menu-item.menu-item-sub.active {color:#7effff;}
@@ -153,6 +153,7 @@
                             t.save()
                         } else {
                             t.tabs[i].show = 0
+                            t.tabs[i].link = action
                             //t.tabs.splice(i, 1)
                             setTimeout(function () {
                                 //t.tabs.splice(i, 0, { name: name, link: action, show: new Date().getTime() })
@@ -221,7 +222,6 @@
             app.updateTab(url, title)
         }
         try {
-            // 注册消息事件监听，接受子元素给的数据，并转发给子页面
             window.addEventListener('message', (e) => {
                 let iframes = document.getElementsByTagName("iframe")
                 for (let i = 0; i < iframes.length; i++) {
