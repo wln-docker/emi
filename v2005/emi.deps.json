@@ -31,7 +31,7 @@
           "Wlniao.Dingtalk": "0.0.7",
           "Wlniao.Flow": "1.0.0",
           "Wlniao.WxWork": "0.0.2",
-          "Wlniao.XCore": "3.1.5",
+          "Wlniao.XCore": "3.1.6",
           "Microsoft.AspNetCore.Antiforgery.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -3389,7 +3389,7 @@
       },
       "Wlniao.Dingtalk/0.0.7": {
         "dependencies": {
-          "Wlniao.XCore": "3.1.5"
+          "Wlniao.XCore": "3.1.6"
         },
         "compile": {
           "lib/netcoreapp3.1/Wlniao.Dingtalk.dll": {}
@@ -3397,13 +3397,13 @@
       },
       "Wlniao.WxWork/0.0.2": {
         "dependencies": {
-          "Wlniao.XCore": "3.1.5"
+          "Wlniao.XCore": "3.1.6"
         },
         "compile": {
           "lib/netcoreapp3.1/Wlniao.WxWork.dll": {}
         }
       },
-      "Wlniao.XCore/3.1.5": {
+      "Wlniao.XCore/3.1.6": {
         "dependencies": {
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Hosting": "2.2.7",
@@ -3431,7 +3431,7 @@
         "dependencies": {
           "Autofac": "4.9.2",
           "Autofac.Extensions.DependencyInjection": "4.4.0",
-          "Wlniao.XCore": "3.1.5"
+          "Wlniao.XCore": "3.1.6"
         },
         "compile": {
           "Wlniao.Flow.dll": {}
@@ -3448,7 +3448,7 @@
           "Wlniao.Dingtalk": "0.0.7",
           "Wlniao.Flow": "1.0.0",
           "Wlniao.WxWork": "0.0.2",
-          "Wlniao.XCore": "3.1.5",
+          "Wlniao.XCore": "3.1.6",
           "Microsoft.AspNetCore.Antiforgery.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -5671,7 +5671,7 @@
       },
       "Wlniao.Dingtalk/0.0.7": {
         "dependencies": {
-          "Wlniao.XCore": "3.1.5"
+          "Wlniao.XCore": "3.1.6"
         },
         "runtime": {
           "lib/netcoreapp3.1/Wlniao.Dingtalk.dll": {
@@ -5682,7 +5682,7 @@
       },
       "Wlniao.WxWork/0.0.2": {
         "dependencies": {
-          "Wlniao.XCore": "3.1.5"
+          "Wlniao.XCore": "3.1.6"
         },
         "runtime": {
           "lib/netcoreapp3.1/Wlniao.WxWork.dll": {
@@ -5691,7 +5691,7 @@
           }
         }
       },
-      "Wlniao.XCore/3.1.5": {
+      "Wlniao.XCore/3.1.6": {
         "dependencies": {
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Hosting": "2.2.7",
@@ -5713,8 +5713,8 @@
         },
         "runtime": {
           "lib/netcoreapp3.1/Wlniao.XCore.dll": {
-            "assemblyVersion": "3.1.5.0",
-            "fileVersion": "3.1.5.0"
+            "assemblyVersion": "3.1.6.0",
+            "fileVersion": "3.1.6.0"
           }
         }
       },
@@ -5722,7 +5722,7 @@
         "dependencies": {
           "Autofac": "4.9.2",
           "Autofac.Extensions.DependencyInjection": "4.4.0",
-          "Wlniao.XCore": "3.1.5"
+          "Wlniao.XCore": "3.1.6"
         },
         "runtime": {
           "Wlniao.Flow.dll": {}
@@ -7367,12 +7367,12 @@
       "path": "wlniao.wxwork/0.0.2",
       "hashPath": "wlniao.wxwork.0.0.2.nupkg.sha512"
     },
-    "Wlniao.XCore/3.1.5": {
+    "Wlniao.XCore/3.1.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-p1HpvkmFWi5EIehP2MvvuAT/3kvK93aV1TfxPL0Yv+sg9lVGdVt2KlHGv/I0wtqrasZeTcx1SW9lqNBM859HGA==",
-      "path": "wlniao.xcore/3.1.5",
-      "hashPath": "wlniao.xcore.3.1.5.nupkg.sha512"
+      "sha512": "sha512-Yzdj5I5l9FCUZMi3FvAV5WoDchIlEU8kwFyVd0aqwiF7JCgpMu1UB2ke+QDXaWA8Mpmo/6Q0jXVOnHXX8FJkGA==",
+      "path": "wlniao.xcore/3.1.6",
+      "hashPath": "wlniao.xcore.3.1.6.nupkg.sha512"
     },
     "Wlniao.Flow/1.0.0": {
       "type": "project",

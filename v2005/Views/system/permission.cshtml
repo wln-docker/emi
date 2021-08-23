@@ -49,7 +49,7 @@
         </el-dialog>
 
         <div class="wln-mask-layout" v-if="details.show">
-            <div class="wln-mask-body" style="width:980px;overflow-y:auto;margin-top:5%;" :style="{height: details.height + 'px'}">
+            <div class="wln-mask-body" style="width:980px;overflow-y:auto;margin-top:30px" :style="{height: details.height + 'px'}">
                 <div class="wln-mask-form" style="width:100%">
                     <div class="wln-title">机构权限明细<span><i class="el-icon-close" v-on:click="close"></i></span></div>
                     <div style="padding-left:8px">
@@ -99,7 +99,7 @@
                 data: [],
                 rows: [],
                 show: false,
-                height: 700
+                height: 680
             }
             return ds
         },
