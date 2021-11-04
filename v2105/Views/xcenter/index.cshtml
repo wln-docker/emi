@@ -58,7 +58,7 @@
                             </a>
                             <div class="menu-item-container" v-if="active == group.title + item.name">
                                 <a class="menu-item menu-item-sub" :class="{'active':active == group.title + item.name && tab == sub.name}"  @@click="openTab(sub.name, sub.action)" v-for="sub in item.sublist">
-                                    <el-tooltip :disabled="menu != 'min'" :content="sub.name" placement="right"><em class="menu-icon" :style="{'mask-image':'url('+sub.icon+')'}"></em></el-tooltip>
+                                    <el-tooltip :disabled="menu != 'min'" :content="sub.name" placement="right"><em class="menu-icon" :style="{'mask-image':'url('+ (sub.icon=='none' && menu === 'min'? '/svg/app.svg': sub.icon)+')'}"></em></el-tooltip>
                                     <span class="text">{{sub.name}}</span>
                                 </a>
                             </div>
