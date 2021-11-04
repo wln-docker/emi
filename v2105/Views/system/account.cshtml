@@ -85,6 +85,7 @@
                     <el-form-item>
                         <el-button size="small" icon="el-icon-check" type="primary" v-on:click="onSubmit">提交</el-button>
                         <el-button size="small" icon="el-icon-close" v-on:click="close">取消</el-button>
+                        <el-button size="small" @@click="resetPwd" v-if="auth.resetpwd">密码重置</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -112,6 +113,7 @@
             ds.mask = false
             ds.roles = []
             ds.organs = []
+            ds.auth = { resetpwd: true }
             for (var i in form) { ds.form[i] = form[i] };
             return ds
         },
@@ -184,12 +186,28 @@
             },
             toPermission(sid) {
                 openTab('/system/permission?sid=' + sid, '用户权限明细')
+            },
+            resetPwd() {
+                Vue.prototype.$confirm('此操作会将用户登录密码重置为默认密码, 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    post(location.pathname + '?do=resetpwd', { sid: this.form.sid }).then(res => {
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    })
+                }).catch(() => {
+                    Vue.prototype.$message({ type: 'info', message: '操作已取消' });
+                });
             }
         },
         created() {
             get(location.pathname + '?do=roles').then(res => {
                 this.roles = res
                 this.refresh()
+            })
+            asyncGet('/ajax/permission?code=System_AccountPwd', {}).then(res => {
+                this.auth.resetpwd = res['System_AccountPwd'] ? true : false
             })
         }
     })
