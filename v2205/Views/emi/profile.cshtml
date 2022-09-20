@@ -1,0 +1,165 @@
+﻿<style>
+    .home-user {
+        width: 100%;
+        display: table;
+        font-size: 14px;
+        text-align: left;
+    }
+    .home-user-avatar {
+        width: 100px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .home-user-account{
+        width:auto;
+        line-height:24px;
+        vertical-align:middle;
+    }
+    .home-user-account > div:first-child {
+        font-size:20px;
+        margin-top:18px;
+    }
+
+    .home-card {
+        width: 230px;
+        font-size: 0;
+        margin-left: 5px;
+        margin-right: 5px;
+        border-radius: 3px;
+        background-color: #409eff;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+    .home-card:first-child{margin-left:0}
+    .home-card:last-child{margin-right:0}
+    .home-card > div{display:inline-block;text-align:center;vertical-align:middle;background-color:#ffffff;}
+    .home-card > div > div{height:30px;width:100%;display:block;}
+    .home-card .icon-box{width:80px;height:80px;-webkit-mask:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAANSURBVBhXY2BgYGAAAAAFAAGKM+MAAAAAAElFTkSuQmCC") no-repeat 50% 50% /40px;}
+    .home-card .icon-info{position:absolute;left:80px;top:0;right:0;bottom:0;padding:10px}
+    .home-card-num{font-size:28px;color:#0b81c6;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+    .home-card-txt{font-size:16px;color:#9c9c9c;padding-top:9px}
+    .home-list-item{font-size:15px;line-height:30px}
+    .home-list-item:nth-child(2n){background-color:#f9f9f9}
+    .home-list-item > span{display:inline-block;width:360px;text-indent:10px}
+    .home-list-item > em{font-style:normal;font-weight:bolder}
+</style>
+<div id="app" class="wln-layout" style="background-color:#f0f0f0">
+    <div style="width:1120px;margin:18px auto;display:flex;font-size:0">
+        <div style="flex:410">
+            <el-card class="box-card thing">
+                <div class="home-user">
+                    <div class="home-user-avatar"><el-avatar :size="80" :src="user.avatar"></el-avatar></div>
+                    <div class="home-user-account">
+                        <div class="c00">{{user.name}}</div>
+                        <div class="c99">{{user.account}}</div>
+                    </div>
+                </div>
+                <div class="wln-line" style="margin-bottom:20px"></div>
+                <el-form label-width="70px">
+                    <el-form-item label="姓名">
+                        <el-input v-model="user.name" placeholder="您的姓名" style="width:200px"></el-input> <span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item label="电话">
+                        <el-input v-model="user.telphone" placeholder="手机、座机、分机号等" style="width:200px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="工号">
+                        <el-input v-model="user.jobnumber" placeholder="" style="width:200px"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button size="small" icon="el-icon-check" type="primary" v-on:click="update">更新我的信息</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-card>
+            <el-card class="box-card" v-if="user.platform" style="margin-top:10px;font-size:18px;min-height:210px">
+                <div slot="header" class="clearfix">
+                    <span v-if="user.platform=='dingtalk'">阿里钉钉</span>
+                    <span v-else>企业微信</span>
+                    <span class="fs12 c99">
+                        <el-button v-if="user.platformId" type="none" v-on:click="unbind">解除绑定</el-button><font v-else>请先扫码绑定</font>
+                    </span>
+                </div>
+                <div v-if="user.platformId">
+                    <div v-if="rows.length == 0" style="text-align:center;padding:1rem;color:#999999;">暂无待办事项</div>
+                    <div v-else class="home-list-item" v-for="item in rows"><span>{{item.title}}</span><em>{{item.time}}</em></div>
+                </div>
+                <div v-else style="text-align:center">
+                    <qriously :value="qrtext" :size="200" />
+                </div>
+            </el-card>
+        </div>
+        <div style="flex:730;margin-left:10px">
+            <el-card class="box-card" style="width:710px;height:auto;margin-bottom:10px;margin-left:-1px;font-size:18px;min-height:210px">
+                <div slot="header" class="clearfix">
+                    <span>我的待办</span>
+                </div>
+                <div v-if="rows.length == 0" style="text-align:center;padding:1rem;color:#999999;">暂无待办事项</div>
+                <div v-else class="home-list-item" v-for="item in rows"><span>{{item.title}}</span><em>{{item.time}}</em></div>
+            </el-card>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="@ViewBag.Assets/js/vue-qriously.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app', router: new VueRouter({ mode: 'history' }),
+        data() {
+            return {
+                user: { name: '', avatar: '', account: '', telphone: '', jobnumber: '', platform: '', platformId: '', bindcode: '' },
+                rows: [],
+                total: '--',
+                total_syz: '--',
+                total_pxz: '--',
+                total_yjy: '--',
+            }
+        },
+        computed: {
+            qrtext() {
+                return location.origin + '/qrscan/bind/' + this.user.bindcode
+            }
+        },
+        methods: {
+            load() {
+                asyncGet(location.pathname + "?do=get").then(res => {
+                    if (res.success) {
+                        for (var i in res) { this.user[i] = res[i] }
+                    }
+                });
+            },
+            unbind() {
+                Vue.prototype.$confirm('解除绑定后只能使用账户密码登录, 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    post(location.pathname + "?do=unbind").then(res => {
+                        this.load()
+                        if (res.success) {
+                            Vue.prototype.$message({ type: 'success', message: res.message });
+                        } else {
+                            Vue.prototype.$message({ type: 'error', message: res.message });
+                        }
+                    });
+                }).catch(() => { });
+            },
+            update() {
+                let t = this
+                if (!t.user.name) {
+                    Vue.prototype.$message({ type: 'info', message: '您的姓名未输入，请输入' });
+                } else {
+                    post(location.pathname + "?do=update", t.user).then(res => {
+                        if (res.success) {
+                            Vue.prototype.$message({ type: 'success', message: res.message });
+                        } else {
+                            Vue.prototype.$message({ type: 'error', message: res.message });
+                        }
+                    });
+                }
+            },
+        },
+        created() {
+            this.load()
+        }
+    })
+</script>
