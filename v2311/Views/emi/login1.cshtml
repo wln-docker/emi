@@ -1,0 +1,164 @@
+﻿@{ Layout = "../_all.cshtml";}
+@section head{
+    <style type="text/css">
+        *,:after,:before {margin:0px;padding:0px;box-sizing:border-box;}
+        .main {width:100%;height:100%;text-align:center;background:#293146 center center no-repeat;background-size:cover;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"}
+        .copyright {width:100%;color:#e5e2e2;bottom:15px;font-size:12px;position:absolute;text-align:center;user-select:none}
+        .copyright a {color:inherit;text-decoration:none}
+        .login-box {display:flex;}
+        .login-system {color:#ffffff;font-size:24px;text-align:center;font-weight:700;letter-spacing:3px;user-select:none;z-index:1;}
+        .login-welcome {display:none;}
+        .login-message {color:#ff5722;text-align:left;margin-bottom:18px;}
+        .login-form {margin:auto;padding:20px;max-width:340px;border-radius:5px;}
+        .login-form-head {color:#111111;font-size:24px;font-weight:700;margin-bottom:12px;user-select:none;}
+        .login-form-item {box-sizing:border-box;padding:0;font-size:14px;line-height:1.5;font-feature-settings:"tnum";margin-bottom:18px;vertical-align:top;}
+        .login-form-affix {box-sizing:border-box;margin:0;padding:0;color:rgba(0,0,0,.65);font-size:14px;line-height:1.5;list-style:none;font-feature-settings:"tnum";position:relative;}
+        .login-form-prefix,.login-form-suffix {position:absolute;top:50%;z-index:2;font-size:18px;display:flex;-webkit-box-align:center;align-items:center;color:rgba(0,0,0,.65);line-height:0;-webkit-transform:translateY(-50%);transform:translateY(-50%);}
+        .login-form-prefix {left:9px;margin-right:10px;}
+        .login-form-suffix {right:9px;}
+        .login-form-input {box-sizing:border-box;margin:0;list-style:none;font-feature-settings:"tnum";position:relative;text-align:left;display:inline-block;width:100%;height:32px;padding:4px 11px;color:rgba(0,0,0,.65);font-size:14px;line-height:1.5;background-color:#fff;background-image:none;border:1px solid #d9d9d9;border-radius:3px;transition:all .3s;height:40px;padding:6px 11px;padding-left:30px;font-size:15px;color:#000000;}
+        .login-form-input::placeholder {color:#cbcbcb;font-size:14px;}
+        @@media (min-width:751px) {
+            .main {display:flex;align-items:center;justify-content:space-between;}
+            .login-box {flex-direction:row;justify-content:space-between;}
+            .login-box-logo {flex:1;height:100%;position:relative;align-items:center;}
+            .login-box-main:before {width:100%;height:100%;position:absolute;background-image:url(/img/login-bg.svg);background-position:100%;background-repeat:no-repeat;background-size:auto 100%;transform:rotateY(180deg);content:"";opacity:0.93;}
+            .login-box-main {width:700px;height:100%;align-items:center;}
+            .login-main {padding-left:168px;}
+            .login-logo {height:210px;display:inline-flex;align-items:center;padding-left:198px;width:200%;position:absolute;background-color:#ffffff35;}
+            .login-system {font-size:27px;text-align:left;}
+            .login-welcome {display:block;font-size:32px;}
+            .login-form-head {font-size:27px;text-align:left;}
+        }
+        @@media (max-width:750px) {
+            .main {background-color:#293146;background-image:none;background-size:0;}
+            .copyright {display:none}
+            .login-box {flex-direction:column;justify-content:space-between;}
+            .login-logo {width:100%;}
+            .login-system {padding-top:50px;padding-bottom:30px;}
+            .login-form {background-color:#ffffff;}
+        }
+    </style>
+    <script type="text/javascript" src="@ViewBag.Assets/js/md5.js"></script>
+    <script type="text/javascript" src="@ViewBag.Assets/js/vue-qriously.js"></script>
+    <script type="text/javascript" src="//g.alicdn.com/dingding/dinglogin/0.0.5/ddLogin.js"></script>
+}
+@section body{
+    <div class="main" id="app">
+        <div class="login-box login-box-logo" id="bg">
+            <div class="login-logo">
+                <div class="login-system">
+                    <div class="login-welcome">欢迎使用</div>
+                    <div>{{systenName}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="login-box login-box-main">
+            <div style="z-index:999">
+                <div class="login-main">
+                    <div class="login-form">
+                        <div class="login-form-head">账号登录</div>
+                        <div class="login-form-item">
+                            <span class="login-form-affix">
+                                <i class="login-form-prefix el-icon-user"></i>
+                                <input type="text" v-model="username" placeholder="请输入您的登录账号" maxlength="20" class="login-form-input" />
+                            </span>
+                        </div>
+                        <div class="login-form-item">
+                            <span class="login-form-affix">
+                                <i class="login-form-prefix el-icon-lock"></i>
+                                <input type="password" v-model="password" placeholder="请输入您的登录密码" v-on:keydown="toSubmit($event)" maxlength="20" class="login-form-input" />
+                            </span>
+                        </div>
+                        <div class="login-form-item" v-if="verify">
+                            <span class="login-form-affix">
+                                <i class="login-form-prefix el-icon-view"></i>
+                                <input type="text" v-model="verifycode" placeholder="请输入右侧验证码" v-on:keydown="toSubmit($event)" maxlength="6" class="login-form-input" style="width:188px" />
+                                <img v-on:click="showVerify" :src="verifyurl" style="width:107px;height:40px;vertical-align:top;border-radius:3px;border:1px solid #ccd1d9;cursor:pointer;box-sizing:border-box" />
+                            </span>
+                        </div>
+                        <div class="login-message" v-if="message">{{message}}</div>
+                        <div style="color:#ff5722;margin-top: 10px" v-if="tipsInstall">系统暂未初始化，请先<a href="/install" style="padding:0 2px;color:#2196f3">执行初始化</a>操作。</div>
+                        <div class="login-form-item" v-else>
+                            <el-button type="primary" size="small" v-on:click="toLogin()" style="width:100%">登录</el-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">Copyright © @Html.Raw(ViewBag.OrganName)@Html.Raw(ViewBag.Version)@Html.Raw(ViewBag.MiitICP)</div>
+}
+@section foot{
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+                verify: '@Html.Raw(ViewBag.VerifyCode)' == 'true',
+                verifyurl: '',
+                verifycode: '',
+                systenName:'@Html.Raw(ViewBag.SystemName)',
+                loginBgUrl:'@Html.Raw(ViewBag.LoginBgUrl)',
+                tipsInstall: '@Html.Raw(ViewBag.IsInstall)' == 'true',
+                username: localStorage.username || '',
+                password: '',
+                message: ''
+            },
+            methods: {
+                showMsg(msg) {
+                    this.message = msg;
+                },
+                showVerify() {
+                    this.verifycode = ''
+                    this.verifyurl = "/draw/verifycode?t=" + new Date().getTime()
+                },
+                toLogin: function () {
+                    let pwd = hex_md5(hex_md5(hex_md5(this.password).toUpperCase()).toUpperCase()).toUpperCase()
+                    post(location.pathname + "?do=login", { "account": this.username, "password": pwd, "verifycode": this.verifycode }).then(res => {
+                        if (res.success) {
+                            localStorage.setItem("username", this.username);
+                            this.enter()
+                        } else if (res.message == 'noinstall') {
+                            this.tipsInstall = true
+                        } else {
+                            this.showMsg(res.message)
+                        }
+                    })
+                },
+                toSubmit: function (event) {
+                    if (event.keyCode != 13) {
+                        return
+                    } else {
+                        this.toLogin()
+                    }
+                },
+                enter() {
+                    if (location.search) {
+                        location.href = decodeURIComponent(location.search.substring(1))
+                    } else {
+                        sessionStorage.removeItem('session');
+                        history.replaceState(null, '', '/');
+                        location.reload();
+                    }
+                }
+            },
+            created() {
+                this.verify && (() => { this.showVerify() })()
+                this.systenName && (() => { document.title = this.systenName })()
+                this.loginBgUrl && (() => { document.getElementById('app').style.backgroundImage = 'url(' + this.loginBgUrl + ')' })()
+                try {
+                    if (self.frameElement && self.frameElement.tagName == "IFRAME") {
+                        let ifr = document.createElement('iframe');
+                        ifr.src = '/jsapi.js?do=tologin';
+                        ifr.style.display = 'none';
+                        document.body.appendChild(ifr);
+                    }
+                } catch (e) { console.log(e) }
+            }
+        })
+        if (window.location.href.indexOf("https") < 0 && '@Html.Raw(ViewBag.ToHttps)'=='true') {
+            let url = window.location.href.replace("http:", "https:");
+            window.location.replace(url);
+        }
+    </script>
+}

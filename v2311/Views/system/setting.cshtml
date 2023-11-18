@@ -1,0 +1,319 @@
+﻿<style>
+    .el-input--suffix .el-input__inner {color: #111111;}
+    input[type=text],input[type=tel],input[type=password],select,textarea{line-height:36px;box-sizing:border-box;border:1px solid #d8dce5;padding:0 2px;vertical-align:middle;}.el-select__input[type=text]{border:none;}
+</style>
+<div id="app" class="wln">
+    <el-tabs v-loading="loading">
+        <el-tab-pane label="基础设置">
+            <el-form label-width="180px">
+                <el-form-item label="系统名称">
+                    <input type="text" v-model="cfg.system_name" style="width:270px" /><span class="tips notnull">必填</span>
+                </el-form-item>
+                <el-form-item label="组织名称">
+                    <input type="text" v-model="cfg.system_organ" style="width:270px" /><span class="tips notnull">必填</span>
+                </el-form-item>
+                <el-form-item label="ICP备案号">
+                    <input type="text" v-model="cfg.system_miiticp" style="width:270px" /><span class="tips">非必填</span>
+                </el-form-item>
+                <el-form-item label="移动办公平台">
+                    <el-select v-model="cfg.mobile_platform" style="width:270px">
+                        <el-option key="default" label="不启用" value=""></el-option>
+                        <el-option key="dingtalk" label="钉钉" value="dingtalk"></el-option>
+                        <el-option key="wxwork" label="企业微信" value="wxwork"></el-option>
+                    </el-select><span class="tips">非必选</span>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="save">保存配置</el-button>
+                    <el-button size="mini" icon="el-icon-refresh" type="info" @@click="refresh">重新加载</el-button>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="界面样式">
+            <el-form label-width="180px">
+                <el-form-item label="控制台首页">
+                    <input type="text" v-model="diy.ui_emain" placeholder="如：/emi/profile" style="width:270px" /><span class="tips">首页自动加载的页面</span>
+                </el-form-item>
+                <el-form-item label="登录页样式">
+                    <el-select v-model="diy.ui_login" style="width:270px">
+                        <el-option key="style0" label="经典样式" value=""></el-option>
+                        <el-option key="style1" label="通用登录（支持移动端自适应）" value="1"></el-option>
+                        <el-option key="style2" label="简洁居中（无背景图时推荐使用）" value="2"></el-option>
+                    </el-select><span class="tips">非必选</span>
+                </el-form-item>
+                <el-form-item label="登录背景图">
+                    <input type="text" v-model="diy.ui_loginbg" placeholder="默认图片 /oem/loginbg.jpg" style="width:270px" /> <el-button type="primary" size="small" icon="el-icon-upload" v-on:click="uploadBg">上传图片</el-button>
+                    <div v-if="diy.ui_loginbg" style="margin-top:10px"><img :src="diy.ui_loginbg" style="max-width:270px" /></div>
+                </el-form-item>
+                <el-form-item label="登录验证码">
+                    <el-switch v-model="diy.ui_verify" active-value="true" inactive-value="false"></el-switch><span class="tips">登录时是否需要输入验证码</span>
+                </el-form-item>
+                <el-form-item label="用户名水印">
+                    <el-switch v-model="diy.ui_idmark" active-value="true" inactive-value="false"></el-switch><span class="tips">界面是否显示用户名水印</span>
+                </el-form-item>
+                <el-form-item label="菜单栏分组">
+                    <el-switch v-model="diy.ui_groupmenu" active-value="true" inactive-value="false"></el-switch><span class="tips">菜单栏是否按不同应用分组</span>
+                </el-form-item>
+                <el-form-item label="收起菜单栏">
+                    <el-switch v-model="diy.ui_minmenu" active-value="min" inactive-value="default"></el-switch><span class="tips">进入系统时菜单栏是否自动收起</span>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="diy_save">保存配置</el-button>
+                    <el-button size="mini" icon="el-icon-refresh" type="info" @@click="refresh">重新加载</el-button>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="文件上传">
+            <el-form label-width="180px">
+                <el-form-item label="上传方式">
+                    <el-select v-model="cfg.upload_saveto" style="width:270px">
+                        <el-option key="none" label="关闭上传功能" value=""></el-option>
+                        <el-option key="local" label="服务器磁盘存储" value="local"></el-option>
+                        <el-option key="aliyun" label="阿里云OSS对象存储" value="aliyun"></el-option>
+                        <el-option key="qcloud" label="腾讯云COS对象存储" value="qcloud"></el-option>
+                    </el-select><span class="tips notnull">必选，可选择关闭上传</span>
+                </el-form-item>
+                <template v-if="cfg.upload_saveto=='local'">
+                    <el-form-item label="服务器磁盘目录">
+                        <input type="text" placeholder="@Html.Raw(ViewBag.UploadPath)" disabled style="width:270px" /><span class="tips">默认，磁盘目录不可修改</span>
+                    </el-form-item>
+                    <el-form-item label="自定义访问域名">
+                        <input type="text" v-model="cfg.upload_access_domain" placeholder="" style="width:270px" /><span class="tips">如有独立访问域名时可填写</span>
+                    </el-form-item>
+                </template>
+                <template v-else-if="cfg.upload_saveto.length > 0">
+                    <el-form-item label="存储桶名称">
+                        <input type="text" v-model="cfg.upload_bucket" placeholder="Bucket 名称" style="width:270px" /><span class="tips notnull">必填，需要先开启跨域访问</span>
+                    </el-form-item>
+                    <el-form-item label="存储桶域名">
+                        <input type="text" v-model="cfg.upload_domain" placeholder="Bucket 域名" style="width:270px" /><span class="tips notnull">必填，请使用外网/公网地址</span>
+                    </el-form-item>
+                    <el-form-item label="接口访问凭证">
+                        <input type="text" v-model="cfg.upload_access_keyid" placeholder="Access Key Id" style="width:270px" /><span class="tips notnull">必填，AccessKeyId</span>
+                    </el-form-item>
+                    <el-form-item label="接口访问密钥">
+                        <input type="text" v-model="cfg.upload_access_secret" placeholder="Access Key Secret" style="width:270px" /><span class="tips notnull">必填，AccessKeySecret</span>
+                    </el-form-item>
+                    <el-form-item label="自定义访问域名">
+                        <input type="text" v-model="cfg.upload_access_domain" :placeholder="cfg.upload_domain" style="width:270px" /><span class="tips">非必填，默认使用存储桶域名</span>
+                    </el-form-item>
+                </template>
+                <el-form-item>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="upload_save">保存配置</el-button>
+                    <el-button size="mini" icon="el-icon-refresh" type="info" @@click="refresh">重新加载</el-button>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="高级功能">
+            <el-form label-width="180px">
+                <el-form-item label="Api Token">
+                    <input type="text" v-model="other.token" style="width:270px" /><span class="tips notnull">必填，请勿随意更改</span>
+                </el-form-item>
+                <el-form-item label="用户默认密码">
+                    <input type="text" v-model="other.newpwd" style="width:270px" /><span class="tips notnull">必填，新用户默认密码</span>
+                </el-form-item>
+                <el-form-item label="强制HTTPS">
+                    <el-switch v-model="other.tohttps" active-value="true" inactive-value="false"></el-switch><span class="tips">是否强制使用HTTPS访问</span>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="other_save">保存配置</el-button>
+                    <el-button size="mini" icon="el-icon-news" type="info" onclick="window.open('/xchange/export')">导出备份数据</el-button>
+                    <el-button size="mini" icon="el-icon-more-outline" type="info" onclick="openTab('/system/settings','系统参数管理')">更多配置</el-button>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="企业微信" v-if="cfg.mobile_platform === 'wxwork'">
+            <el-form label-width="180px">
+                <el-form-item label="企业CorpId">
+                    <el-input v-model="wxwork.wxwork_corpid" placeholder="必填" style="width:240px"></el-input>
+                </el-form-item>
+                <el-form-item label="应用AgentId">
+                    <el-input v-model="wxwork.wxwork_agentid" placeholder="必填" style="width:240px"></el-input>
+                </el-form-item>
+                <el-form-item label="应用Secret">
+                    <el-input v-model="wxwork.wxwork_appsecret" placeholder="必填" style="width:240px"></el-input>
+                    <div style="line-height:20px;color:#9c9c9c;margin-top:10px;font-family:serif;position:relative;width:545px">
+                        <div><b>配置说明</b></div>
+                        <div>打开<a href="https://work.weixin.qq.com/wework_admin/frame#apps" target="_blank" style="color:#2196F3;text-decoration:underline">企业微信管理平台</a>依次进入应用管理>>应用>>自建>>创建应用，在应用信息中填写以下信息：</div>
+                        <div>应用名称&nbsp;{{cfg.system_name}}</div>
+                        <div>应用简介&nbsp;提供内部审批，业务管理、资料查看等功能</div>
+                        <div>开发方式&nbsp;<b>企业内部自主开发</b></div>
+                        <div>应用首页地址&nbsp;http://{{hostname}}/wxwork</div>
+                        <div>PC端首页地址&nbsp;http://{{hostname}}/wxwork</div>
+                        <div>服务器出口IP&nbsp;{{ipaddress}}</div>
+                        <div style="position:absolute;top:60px;right:10px"><img src="/oem/icon.png" style="width:120px" /></div>
+                    </div>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" icon="el-icon-check" type="primary" @@click="wxwork_check">检查配置是否正确</el-button>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="wxwork_save">保存配置</el-button>
+                    @*<el-button size="mini" icon="el-icon-news" type="info" onclick="openTab('/system/sync_wxwork','通讯录同步')">通讯录同步</el-button>*@
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="阿里钉钉" v-if="cfg.mobile_platform === 'dingtalk'">
+            <el-form label-width="180px">
+                <el-form-item label="企业CorpId">
+                    <el-input v-model="dingtalk.ding_corpid" placeholder="必填" style="width:240px"></el-input>
+                </el-form-item>
+                <el-form-item label="应用AppKey">
+                    <el-input v-model="dingtalk.ding_appkey" placeholder="必填" style="width:240px"></el-input>
+                </el-form-item>
+                <el-form-item label="应用Secret">
+                    <el-input v-model="dingtalk.ding_secret" placeholder="必填" style="width:540px"></el-input>
+                    <div style="line-height:20px;color:#9c9c9c;margin-top:10px;font-family:serif;position:relative;width:545px">
+                        <div><b>配置说明</b></div>
+                        <div>打开<a href="https://open-dev.dingtalk.com/#/corph5" target="_blank" style="color:#2196F3;text-decoration:underline">钉钉开发者平台</a>依次进入应用开发>>企业内部开发>>H5微应用>>创建应用，在应用信息中填写以下信息：</div>
+                        <div>应用名称&nbsp;{{cfg.system_name}}</div>
+                        <div>应用简介&nbsp;提供议题申报、审批，会议管理、资料查看等功能</div>
+                        <div>开发方式&nbsp;<b>企业内部自主开发</b></div>
+                        <div>应用首页地址&nbsp;http://{{hostname}}/dingtalk</div>
+                        <div>PC端首页地址&nbsp;http://{{hostname}}/dingtalk</div>
+                        <div>服务器出口IP&nbsp;{{ipaddress}}</div>
+                        <div style="position:absolute;top:60px;right:10px"><img src="/oem/icon.png" style="width:120px" /></div>
+                    </div>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" icon="el-icon-check" type="primary" @@click="dingtalk_check">检查配置是否正确</el-button>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="dingtalk_save">保存配置</el-button>
+                    @*<el-button size="mini" icon="el-icon-news" type="info" onclick="openTab('/system/sync_dingtalk','通讯录同步')">通讯录同步</el-button>*@
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+    </el-tabs>
+</div>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app', router: new VueRouter({ mode: 'history' }),
+        data() {
+            ds.loading = true
+            ds.cfg = {
+                system_name: '',
+                system_organ: '',
+                system_miiticp: '',
+                mobile_platform: '',
+                upload_saveto: '',
+                upload_bucket: '',
+                upload_domain: '',
+                upload_access_keyid: '',
+                upload_access_secret: '',
+                upload_access_domain: '',
+            }
+            ds.diy = {
+                ui_emain: '',
+                ui_login: '',
+                ui_loginbg: '',
+                ui_idmark: '',
+                ui_verify: '',
+                ui_groupmenu: '',
+                ui_minmenu: '',
+            }
+            ds.other = {
+                tohttps: '',
+                token: '',
+                newpwd: '',
+            }
+            ds.wxwork = {
+                wxwork_corpid: '',
+                wxwork_agentid: '',
+                wxwork_appsecret: ''
+            }
+            ds.dingtalk = {
+                ding_corpid: '',
+                ding_appkey: '',
+                ding_secret: '',
+            }
+            ds.hostname = location.hostname
+            ds.ipaddress = '@ViewBag.ServerIP';
+            return ds
+        },
+        methods: {
+            refresh() {
+                asyncGet(location.pathname + '?do=load').then(res => {
+                    for (var i in res) { this[i] = res[i] }
+                    this.loading = false
+                });
+            },
+            uploadBg() {
+                uploader('/upload', 'jpg,png,gif,jpeg', (res) => {
+                    res = res.success ? JSON.parse(res.message) : res;
+                    if (res.success) {
+                        this.diy.ui_loginbg = res.url
+                    } else {
+                        Vue.prototype.$alert(res.message)
+                    }
+                })
+            },
+            change(item) {
+                if (item.value || !item.required) {
+                    item.message = '<font style="color:#2196F3">保存中...</font>'
+                    post(location.pathname + '?do=set', { key: item.key, value: item.value }).then(res => {
+                        if (res.success) {
+                            item.message = '<font style="color:#4CAF50">已保存</font>'
+                            setTimeout(() => { item.message = '' }, 2000)
+                            if (item.key === 'MobilePlatform') { this.MobilePlatform = item.value }
+                        } else {
+                            item.message = '<font style="color:#F44336">' + res.message + '</font>'
+                        }
+                    });
+                } else {
+                    item.message = '<font style="color:#F44336">必填项</font>'
+                }
+            },
+            save() {
+                post(location.pathname + '?do=save', this.cfg).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
+                })
+            },
+            diy_save() {
+                post(location.pathname + '?do=diy_save', this.diy).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
+                    if (res.success && sessionStorage.session) {
+                        let cfg = JSON.parse(sessionStorage.session)
+                        cfg.menu = this.diy.ui_minmenu
+                        sessionStorage.setItem('session', JSON.stringify(cfg))
+                        top.location.reload();
+                    }
+                })
+            },
+            upload_save() {
+                post(location.pathname + '?do=upload_save', this.cfg).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
+                })
+            },
+            other_save() {
+                post(location.pathname + '?do=other_save', this.other).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
+                })
+            },
+            wxwork_check() {
+                post(location.pathname + '?do=wxwork_check', this.wxwork).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
+                    if (res.success) {
+                        this.dingtalk_save()
+                    }
+                })
+            },
+            wxwork_save() {
+                post(location.pathname + '?do=wxwork_save', this.wxwork).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
+                })
+            },
+            dingtalk_check() {
+                post(location.pathname + '?do=dingtalk_check', this.dingtalk).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
+                    if (res.success) {
+                        this.dingtalk_save()
+                    }
+                })
+            },
+            dingtalk_save() {
+                post(location.pathname + '?do=dingtalk_save', this.dingtalk).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
+                })
+            }
+        },
+        created() {
+            this.refresh()
+        }
+    })
+</script>

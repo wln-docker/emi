@@ -1,0 +1,174 @@
+﻿<div id="app" class="wln-layout">
+    <template>
+        <div class="wln">
+            <div>
+                <span style="float:right">
+                    <el-button type="primary" icon="el-icon-plus" v-on:click="toAdd">新增权限点</el-button>
+                </span>
+                <el-button-group style="margin-top: -2px">
+                    <el-button onclick="openTab('/system/role','角色管理')">返回</el-button>
+                    <el-button v-bind:plain="query.type!==0" type="primary" @@click="toType(0)">系统权限</el-button>
+                    <el-button v-bind:plain="query.type!==1" type="primary" @@click="toType(1)">业务权限</el-button>
+                    <el-button v-bind:plain="query.type!==2" type="primary" @@click="toType(2)" v-if="more">机构权限</el-button>
+                </el-button-group>
+                <el-input v-model="query.key" placeholder="按 名称 进行筛选" v-on:keydown.enter.native="refresh" style="width:300px" clearable></el-input>
+                <el-button type="info" icon="el-icon-refresh" @@click="refresh">筛选</el-button>
+            </div>
+            <div class="wln-line"></div>
+            <el-table :data="rows" :empty-text="message" @@filter-change="filterChange">
+                <el-table-column width="270" property="name" label="权限名称"></el-table-column>
+                <el-table-column width="120" align="center" label="所属应用" class-name="cell-line1" property="appname" column-key="app" :filters="apps" :filter-multiple="false" v-if="query.type!==0"></el-table-column>
+                <el-table-column property="description" label="权限说明"></el-table-column>
+                <el-table-column width="220" property="code" label="编码"></el-table-column>
+                <el-table-column align="right">
+                    <template scope="scope">
+                        <el-button size="mini" icon="el-icon-edit" type="warning" @@click="toEdit(scope.row.code,scope.row.app)">编辑</el-button>
+                        <el-button size="mini" icon="el-icon-delete" type="info" @@click="doDel(scope.row.code,scope.row.app)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-pagination @@current-change="pageset" layout="total, prev, pager, next, jumper" :current-page="query.page" :page-size="query.size" :total="total"></el-pagination>
+        </div>
+        <div class="wln-mask-layout" v-if="mask">
+            <div class="wln-mask-form" style="width:500px;">
+                <div class="wln-title">权限信息<span><i class="el-icon-close" v-on:click="close"></i></span></div>
+                <el-form label-width="120px">
+                    <el-form-item label="权限类型">
+                        <el-select v-model="form.type" @@change="typeChange" placeholder="请选择" style="width:120px">
+                            <el-option v-for="item in types" :label="item.label" :value="item.value"></el-option>
+                        </el-select> {{form.text}}
+                    </el-form-item>
+                    <el-form-item label="所属应用">
+                        <el-select v-model="form.app" placeholder="请选择" style="width:120px">
+                            <el-option v-for="item in apps" :label="item.text" :value="item.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="权限名称">
+                        <el-input v-model="form.name" placeholder="必填" style="width:320px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="权限编码">
+                        <el-input v-model="form.code" placeholder="必填" style="width:320px" :disabled="form.editcode.length > 0"></el-input>
+                    </el-form-item>
+                    <el-form-item label="权限说明">
+                        <el-input v-model="form.description" placeholder="" style="width:320px"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button size="small" icon="el-icon-check" type="primary" v-on:click="onSubmit">提交</el-button>
+                        <el-button size="small" icon="el-icon-close" v-on:click="close">取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+    </template>
+</div>
+<script type="text/javascript">
+    document.title = '权限点管理'
+    get('/system/apps?do=filters').then(apps => {
+        var more = '@ViewBag.MoreOrgans' === 'True';
+        var form = { editcode: '', app: '', code: '', name: '', type: 0, description: '', text: '' };
+        var types = [{ value: 0, label: '系统权限', text: '系统管理功能的操作权限' }, { value: 1, label: '业务权限', text: '根据业务模块的分配权限' }];
+        more && (types = types.concat([{ value: 2, label: '机构权限', text: '根据组织架构（部门）分配权限' }]));
+        new Vue({
+            el: '#app',
+            data: function () {
+                ds.form = {}
+                ds.mask = false
+                ds.apps = apps
+                ds.query.app = ''
+                ds.query.type = 0
+                ds.more = more
+                ds.types = types
+                for (var i in form) { ds.form[i] = form[i] };
+                ds.form.text = types[0].text
+                return ds
+            },
+            methods: {
+                filterChange(filters) {
+                    if (filters.app && filters.app.length > 0) {
+                        this.query.app = filters.app[0];
+                    } else {
+                        this.query.app = '';
+                    }
+                    this.refresh()
+                },
+                pager() {
+                    post(location.pathname + '?do=list', this.query).then(res => {
+                        this.rows = res.rows;
+                        this.total = res.total;
+                        this.message = res.message;
+                    })
+                },
+                refresh() {
+                    if (this.query.page > 1) {
+                        this.rows = []
+                        this.query.page = 1
+                    }
+                    this.pager()
+                },
+                pageset(val) {
+                    this.query.page = val
+                    this.pager()
+                },
+                close() {
+                    this.mask = false
+                    this.body = false
+                },
+                toType(to) {
+                    this.query.type = to;
+                    this.refresh();
+                },
+                toAdd() {
+                    for (var i in form) { this.form[i] = form[i] }
+                    this.form.type = this.query.type || ''
+                    this.form.text = types[this.query.type].text || ''
+                    this.mask = true
+                },
+                toEdit(code, app) {
+                    let t = this;
+                    for (var i in form) { t.form[i] = form[i] }
+                    post(location.pathname + '?do=get', { code: code, app: app }).then(res => {
+                        if (res.success) {
+                            for (var i in form) { t.form[i] = res[i] || form[i] }
+                            t.form.editcode = code
+                            t.form.app = app
+                            t.mask = true
+                        } else {
+                            Vue.prototype.$message({ type: 'info', message: res.message });
+                        }
+                    });
+                },
+                doDel(code, app) {
+                    let t = this
+                    Vue.prototype.$confirm('此操作将删除该权限点, 是否继续?', '提示', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).then(() => {
+                        post(location.pathname + '?do=del', { code: code, app: app }).then(res => {
+                            if (res.success) {
+                                t.pager();
+                                Vue.prototype.$message({ type: 'success', message: res.message });
+                            } else {
+                                Vue.prototype.$message({ type: 'info', message: res.message });
+                            }
+                        })
+                    }).catch(() => { return Vue.prototype.$message({ type: 'info', message: '操作已取消' }); });
+                },
+                onSubmit: function () {
+                    let t = this;
+                    post(location.pathname + '?do=set', t.form).then(res => {
+                        if (res.success) {
+                            t.pager();
+                            t.mask = false;
+                            Vue.prototype.$message({ type: 'success', message: res.message });
+                        } else {
+                            Vue.prototype.$message({ type: 'info', message: res.message });
+                        }
+                    })
+                },
+                typeChange(val) {
+                    this.form.text = this.types[val].text;
+                },
+            },
+            created() {
+                this.pager()
+            }
+        });
+    });
+</script>
