@@ -52,7 +52,10 @@
                     </el-form-item>
                     <el-form-item label="路径连接">
                         <el-input v-model="form.link" placeholder="" style="width:320px"></el-input>
-                    </el-form-item>
+					</el-form-item>
+					<el-form-item label="移动连接" v-if="form.platform.indexOf('mobile') >= 0">
+                        <el-input v-model="form.mobi_link" placeholder="移动端专用连接" style="width:320px"></el-input>
+					</el-form-item>
                     <el-form-item label="图标连接">
                         <el-input v-model="form.icon" placeholder="" style="width:320px"></el-input><em class="menu-icon" style="margin-left:3px" :style="{'mask-image':'url(' + iconUrl + ')'}"></em>
                     </el-form-item>
@@ -83,7 +86,7 @@
 </style>
 <script type="text/javascript">
     var map = new Map();
-    var form = { id: '', code: '', name: '', platform: '', link: '', icon: '', authority: '', parent: '', parentName: '', sort: 0 }
+    var form = { id: '', code: '', name: '', platform: '', link: '', mobi_link: '', icon: '', authority: '', parent: '', parentName: '', sort: 0 }
     new Vue({
         el: '#app',
         router: new VueRouter({ mode: 'history' }),

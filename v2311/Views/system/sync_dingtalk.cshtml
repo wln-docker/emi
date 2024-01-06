@@ -31,8 +31,8 @@
                     <font>{{data.label}}</font>
                     <span>
                         <el-button type="more" size="mini" icon="el-icon-question" @@click.stop="desc('dept')" v-if="data.value == 'root'">说明</el-button>
-                        <el-button type="gray" size="mini" icon="el-icon-info" @@click.stop="regDingDept(data)" v-if="data.ding == 'NONE'">钉钉</el-button>
-                        <el-button type="gray" size="mini" icon="el-icon-info" @@click.stop="regLocalDept(data)" v-if="data.organ == 'NONE'">本地</el-button>
+                        <el-button type="gray" size="mini" icon="el-icon-info" @@click.stop="regDingDept(data)" v-if="data.ding == 'NONE'">本地</el-button>
+                        <el-button type="gray" size="mini" icon="el-icon-info" @@click.stop="regLocalDept(data)" v-if="data.organ == 'NONE'">钉钉</el-button>
                     </span>
                 </span>
             </el-tree>

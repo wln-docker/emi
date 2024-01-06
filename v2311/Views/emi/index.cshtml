@@ -1,10 +1,102 @@
 ﻿@{ Layout = "../_all.cshtml";}
 @section head{
     <style type="text/css">
-        #app {top:0;left:0;right:0;bottom:0;position:absolute;}
-        #left {user-select:none;top:0;left:0;width:168px;bottom:0;position:absolute;background:#1f2126;overflow:hidden;}
-        #left .logo {width:168px;height:60px;min-height:60px;line-height:60px;overflow:hidden;font-size:0px;text-align:center;background:#25282d center center no-repeat;background-size:90%}
-        #center {top:0px;left:168px;right:0;bottom:0;position:absolute;background:#f9f9f9;overflow:hidden;}
+        #app {display:flex;width:100vw;height:100vh;flex-flow:row nowrap;justify-content:space-between; }
+        #left {user-select:none;width:168px;background:#1f2126;overflow:hidden;}
+        #left .logo {width:168px;height:60px;min-height:60px;line-height:60px;overflow:hidden;font-size:0px;text-align:center;background:#25282d center center no-repeat;background-size:90% }
+        #mobile {width:100%;height:100%;padding:1vw;background-color:#f1f1f1;padding-bottom:20vw;overflow-y: auto;}
+
+        .mapp-group {
+            margin: 1vw;
+            padding: 3vw 4vw;
+            font-size: 3.6vw;
+            color: #9c9c9c;
+            background: #ffffff;
+            border-radius: 2vw;
+        }
+
+        .mapp-title {
+            margin-bottom: 5vw;
+		}
+
+		.mapp-boxs {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+        .mapp-item {
+            flex: 0 0 25%;
+            height: 24vw;
+            display: inline-flex;
+            text-align: center;
+            align-items: center;
+            justify-items: center;
+            flex-direction: column;
+        }
+
+        .mapp-icon-box {
+            padding: 1.5vw;
+            border-radius: 2vw;
+            background: #3c9bff;
+            background-size: 60%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .mapp-icon-svg {
+            width: 8vw;
+            height: 8vw;
+            display: block;
+            background: #ffffff;
+            -webkit-mask: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAANSURBVBhXY2BgYGAAAAAFAAGKM+MAAAAAAElFTkSuQmCC) no-repeat 50% 50% /8vw;
+        }
+
+        .mapp-name {
+            height: 6vw;
+            color: #111111;
+            margin: 1vw 2vw 0 2vw;
+        }
+        .mapp-sublist-mask{
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            background-color: #9c9c9c9c;
+		}
+
+		.mapp-sublist-boxs {
+            margin: 20vw 15vw;
+            background: #ffffff;
+            border-radius: 3vw;
+            text-align: center;
+        }
+
+        .mapp-sublist-tips {
+            color: #9c9c9c;
+            font-size: 4vw;
+            line-height: 10vw;
+            border-bottom: 5px solid #f9f9f9;
+        }
+        .mapp-sublist-list {
+            min-height: 30vh;
+            max-height: 50vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .mapp-sublist-item {
+            font-size: 4vw;
+            line-height: 12vw;
+            color: #3a8ee6;
+        }
+        .mapp-sublist-item:not(:first-child) {
+            border-top: 3px solid #f9f9f9;
+        }
+
+
+
+        #center {flex-grow:1;background:#f9f9f9;position:relative;overflow:hidden }
         .menu {height:100%;overflow-y:auto;overflow-x:hidden;}
         .menu::after {content:' ';height:70px;display:block;}
         .menu::-webkit-scrollbar {width:3px;}
@@ -20,7 +112,6 @@
         .menu-switch {height:20px;width:100%;display:block;text-align:center;background:#2b2e38;cursor:pointer;}
         .menu-switch > img {transform:rotate(90deg);width:20px}
         .min #left,.min #left .logo {width:54px}
-        .min #center {left:54px}
         .min #left .logo {background-image:url('/oem/logo-min.png')}
         .min #left .menu-switch > img {transform:rotate(0deg);}
         .min #left .menu-group {padding-top:0;}
@@ -40,7 +131,7 @@
 }
 @section body{
     <div id="app" :class="{ min: menu === 'min' }">
-        <div id="left" onselectstart="return false;">
+        <div id="left" v-if="!mobile" onselectstart="return false;">
             <div class="logo"></div>
             <div class="menu" id="menu">
                 <span class="menu-switch" v-on:click="toggle"><img class="layout-menu-icon" src="/svg/menu-lines.svg" /></span>
@@ -70,7 +161,33 @@
                 </div>
             </div>
         </div>
-        <div id="center">
+        <div id="mobile" v-if="mobile" v-on:click="closeSub">
+            <el-empty v-if="loaded && groups.length == 0" description="移动工作台暂无已开通业务，请通过PC访问或联系管理员授权。"></el-empty>
+            <div class="mapp-group" v-for="gitem in groups" v-else>
+                <div class="mapp-title" v-if="gitem.title">{{gitem.title}}</div>
+                <div class="mapp-boxs">
+                    <div class="mapp-item" v-on:click.stop="openApp(item)" v-for="item in gitem.items">
+                        <div>
+                            <div class="mapp-icon-box"><em class="mapp-icon-svg" :style="{'mask-image':'url('+item.icon+')'}"></em></div>
+                        </div>
+                        <div class="mapp-name">{{item.name}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mapp-sublist-mask" v-if="sublist.length > 0">
+                <div class="mapp-sublist-boxs">
+                    <div class="mapp-sublist-tips">请选择要执行的操作</div>
+                    <div class="mapp-sublist-list">
+                        <div class="mapp-sublist-item" v-on:click="openApp(item)" v-for="item in sublist">{{item.name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="center" v-else>
+            <div class="wlogo" style="user-select:none" onselectstart="return false">
+                <div style="width:400px;height:75px;display:block;margin:auto;background:url('//static.wlniao.com/wlniao/console.png') center center no-repeat;background-size:100%;"></div>
+                <p>HTTPS://WWW.WLNIAO.COM&nbsp;服务热线：023-88256732</p>
+            </div>
             <div class="usertab">
                 <span class="ucenter">
                     <span class="ucenter-name" v-on:click="openTab('', 'logout')"><i class="el-icon-switch-button" style="color:#586685;font-size:15px;vertical-align:-1px;font-weight:bolder"></i> <font>注销</font></span>
@@ -84,16 +201,7 @@
                         <el-tooltip v-else-if="tab == 'home'" content="双击可关闭全部窗口" placement="right-end"><i class="el-icon-s-home"></i></el-tooltip>
                         <el-tooltip v-else content="返回首页 双击可关闭全部窗口" placement="right-end"><i class="el-icon-s-home"></i></el-tooltip>
                     </span>
-                    @if (string.IsNullOrEmpty(ViewBag.EMain))
-                    {
-                        <template id="app-home">
-                            <div class="wlogo" style="user-select:none" onselectstart="return false">
-                                <div style="width:400px;height:75px;display:block;margin:auto;background:url('//static.wlniao.com/wlniao/console.png') center center no-repeat;background-size:100%;"></div>
-                                <p>HTTPS://WWW.WLNIAO.COM&nbsp;服务热线：023-88256732</p>
-                            </div>
-                        </template>
-                    }
-                    else
+                    @if (!string.IsNullOrEmpty(ViewBag.EMain))
                     {
                         <iframe src="@Html.Raw(ViewBag.EMain)" frameborder="0" scrolling="auto" style="position:absolute;width:100%;height:100%;overflow:auto"></iframe>
                     }
@@ -114,7 +222,10 @@
             el: '#app',
             data() {
                 let tmp = typeof sessionStorage.session != 'undefined' ? JSON.parse(sessionStorage.session) : { tab: 'home', menu: '@Html.Raw(ViewBag.MinMenu)', active: '', tabs: [], groups: [] };
-                tmp.idmark = ''        
+                tmp.mobile = document.documentElement.clientWidth < 820 && document.documentElement.clientHeight > 820
+                tmp.sublist = []
+                tmp.idmark = ''
+                tmp.loaded = false
                 return tmp
             },
             methods: {
@@ -173,6 +284,19 @@
                         }
                     }
                 },
+                openApp(item) {
+                    if (!item.action || (item.sublist && item.sublist.length > 0)) {
+                        this.sublist = item.sublist
+                        console.log(this.sublist)
+                    } else {
+                        this.closeSub()
+                        document.title = item.name
+                        location.href = item.action
+                    }
+                },
+                closeSub() {
+                    this.sublist = []
+                },
                 closeTab(name) {
                     let t = this
                     let i = t.tabs.map(o => o.name).indexOf(name)
@@ -229,7 +353,7 @@
             mounted() {
                 if ('undefined' != typeof sessionStorage.menu) { this.groups = JSON.parse(sessionStorage.menu) }
                 if ('true' == '@Html.Raw(ViewBag.ShowIDMark)') { asyncGet('/idmark').then(res => { if (res.success) { this.idmark = 'url(' + res.data + ')' } }) }
-                asyncGet('/menu').then(res => { this.groups = res; this.save() })
+                asyncGet('/menu?mobile=' + this.mobile).then(res => { this.groups = res; this.loaded = true; this.save() })
             }
         });
         function activeTab(title) {
