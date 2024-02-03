@@ -32,7 +32,7 @@
                 </el-table-column>
                 <el-table-column width="168" align="center" label="Api Token">
                     <template scope="scope">
-                        <el-button size="mini" type="primary" @@click="token(scope.row)">点击查看/更新</el-button>
+                        <el-button size="mini" type="primary" v-on:click="loadtoken(scope.row.app)">点击查看</el-button>
                     </template>
                 </el-table-column>
                 <el-table-column width="390" align="center" label="操作">
@@ -60,9 +60,6 @@
                     <el-form-item label="访问地址">
                         <el-input v-model="form.host" placeholder="" style="width:270px"></el-input> <span class="tips notnull"></span>
                     </el-form-item>
-                    <el-form-item label="通讯密钥">
-                        <el-input v-model="form.token" placeholder="接口通讯密钥" style="width:270px"></el-input> <el-button size="small" type="primary" @@click="newtoken">随机生成</el-button>
-                    </el-form-item>
                     <el-form-item label="使用https">
                         <el-select v-model="form.https" style="width:110px">
                             <el-option label="已开启" :value="1"></el-option>
@@ -83,7 +80,7 @@
     </template>
 </div>
 <script type="text/javascript">
-    var form = { id: '', app: '', name: '', host: '', token: '', https: 0, sort: 1 };
+    var form = { id: '', app: '', name: '', host: '', https: 0, sort: 1 };
     new Vue({
         el: '#app',
         router: new VueRouter({ mode: 'history' }),
@@ -134,25 +131,12 @@
             toMenus(app) {
                 openTab('/system/appmenu/' + app, '应用菜单')
             },
-            token(row) {
-                let t = this
-                post(location.pathname + '?do=token', { app: row.app }).then(res => {
+            loadtoken(app) {
+                post(location.pathname + '?do=loadtoken', { app: app }).then(res => {
                     if (res.success) {
-                        Vue.prototype.$prompt('此应用的API Token为', 'Api Token查看', { inputValue: res.token, confirmButtonText: '更新Token', cancelButtonText: '关闭' }).then(({ value }) => {
-                            post(location.pathname + '?do=settoken', { app: row.app, token: value }).then(res => {
-                                Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
-                            })
-                        }).catch(() => { });
+                        Vue.prototype.$prompt('应用API关系数据安全，请妥善保管！！！', 'Api Token查看', { inputValue: res.token, cancelButtonText: '关闭' }).then(({ value }) => { }).catch(() => { });
                     } else {
-                        Vue.prototype.$message({ type: 'error', message: res.message });
-                    }
-                })
-            },
-            newtoken() {
-                let t = this
-                post(location.pathname + '?do=newtoken').then(res => {
-                    if (res.success) {
-                        t.form.token = res.token
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
                     }
                 })
             },
@@ -188,14 +172,13 @@
                 });
             },
             doDel(app) {
-                let t = this
                 Vue.prototype.$confirm('应用移除后相关功能将无法使用，但数据不会删除, 是否继续?', '提示', {
                     confirmButtonText: '继续',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     post(location.pathname + '?do=del', { app: app }).then(res => {
-                        t.refresh();
+                        this.refresh();
                         sessionStorage.removeItem('session');
                         Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
                     })
@@ -205,7 +188,6 @@
             }
         },
         mounted() {
-            let t = this
             this.refresh();
         }
     })
