@@ -52,13 +52,13 @@
                 <div class="wln-title">应用信息<span><i class="el-icon-close" v-on:click="close"></i></span></div>
                 <el-form label-width="120px">
                     <el-form-item label="应用编码">
-                        <el-input v-model="form.app" placeholder="英文，如：demo" :disabled="form.id.length > 0" style="width:200px"></el-input> <span class="tips notnull"></span>
+                        <el-input v-model="form.app" placeholder="英文，如：demo" :disabled="form.id.length > 0" style="width:270px"></el-input> <span class="tips notnull"></span>
                     </el-form-item>
                     <el-form-item label="应用名称">
-                        <el-input v-model="form.name" placeholder="" style="width:200px"></el-input> <span class="tips notnull"></span>
+                        <el-input v-model="form.name" placeholder="必填，应用模块名称" style="width:270px"></el-input> <span class="tips notnull"></span>
                     </el-form-item>
                     <el-form-item label="访问地址">
-                        <el-input v-model="form.host" placeholder="" style="width:270px"></el-input> <span class="tips notnull"></span>
+                        <el-input v-model="form.host" placeholder="为空时将匹配默认路径" style="width:270px"></el-input> <span class="tips"></span>
                     </el-form-item>
                     <el-form-item label="使用https">
                         <el-select v-model="form.https" style="width:110px">
