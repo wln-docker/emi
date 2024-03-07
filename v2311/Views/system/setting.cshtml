@@ -111,6 +111,9 @@
                 <el-form-item label="用户默认密码">
                     <input type="text" v-model="other.newpwd" style="width:270px" /><span class="tips notnull">必填，新用户默认密码</span>
                 </el-form-item>
+                <el-form-item label="CA证书安装">
+                    <el-switch v-model="other.checkca" active-value="true" inactive-value="false"></el-switch><span class="tips">是否检查CA证书安装状态</span>
+                </el-form-item>
                 <el-form-item label="强制HTTPS">
                     <el-switch v-model="other.tohttps" active-value="true" inactive-value="false"></el-switch><span class="tips">是否强制使用HTTPS访问</span>
                 </el-form-item>
@@ -212,6 +215,7 @@
             }
             ds.other = {
                 tohttps: '',
+                checkca: '',
                 token: '',
                 newpwd: '',
             }

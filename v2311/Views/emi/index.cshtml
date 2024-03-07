@@ -1,5 +1,7 @@
 ﻿@{ Layout = "../_all.cshtml";}
 @section head{
+    <script>var sslCertTrusted = '@Html.Raw(ViewBag.CheckCA)' == 'true' ? false : true</script>
+    <script src="https://ca.wlniao.cn/ssltest.js"></script>
     <style type="text/css">
         #app {display:flex;width:100vw;height:100vh;flex-flow:row nowrap;justify-content:space-between; }
         #left {user-select:none;width:168px;background:#1f2126;overflow:hidden;}
@@ -375,9 +377,12 @@
                     try { iframes[i].contentWindow.postMessage(e.data, '*') } catch (e) { }
                 }
             }, false)
-            if (window.location.href.indexOf("https") < 0 && '@Html.Raw(ViewBag.ToHttps)'=='true') {
+            if (window.location.href.indexOf("https") < 0 && '@Html.Raw(ViewBag.ToHttps)' == 'true') {
                 let url = window.location.href.replace("http:", "https:");
                 window.location.replace(url);
+            }
+            if (!sslCertTrusted) {
+                openTab('/emi/ca', '请先安装证书');
             }
         } catch (e) { }
     </script>
