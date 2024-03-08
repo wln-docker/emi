@@ -32,7 +32,7 @@
             return ds
         },
         methods: {
-            pager() {
+            getlist() {
                 this.query.message = this.loadtips
                 asyncPost(location.pathname + '?do=pager', this.query).then(res => {
                     this.rows = res.rows
@@ -45,11 +45,11 @@
                     this.rows = []
                     this.query.page = 1
                 }
-                this.pager()
+                this.getlist()
             },
             pageset(val) {
                 this.query.page = val
-                this.pager()
+                this.getlist()
             },
             handleUpdate(row) {
                 Vue.prototype.$prompt('系统参数有缓存机制，功能不同一般会在5至60分钟后生效', '请输入配置内容', {

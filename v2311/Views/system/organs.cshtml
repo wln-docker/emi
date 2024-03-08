@@ -132,7 +132,7 @@
                     });
                 }
             },
-            pager() {
+            getlist() {
                 post(location.pathname + '?do=load', { key: this.key }).then(res => {
                     this.rows = res.rows;
                     this.message = res.message;
@@ -141,11 +141,11 @@
             refresh() {
                 this.rows = []
                 this.page = 1
-                this.pager()
+                this.getlist()
             },
             pageset(val) {
                 this.page = val
-                this.pager()
+                this.getlist()
             },
             close() {
                 this.mask = false
@@ -181,7 +181,7 @@
                             if (pid) {
                                 t.loadNode(id, pid)
                             } else {
-                                t.pager()
+                                t.getlist()
                             }                            
                             Vue.prototype.$message({ type: 'success', message: res.message });
                         } else {
@@ -198,7 +198,7 @@
                         if (t.form.parent) {
                             t.loadNode(t.form.top, t.form.parent)
                         } else {
-                            t.pager()
+                            t.getlist()
                         }
                         Vue.prototype.$message({ type: 'success', message: res.message });
                     } else {
@@ -207,7 +207,7 @@
                 })
             },
         }, mounted() {
-            this.pager()
+            this.getlist()
         }
     })
 </script>

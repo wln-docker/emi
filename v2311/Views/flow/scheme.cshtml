@@ -31,7 +31,7 @@
             return ds
         },
         methods: {
-            pager() {
+            getlist() {
                 let t = this;
                 asyncGet(location.pathname + '?do=pager', { page: t.page, size: t.size, key: t.key }).then(res => {
                     t.message = res.message;
@@ -44,11 +44,11 @@
                 this.total = 0
                 this.page = 0
                 this.rows = []
-                this.pager()
+                this.getlist()
             },
             pageset(val) {
                 this.page = val;
-                this.pager();
+                this.getlist();
             },
             toAdd() {
                 location.href = 'design';

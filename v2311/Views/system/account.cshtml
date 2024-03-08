@@ -138,7 +138,7 @@
                 }
                 this.refresh()
             },
-            pager() {
+            getlist() {
                 this.message = this.loadtips || '数据加载中，请稍后'
                 asyncPost(location.pathname + '?do=pager', this.query).then(res => {
                     this.rows = res.rows;
@@ -151,11 +151,11 @@
                     this.rows = []
                     this.query.page = 1
                 }
-                this.pager()
+                this.getlist()
             },
             pageset(val) {
                 this.query.page = val
-                this.pager()
+                this.getlist()
             },
             close() {
                 this.mask = false

@@ -38,7 +38,7 @@
             return ds
         },
         methods: {
-            pager() {
+            getlist() {
                 this.message = this.loadtips || '数据加载中，请稍后'
                 asyncPost(location.pathname + '?do=pager', this.query).then(res => {
                     this.rows = res.rows
@@ -51,11 +51,11 @@
                     this.rows = []
                     this.query.page = 1
                 }
-                this.pager()
+                this.getlist()
             },
             pageset(val) {
                 this.query.page = val
-                this.pager()
+                this.getlist()
             },
             remove(id) {
                 Vue.prototype.$confirm('此操作将永久删除所选记录, 是否继续?', '提示', {
@@ -64,7 +64,7 @@
                     type: 'warning'
                 }).then(() => {
                     post(location.pathname + '?do=del', { id: id }).then(res => {
-                        this.pager()
+                        this.getlist()
                         Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
                     })
                 }).catch(() => {
@@ -78,7 +78,7 @@
                     type: 'warning'
                 }).then(() => {
                     post(location.pathname + '?do=clean').then(res => {
-                        this.pager()
+                        this.getlist()
                         Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
                     })
                 }).catch(() => {
