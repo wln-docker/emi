@@ -43,7 +43,7 @@
           "SkiaSharp.NativeAssets.Linux.NoDependencies": "2.88.7",
           "Wlniao.Dingtalk": "0.2.1",
           "Wlniao.WxWork": "0.0.4",
-          "Wlniao.XCenter": "8.0.13",
+          "Wlniao.XCenter": "8.0.14",
           "Microsoft.AspNetCore.Antiforgery": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.BearerToken": "8.0.0.0",
@@ -3095,7 +3095,7 @@
           "lib/netcoreapp3.1/Wlniao.WxWork.dll": {}
         }
       },
-      "Wlniao.XCenter/8.0.13": {
+      "Wlniao.XCenter/8.0.14": {
         "dependencies": {
           "Wlniao.AspNetCore": "8.0.13"
         },
@@ -3135,7 +3135,7 @@
           "SkiaSharp.NativeAssets.Linux.NoDependencies": "2.88.7",
           "Wlniao.Dingtalk": "0.2.1",
           "Wlniao.WxWork": "0.0.4",
-          "Wlniao.XCenter": "8.0.13",
+          "Wlniao.XCenter": "8.0.14",
           "Microsoft.AspNetCore.Antiforgery": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.BearerToken": "8.0.0.0",
@@ -4762,14 +4762,14 @@
           }
         }
       },
-      "Wlniao.XCenter/8.0.13": {
+      "Wlniao.XCenter/8.0.14": {
         "dependencies": {
           "Wlniao.AspNetCore": "8.0.13"
         },
         "runtime": {
           "lib/net8.0/Wlniao.XCore.XCenter.dll": {
-            "assemblyVersion": "8.0.13.0",
-            "fileVersion": "8.0.13.0"
+            "assemblyVersion": "8.0.14.0",
+            "fileVersion": "8.0.14.0"
           }
         }
       },
@@ -5984,12 +5984,12 @@
       "path": "wlniao.wxwork/0.0.4",
       "hashPath": "wlniao.wxwork.0.0.4.nupkg.sha512"
     },
-    "Wlniao.XCenter/8.0.13": {
+    "Wlniao.XCenter/8.0.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hwX8mEp495hYAmx0H9ookM/LFC0E+4dyqQ4yQRaLIUFC2er5epH9X9nDtTOq5gHPgm7229QXK5Q0OA1E3pn3HA==",
-      "path": "wlniao.xcenter/8.0.13",
-      "hashPath": "wlniao.xcenter.8.0.13.nupkg.sha512"
+      "sha512": "sha512-WYPPYSyH38Gv/UmugYj4GOtv9aQWhSR21Vtr+Yf+3hPJAfbL4WpgthSxRtKJjp00oKwEIHgppjKFyLBTsLw0Rw==",
+      "path": "wlniao.xcenter/8.0.14",
+      "hashPath": "wlniao.xcenter.8.0.14.nupkg.sha512"
     },
     "Wlniao.XCore/8.0.13": {
       "type": "package",
