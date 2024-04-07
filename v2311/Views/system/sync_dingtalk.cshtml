@@ -30,9 +30,9 @@
                 <span class="el-tree-node-custom" slot-scope="{ node, data }">
                     <font>{{data.label}}</font>
                     <span>
-                        <el-button type="more" size="mini" icon="el-icon-question" @@click.stop="desc('dept')" v-if="data.value == 'root'">说明</el-button>
-                        <el-button type="gray" size="mini" icon="el-icon-info" @@click.stop="regDingDept(data)" v-if="data.ding == 'NONE'">本地</el-button>
-                        <el-button type="gray" size="mini" icon="el-icon-info" @@click.stop="regLocalDept(data)" v-if="data.organ == 'NONE'">钉钉</el-button>
+                        <el-button type="more" size="mini" icon="el-icon-question" v-on:click.stop="desc('dept')" v-if="data.value == 'root'">说明</el-button>
+                        <el-button type="gray" size="mini" icon="el-icon-info" v-on:click.stop="regDingDept(data)" v-if="data.ding == 'NONE'">本地</el-button>
+                        <el-button type="gray" size="mini" icon="el-icon-info" v-on:click.stop="regLocalDept(data)" v-if="data.organ == 'NONE'">钉钉</el-button>
                     </span>
                 </span>
             </el-tree>
@@ -45,13 +45,13 @@
                     <el-table-column width="150" property="name" label="姓名" align="center"></el-table-column>
                     <el-table-column align="right">
                         <template slot="header">
-                            <el-button type="more" icon="el-icon-question" @@click.stop="desc('user')">账号同步说明</el-button>
+                            <el-button type="more" icon="el-icon-question" v-on:click.stop="desc('user')">账号同步说明</el-button>
                         </template>
                         <template scope="scope">
-                            <el-button type="primary" size="mini" @@click.stop="desc('ding',scope.row.userid)" v-if="scope.row.ding">已添加钉钉账号</el-button>
-                            <el-button type="gray" size="mini" @@click.stop="addMobile(scope.row)" v-else>未添加钉钉账号</el-button>
-                            <el-button type="warning" size="mini" @@click.stop="desc('organ')" v-if="scope.row.organ">已添加内部账号</el-button>
-                            <el-button type="gray" size="mini" @@click.stop="addLocal(scope.row)" v-else>未添加内部账号</el-button>
+                            <el-button type="primary" size="mini" v-on:click.stop="desc('ding',scope.row.userid)" v-if="scope.row.ding">已添加钉钉账号</el-button>
+                            <el-button type="gray" size="mini" v-on:click.stop="addMobile(scope.row)" v-else>未添加钉钉账号</el-button>
+                            <el-button type="warning" size="mini" v-on:click.stop="desc('organ')" v-if="scope.row.organ">已添加内部账号</el-button>
+                            <el-button type="gray" size="mini" v-on:click.stop="addLocal(scope.row)" v-else>未添加内部账号</el-button>
                         </template>
                     </el-table-column>
                 </el-table>

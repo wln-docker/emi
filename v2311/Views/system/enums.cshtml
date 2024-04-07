@@ -10,9 +10,9 @@
                     <font>{{data.label}}</font>
                     <font style="font-size:0.8em;position:absolute;left:300px;" :style="{color: data.key == '_empty' ? '#9C9C9C' : '' }">{{data.key == '_empty' ? data.description : data.key}}</font>
                     <span>
-                        <el-button type="info" size="mini" icon="el-icon-delete" @@click.stop="doDel(data, node)" v-if="data.key != '_empty'">删除</el-button>
-                        <el-button type="success" size="mini" icon="el-icon-edit" @@click.stop="toEdit(data, node)" v-if="data.key != '_empty'">编辑</el-button>
-                        <el-button type="primary" size="mini" icon="el-icon-plus" @@click.stop="toAdd(data, node)">增加子字段</el-button>
+                        <el-button type="info" size="mini" icon="el-icon-delete" v-on:click.stop="doDel(data, node)" v-if="data.key != '_empty'">删除</el-button>
+                        <el-button type="success" size="mini" icon="el-icon-edit" v-on:click.stop="toEdit(data, node)" v-if="data.key != '_empty'">编辑</el-button>
+                        <el-button type="primary" size="mini" icon="el-icon-plus" v-on:click.stop="toAdd(data, node)">增加子字段</el-button>
                     </span>
                 </span>
             </el-tree>

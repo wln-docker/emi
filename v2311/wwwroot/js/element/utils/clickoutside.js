@@ -11,7 +11,7 @@ var _dom = require('element-ui/lib/utils/dom');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var nodeList = [];
-var ctx = '@@clickoutsideContext';
+var ctx = 'v-on:clickoutsideContext';
 
 var startClick = void 0;
 var seed = 0;

@@ -4,9 +4,11 @@
             <div>
                 <span style="float:right">
                     <font style="color:#999999">WID:@ViewBag.Wid</font>
+                    <el-button type="info" icon="el-icon-download" onclick="window.open('/xchange/export')">备份导出</el-button>
+                    <el-button type="info" icon="el-icon-upload" v-on:click="restore">备份还原</el-button>
                 </span>
                 <el-input v-model="query.key" placeholder="按 名称、账号 进行筛选" @@keydown.enter.native="refresh" style="width:300px"></el-input>
-                <el-button type="info" icon="el-icon-refresh" @@click="refresh">筛选</el-button>
+                <el-button type="info" icon="el-icon-refresh" v-on:click="refresh">筛选</el-button>
                 <span style="color:#ff6a00">此操作有风险请谨慎修改</span>
             </div>
             <div class="wln-line"></div>
@@ -16,7 +18,7 @@
                 <el-table-column width="400" property="value" label="值"></el-table-column>
                 <el-table-column width="150" align="center" label="操作">
                     <template scope="scope">
-                        <el-button size="mini" icon="el-icon-edit" type="warning" @@click="handleUpdate(scope.row)">修改此项</el-button>
+                        <el-button size="mini" icon="el-icon-edit" type="warning" v-on:click="handleUpdate(scope.row)">修改此项</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -31,6 +33,21 @@
             return ds
         },
         methods: {
+            restore() {
+                Vue.prototype.$confirm('还原操作将删除当前所有数据, 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    uploader(location.pathname + '?do=import', 'zip', (res) => {
+                        res = res.success ? JSON.parse(res.message) : res;
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                        top.openTab('logout', '')
+                    })
+                }).catch(() => {
+                    Vue.prototype.$message({ type: 'info', message: '操作已取消' });
+                });
+            },
             refresh() {
                 this.message = this.loadtips
                 post(location.pathname + '?do=pager', this.query).then(res => {

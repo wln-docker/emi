@@ -4,9 +4,9 @@
             <div>
                 <span style="float:right"><el-button type="primary" icon="el-icon-list" onclick="location.href='/system/labels'">标签名称管理</el-button></span>
                 <el-input v-model="query.key" placeholder="按 名称 进行筛选" v-on:keydown.enter.native="refresh" style="width:300px" clearable></el-input>
-                <el-button type="info" icon="el-icon-refresh" @@click="refresh">筛选</el-button>
-                <el-button type="primary" icon="el-icon-plus" @@click="toAdd">新建应用</el-button>
-                <el-button type="warning" icon="el-icon-upload" @@click="toImport">导入应用</el-button>
+                <el-button type="info" icon="el-icon-refresh" v-on:click="refresh">筛选</el-button>
+                <el-button type="primary" icon="el-icon-plus" v-on:click="toAdd">新建应用</el-button>
+                <el-button type="warning" icon="el-icon-upload" v-on:click="toImport">导入应用</el-button>
             </div>
             <div class="wln-line"></div>
             <el-table :data="rows" :empty-text="message">
@@ -24,9 +24,9 @@
                 <el-table-column width="180" align="center" label="HTTPS协议">
                     <template scope="scope">
                         <el-tooltip :content="scope.row.https == '0' ? '点击开启使用HTTPS访问' : '点击关闭使用HTTPS访问'" placement="bottom">
-                            <el-button size="mini" @@click="setHttps(scope.row)" type="warning" v-if="scope.row.https == '2'">强制跳转</el-button>
-                            <el-button size="mini" @@click="setHttps(scope.row)" type="primary" v-else-if="scope.row.https == '1'">已开启</el-button>
-                            <el-button size="mini" @@click="setHttps(scope.row)" type="info" v-else>未开启</el-button>
+                            <el-button size="mini" v-on:click="setHttps(scope.row)" type="warning" v-if="scope.row.https == '2'">强制跳转</el-button>
+                            <el-button size="mini" v-on:click="setHttps(scope.row)" type="primary" v-else-if="scope.row.https == '1'">已开启</el-button>
+                            <el-button size="mini" v-on:click="setHttps(scope.row)" type="info" v-else>未开启</el-button>
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -37,12 +37,12 @@
                 </el-table-column>
                 <el-table-column width="390" align="center" label="操作">
                     <template scope="scope">
-                        <el-button size="mini" icon="el-icon-remove-outline" type="danger" @@click="setState(scope.row.app)" v-if="scope.row.sort < 0">未启用</el-button>
-                        <el-button size="mini" icon="el-icon-check" type="success" @@click="setState(scope.row.app)" v-else>已启用</el-button>
+                        <el-button size="mini" icon="el-icon-remove-outline" type="danger" v-on:click="setState(scope.row.app)" v-if="scope.row.sort < 0">未启用</el-button>
+                        <el-button size="mini" icon="el-icon-check" type="success" v-on:click="setState(scope.row.app)" v-else>已启用</el-button>
                         <el-button size="mini" icon="el-icon-download" type="primary" v-on:click.native="window.open('apps?do=export&app=' + scope.row.app)">导出配置</el-button>
-                        <el-button size="mini" icon="el-icon-menu" type="primary" @@click="toMenus(scope.row.app)">菜单管理</el-button>
-                        <el-button size="mini" icon="el-icon-edit" type="primary" @@click="toEdit(scope.row.app)">编辑</el-button>
-                        <el-button size="mini" icon="el-icon-delete" type="info" @@click="doDel(scope.row.app)">删除</el-button>
+                        <el-button size="mini" icon="el-icon-menu" type="primary" v-on:click="toMenus(scope.row.app)">菜单管理</el-button>
+                        <el-button size="mini" icon="el-icon-edit" type="primary" v-on:click="toEdit(scope.row.app)">编辑</el-button>
+                        <el-button size="mini" icon="el-icon-delete" type="info" v-on:click="doDel(scope.row.app)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

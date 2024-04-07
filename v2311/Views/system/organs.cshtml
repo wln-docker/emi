@@ -8,7 +8,7 @@
                             <p>全称: {{scope.row.fullname}}</p>
                             <div slot="reference" class="name-wrapper">{{ scope.row.name }}</div>
                         </el-popover>
-                        <el-button size="mini" icon="el-icon-plus" type="none" @@click="toChild(scope.row.id,scope.row.name)" v-if="scope.row.children && scope.row.children.length > 0"></el-button>
+                        <el-button size="mini" icon="el-icon-plus" type="none" v-on:click="toChild(scope.row.id,scope.row.name)" v-if="scope.row.children && scope.row.children.length > 0"></el-button>
                     </template>
                 </el-table-column>
                 <el-table-column width="250" property="id" label="编号"></el-table-column>
@@ -29,9 +29,9 @@
                         <el-button size="small" type="primary" icon="el-icon-plus" v-on:click="toAdd">新增一级组织架构(部门)</el-button>
                     </template>
                     <template scope="scope">
-                        <el-button size="mini" icon="el-icon-plus" type="primary" @@click="toChild(scope.row.id,scope.row.parent,scope.row.name)">添加下级</el-button>
-                        <el-button size="mini" icon="el-icon-edit" type="warning" @@click="toEdit(scope.row.key)">编辑</el-button>
-                        <el-button size="mini" icon="el-icon-delete" @@click="doDel(scope.row.id,scope.row.parent)">删除</el-button>
+                        <el-button size="mini" icon="el-icon-plus" type="primary" v-on:click="toChild(scope.row.id,scope.row.parent,scope.row.name)">添加下级</el-button>
+                        <el-button size="mini" icon="el-icon-edit" type="warning" v-on:click="toEdit(scope.row.key)">编辑</el-button>
+                        <el-button size="mini" icon="el-icon-delete" v-on:click="doDel(scope.row.id,scope.row.parent)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

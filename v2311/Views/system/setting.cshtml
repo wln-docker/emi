@@ -23,8 +23,8 @@
                     </el-select><span class="tips">非必选</span>
                 </el-form-item>
                 <el-form-item>
-                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="save">保存配置</el-button>
-                    <el-button size="mini" icon="el-icon-refresh" type="info" @@click="refresh">重新加载</el-button>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" v-on:click="save">保存配置</el-button>
+                    <el-button size="mini" icon="el-icon-refresh" type="info" v-on:click="refresh">重新加载</el-button>
                 </el-form-item>
             </el-form>
         </el-tab-pane>
@@ -57,8 +57,8 @@
                     <el-switch v-model="diy.ui_minmenu" active-value="min" inactive-value="default"></el-switch><span class="tips">进入系统时菜单栏是否自动收起</span>
                 </el-form-item>
                 <el-form-item>
-                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="diy_save">保存配置</el-button>
-                    <el-button size="mini" icon="el-icon-refresh" type="info" @@click="refresh">重新加载</el-button>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" v-on:click="diy_save">保存配置</el-button>
+                    <el-button size="mini" icon="el-icon-refresh" type="info" v-on:click="refresh">重新加载</el-button>
                 </el-form-item>
             </el-form>
         </el-tab-pane>
@@ -98,8 +98,8 @@
                     </el-form-item>
                 </template>
                 <el-form-item>
-                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="upload_save">保存配置</el-button>
-                    <el-button size="mini" icon="el-icon-refresh" type="info" @@click="refresh">重新加载</el-button>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" v-on:click="upload_save">保存配置</el-button>
+                    <el-button size="mini" icon="el-icon-refresh" type="info" v-on:click="refresh">重新加载</el-button>
                 </el-form-item>
             </el-form>
         </el-tab-pane>
@@ -118,8 +118,7 @@
                     <el-switch v-model="other.tohttps" active-value="true" inactive-value="false"></el-switch><span class="tips">是否强制使用HTTPS访问</span>
                 </el-form-item>
                 <el-form-item>
-                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="other_save">保存配置</el-button>
-                    <el-button size="mini" icon="el-icon-news" type="info" onclick="window.open('/xchange/export')">导出备份数据</el-button>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" v-on:click="other_save">保存配置</el-button>
                     <el-button size="mini" icon="el-icon-more-outline" type="info" onclick="openTab('/system/settings','系统参数管理')">更多配置</el-button>
                 </el-form-item>
             </el-form>
@@ -147,8 +146,8 @@
                     </div>
                 </el-form-item>
                 <el-form-item>
-                    <el-button size="mini" icon="el-icon-check" type="primary" @@click="wxwork_check">检查配置是否正确</el-button>
-                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="wxwork_save">保存配置</el-button>
+                    <el-button size="mini" icon="el-icon-check" type="primary" v-on:click="wxwork_check">检查配置是否正确</el-button>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" v-on:click="wxwork_save">保存配置</el-button>
                     @*<el-button size="mini" icon="el-icon-news" type="info" onclick="openTab('/system/sync_wxwork','通讯录同步')">通讯录同步</el-button>*@
                 </el-form-item>
             </el-form>
@@ -179,8 +178,8 @@
 					</div>
 				</el-form-item>
                 <el-form-item>
-                    <el-button size="mini" icon="el-icon-check" type="primary" @@click="dingtalk_check">检查配置是否正确</el-button>
-                    <el-button size="mini" icon="el-icon-edit" type="primary" @@click="dingtalk_save">保存配置</el-button>
+                    <el-button size="mini" icon="el-icon-check" type="primary" v-on:click="dingtalk_check">检查配置是否正确</el-button>
+                    <el-button size="mini" icon="el-icon-edit" type="primary" v-on:click="dingtalk_save">保存配置</el-button>
                     <el-button size="mini" icon="el-icon-news" type="info" onclick="openTab('/system/sync_dingtalk','通讯录同步')">通讯录同步</el-button>
                 </el-form-item>
             </el-form>

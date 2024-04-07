@@ -22,9 +22,9 @@
                 <el-table-column width="80" property="count" label="用户数" align="center"></el-table-column>
                 <el-table-column align="right">
                     <template scope="scope">
-                        <el-button size="mini" icon="el-icon-tickets" type="primary" @@click="toPermission(scope.row.code,scope.row.type)">{{scope.row.type == 0 ? '基础':'机构'}}权限详情</el-button>
-                        <el-button size="mini" icon="el-icon-edit" type="warning" @@click="toEdit(scope.row.code)">编辑</el-button>
-                        <el-button size="mini" icon="el-icon-delete" type="danger" @@click="doDel(scope.row.code)">删除</el-button>
+                        <el-button size="mini" icon="el-icon-tickets" type="primary" v-on:click="toPermission(scope.row.code,scope.row.type)">{{scope.row.type == 0 ? '基础':'机构'}}权限详情</el-button>
+                        <el-button size="mini" icon="el-icon-edit" type="warning" v-on:click="toEdit(scope.row.code)">编辑</el-button>
+                        <el-button size="mini" icon="el-icon-delete" type="danger" v-on:click="doDel(scope.row.code)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -37,8 +37,8 @@
                     <div style="padding-left:8px">
                         <div style="text-align:center" v-if="roletype==0">
                             <el-button-group>
-                                <el-button size="mini" v-bind:plain="codetype!==0" type="primary" @@click="toType(0)">系统权限</el-button>
-                                <el-button size="mini" v-bind:plain="codetype!==1" type="primary" @@click="toType(1)">业务权限</el-button>
+                                <el-button size="mini" v-bind:plain="codetype!==0" type="primary" v-on:click="toType(0)">系统权限</el-button>
+                                <el-button size="mini" v-bind:plain="codetype!==1" type="primary" v-on:click="toType(1)">业务权限</el-button>
                             </el-button-group>
                             <div class="wln-line"></div>
                         </div>
@@ -51,8 +51,8 @@
                                     <el-input v-model="dialog.key" size="mini" placeholder="输入关键字筛选" v-on:input="dialogSearch" style="width:160px" />
                                 </template>
                                 <template scope="scope">
-                                    <el-button size="mini" plain type="success" @@click="setAuthority(scope.row)" v-if="scope.row.inlist">已授权</el-button>
-                                    <el-button size="mini" plain type="warning" @@click="setAuthority(scope.row)" v-else>未授权</el-button>
+                                    <el-button size="mini" plain type="success" v-on:click="setAuthority(scope.row)" v-if="scope.row.inlist">已授权</el-button>
+                                    <el-button size="mini" plain type="warning" v-on:click="setAuthority(scope.row)" v-else>未授权</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>

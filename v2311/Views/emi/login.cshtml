@@ -54,7 +54,7 @@
                     </div>
                     <div style="color:#ff5722;margin-top: 10px" v-if="tipsInstall">系统暂未初始化，请<a href="/install" style="padding:0 2px;color:#2196f3">点击此处</a>执行初始化操作</div>
                     <div v-else>
-                        <button class="submit" @@click="toLogin()">登录</button>
+                        <button class="submit" v-on:click="toLogin()">登录</button>
                     </div>
                 </div>
                 <div class="form" v-else-if="tab === 1">
