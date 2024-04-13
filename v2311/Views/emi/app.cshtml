@@ -2,22 +2,40 @@
     if (document.documentElement.clientWidth < 820 && document.documentElement.clientHeight > 820) {
         location.href = '@Html.Raw(ViewBag.AppUrl)'
     } else {
-        @if (string.IsNullOrEmpty(ViewBag.NoHttps)){<text>
-        document.write('<iframe src="@Html.Raw(ViewBag.AppUrl)" frameborder="0" scrolling="auto" style="width:100%;height:100%;overflow:auto;"></iframe>');
-        </text>}else{<text>
-        if (location.protocol == 'https:' || location.protocol == 'https') {
-            Vue.prototype.$confirm('@Html.Raw(ViewBag.AppTips)'||'当前应用不支持HTTPS访问，如需继续操作请在新窗口中访问!!', '风险提示', {
-                confirmButtonText: '继续访问',
-                cancelButtonText: '放弃',
-                type: 'warning'
-            }).then(() => {
-                window.open('@Html.Raw(ViewBag.NoHttps)');
-            }).catch(() => {
-                Vue.prototype.$message({ type: 'info', message: '操作已取消，即将返回到上一个页面' });
-                history.back();
-            });
-        } else {
+        @if (string.IsNullOrEmpty(ViewBag.NoHttps)) {
+            <text>
             document.write('<iframe src="@Html.Raw(ViewBag.AppUrl)" frameborder="0" scrolling="auto" style="width:100%;height:100%;overflow:auto;"></iframe>');
+            </text>
         }
-    }
-</text>}</script>
+        else if (!string.IsNullOrEmpty(ViewBag.BackUrl))
+        {
+            <text>
+                Vue.prototype.$confirm('您正在授权返回外部页面，是否继续？', '风险提示', {
+                    confirmButtonText: '继续访问',
+                    cancelButtonText: '放弃',
+                    type: 'warning'
+                }).then(() => {
+                    location.href = '@Html.Raw(ViewBag.BackUrl)'
+                }).catch(() => {
+                    window.close()
+                });
+            </text>
+        }
+        else
+        {
+            <text>
+            if (location.protocol == 'https:' || location.protocol == 'https') {
+                Vue.prototype.$confirm('当前应用不支持HTTPS访问，如需继续操作请在新窗口中访问!!', '风险提示', {
+                    confirmButtonText: '继续访问',
+                    cancelButtonText: '放弃',
+                    type: 'warning'
+                }).then(() => {
+                    window.open('@Html.Raw(ViewBag.NoHttps)');
+                }).catch(() => {
+                    Vue.prototype.$message({ type: 'info', message: '操作已取消，即将返回到上一个页面' });
+                    history.back();
+                });
+            } else { document.write('<iframe src="@Html.Raw(ViewBag.AppUrl)" frameborder="0" scrolling="auto" style="width:100%;height:100%;overflow:auto;"></iframe>')}
+            </text>
+        }
+    }</script>
