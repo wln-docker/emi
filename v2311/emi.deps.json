@@ -42,9 +42,10 @@
           "SharpZipLib.NETStandard": "1.0.7",
           "SkiaSharp.NativeAssets.Linux.NoDependencies": "2.88.7",
           "StoneCold.SkiaSharp.NativeAssets.AlpineLinux": "2.88.3",
+          "Wlniao.AspNetCore": "8.0.14-beta1",
           "Wlniao.Dingtalk": "0.2.1",
           "Wlniao.WxWork": "0.0.4",
-          "Wlniao.XCenter": "8.0.16",
+          "Wlniao.XCenter": "8.0.18",
           "Microsoft.AspNetCore.Antiforgery": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.BearerToken": "8.0.0.0",
@@ -3079,20 +3080,6 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "Wlniao.AspNetCore/8.0.13": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.2",
-          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "8.0.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
-          "Microsoft.Extensions.Hosting.Abstractions": "8.0.0",
-          "Microsoft.OpenApi": "1.6.13",
-          "Swashbuckle.AspNetCore.SwaggerGen": "6.5.0",
-          "Wlniao.XCore": "8.0.13"
-        },
-        "compile": {
-          "lib/net8.0/Wlniao.XCore.AspNetCore.dll": {}
-        }
-      },
       "Wlniao.WxWork/0.0.4": {
         "dependencies": {
           "Wlniao.XCore": "8.0.13"
@@ -3101,9 +3088,9 @@
           "lib/netcoreapp3.1/Wlniao.WxWork.dll": {}
         }
       },
-      "Wlniao.XCenter/8.0.16": {
+      "Wlniao.XCenter/8.0.18": {
         "dependencies": {
-          "Wlniao.AspNetCore": "8.0.13"
+          "Wlniao.AspNetCore": "8.0.14-beta1"
         },
         "compile": {
           "lib/net8.0/Wlniao.XCenter.dll": {}
@@ -3120,6 +3107,20 @@
       "ZstdSharp.Port/0.7.4": {
         "compile": {
           "lib/net8.0/ZstdSharp.dll": {}
+        }
+      },
+      "Wlniao.AspNetCore/8.0.14-beta1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.2",
+          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "8.0.2",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Hosting.Abstractions": "8.0.0",
+          "Microsoft.OpenApi": "1.6.13",
+          "Swashbuckle.AspNetCore.SwaggerGen": "6.5.0",
+          "Wlniao.XCore": "8.0.13"
+        },
+        "compile": {
+          "Wlniao.XCore.AspNetCore.dll": {}
         }
       },
       "Wlniao.Dingtalk/0.2.1": {
@@ -3140,9 +3141,10 @@
           "SharpZipLib.NETStandard": "1.0.7",
           "SkiaSharp.NativeAssets.Linux.NoDependencies": "2.88.7",
           "StoneCold.SkiaSharp.NativeAssets.AlpineLinux": "2.88.3",
+          "Wlniao.AspNetCore": "8.0.14-beta1",
           "Wlniao.Dingtalk": "0.2.1",
           "Wlniao.WxWork": "0.0.4",
-          "Wlniao.XCenter": "8.0.16",
+          "Wlniao.XCenter": "8.0.18",
           "Microsoft.AspNetCore.Antiforgery": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.BearerToken": "8.0.0.0",
@@ -4746,23 +4748,6 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "Wlniao.AspNetCore/8.0.13": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.2",
-          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "8.0.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
-          "Microsoft.Extensions.Hosting.Abstractions": "8.0.0",
-          "Microsoft.OpenApi": "1.6.13",
-          "Swashbuckle.AspNetCore.SwaggerGen": "6.5.0",
-          "Wlniao.XCore": "8.0.13"
-        },
-        "runtime": {
-          "lib/net8.0/Wlniao.XCore.AspNetCore.dll": {
-            "assemblyVersion": "8.0.13.0",
-            "fileVersion": "8.0.13.0"
-          }
-        }
-      },
       "Wlniao.WxWork/0.0.4": {
         "dependencies": {
           "Wlniao.XCore": "8.0.13"
@@ -4774,14 +4759,14 @@
           }
         }
       },
-      "Wlniao.XCenter/8.0.16": {
+      "Wlniao.XCenter/8.0.18": {
         "dependencies": {
-          "Wlniao.AspNetCore": "8.0.13"
+          "Wlniao.AspNetCore": "8.0.14-beta1"
         },
         "runtime": {
           "lib/net8.0/Wlniao.XCenter.dll": {
-            "assemblyVersion": "8.0.16.0",
-            "fileVersion": "8.0.16.0"
+            "assemblyVersion": "8.0.18.0",
+            "fileVersion": "8.0.18.0"
           }
         }
       },
@@ -4802,6 +4787,20 @@
             "assemblyVersion": "0.7.4.0",
             "fileVersion": "0.7.4.0"
           }
+        }
+      },
+      "Wlniao.AspNetCore/8.0.14-beta1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.2",
+          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "8.0.2",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Hosting.Abstractions": "8.0.0",
+          "Microsoft.OpenApi": "1.6.13",
+          "Swashbuckle.AspNetCore.SwaggerGen": "6.5.0",
+          "Wlniao.XCore": "8.0.13"
+        },
+        "runtime": {
+          "Wlniao.XCore.AspNetCore.dll": {}
         }
       },
       "Wlniao.Dingtalk/0.2.1": {
@@ -5989,13 +5988,6 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "Wlniao.AspNetCore/8.0.13": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-eN9hYKqFNYgqVGzWLt46XyNuc9EckegS9iCz62e1iRftJjYWKz/6l3JT4ZR+MsTTFPBdiNUDdHnvZEGuWCrt5Q==",
-      "path": "wlniao.aspnetcore/8.0.13",
-      "hashPath": "wlniao.aspnetcore.8.0.13.nupkg.sha512"
-    },
     "Wlniao.WxWork/0.0.4": {
       "type": "package",
       "serviceable": true,
@@ -6003,12 +5995,12 @@
       "path": "wlniao.wxwork/0.0.4",
       "hashPath": "wlniao.wxwork.0.0.4.nupkg.sha512"
     },
-    "Wlniao.XCenter/8.0.16": {
+    "Wlniao.XCenter/8.0.18": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Am0j4ikjzxKg1ghYeSMIkzENzDwcc1+26d+SqOU7cORZlH1wMGT8uPUhFYk3Fmi1KG6EbMdAAqCNajter4Plrg==",
-      "path": "wlniao.xcenter/8.0.16",
-      "hashPath": "wlniao.xcenter.8.0.16.nupkg.sha512"
+      "sha512": "sha512-fFFMd92c1U10wVZZe0u2IB0xC9H75RSTOWZ5aBzupRLiVoPp7RxkVrVZxV95t4xZ8XfpK+OQEYGAKVcttjKA+w==",
+      "path": "wlniao.xcenter/8.0.18",
+      "hashPath": "wlniao.xcenter.8.0.18.nupkg.sha512"
     },
     "Wlniao.XCore/8.0.13": {
       "type": "package",
@@ -6023,6 +6015,11 @@
       "sha512": "sha512-ziptnotpUJr51afwXJQ5Wc03dvDiZAdmxS08s1g7SHn/VzbyZUXdH6yORk/zaNjzUOEE6pVZ0Nqztab0rYROgQ==",
       "path": "zstdsharp.port/0.7.4",
       "hashPath": "zstdsharp.port.0.7.4.nupkg.sha512"
+    },
+    "Wlniao.AspNetCore/8.0.14-beta1": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Wlniao.Dingtalk/0.2.1": {
       "type": "project",

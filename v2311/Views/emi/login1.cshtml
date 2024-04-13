@@ -133,7 +133,7 @@
                     }
                 },
                 enter() {
-                    if (location.search) {
+                    if (location.search && location.search.length > 1) {
                         location.href = decodeURIComponent(location.search.substring(1))
                     } else {
                         sessionStorage.removeItem('session');
