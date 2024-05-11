@@ -1,11 +1,11 @@
 FROM ccr.ccs.tencentyun.com/wlniao/dotnet:8.0.4-ubuntu
 RUN apt update 2>/dev/null \
-	&& apt install -y  libstdc++6 libgdiplus 2>/dev/null \
+	&& apt install -y libstdc++6 libgdiplus zlib1g 2>/dev/null \
 	&& apt clean \
 	&& apt autoremove \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /tmp/*
 COPY . /wln
-COPY ./fonts/* /usr/share/fonts/truetype/noto
 WORKDIR /wln
 CMD ["dotnet", "emi.dll"]
+#COPY ./fonts/* /usr/share/fonts/truetype/noto
