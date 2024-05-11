@@ -1,4 +1,10 @@
-FROM ccr.ccs.tencentyun.com/wlniao/dotnet:8.0.4-debian
+FROM ccr.ccs.tencentyun.com/wlniao/dotnet:8.0.4-ubuntu
+RUN apt update 2>/dev/null \
+	&& apt install -y libssl3 libstdc++6 libgdiplus	zlib1g 2>/dev/null \
+	&& apt clean \
+	&& apt autoremove \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm -rf /tmp/*
 COPY . /wln
 WORKDIR /wln
 CMD ["dotnet", "emi.dll"]
