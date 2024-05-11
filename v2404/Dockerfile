@@ -6,5 +6,6 @@ RUN apt update 2>/dev/null \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /tmp/*
 COPY . /wln
+COPY ./fonts /usr/share/fonts/truetype/noto
 WORKDIR /wln
 CMD ["dotnet", "emi.dll"]
