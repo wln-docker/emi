@@ -36,15 +36,14 @@
     ".NETCoreApp,Version=v8.0": {
       "emi/1.0.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "8.0.3",
+          "Microsoft.EntityFrameworkCore.Design": "8.0.4",
           "Pomelo.EntityFrameworkCore.MySql": "8.0.2",
-          "SharpCompress": "0.36.0",
+          "SharpCompress": "0.37.2",
           "SharpZipLib.NETStandard": "1.0.7",
-          "SkiaSharp.NativeAssets.Linux.NoDependencies": "2.88.7",
-          "StoneCold.SkiaSharp.NativeAssets.AlpineLinux": "2.88.3",
+          "SkiaSharp.NativeAssets.Linux.NoDependencies": "2.88.8",
           "Wlniao.Dingtalk": "0.2.1",
           "Wlniao.WxWork": "0.0.4",
-          "Wlniao.XCenter": "8.0.19",
+          "Wlniao.XCenter": "8.0.24",
           "Microsoft.AspNetCore.Antiforgery": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.BearerToken": "8.0.0.0",
@@ -1857,7 +1856,7 @@
         }
       },
       "Humanizer.Core/2.14.1": {},
-      "Microsoft.AspNetCore.JsonPatch/8.0.2": {
+      "Microsoft.AspNetCore.JsonPatch/8.0.4": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
           "Newtonsoft.Json": "13.0.3"
@@ -1866,9 +1865,9 @@
           "lib/net8.0/Microsoft.AspNetCore.JsonPatch.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/8.0.2": {
+      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/8.0.4": {
         "dependencies": {
-          "Microsoft.AspNetCore.JsonPatch": "8.0.2",
+          "Microsoft.AspNetCore.JsonPatch": "8.0.4",
           "Newtonsoft.Json": "13.0.3",
           "Newtonsoft.Json.Bson": "1.0.2"
         },
@@ -1885,7 +1884,7 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/8.0.2": {
+      "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/8.0.4": {
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Razor.Extensions": "6.0.0",
           "Microsoft.CodeAnalysis.Razor": "6.0.0",
@@ -1951,10 +1950,10 @@
         }
       },
       "Microsoft.CSharp/4.7.0": {},
-      "Microsoft.EntityFrameworkCore/8.0.3": {
+      "Microsoft.EntityFrameworkCore/8.0.4": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.3",
-          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.3",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.4",
+          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.4",
           "Microsoft.Extensions.Caching.Memory": "8.0.0",
           "Microsoft.Extensions.Logging": "8.0.0"
         },
@@ -1962,24 +1961,24 @@
           "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/8.0.3": {
+      "Microsoft.EntityFrameworkCore.Abstractions/8.0.4": {
         "compile": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/8.0.3": {},
-      "Microsoft.EntityFrameworkCore.Design/8.0.3": {
+      "Microsoft.EntityFrameworkCore.Analyzers/8.0.4": {},
+      "Microsoft.EntityFrameworkCore.Design/8.0.4": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "4.5.0",
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.3",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.4",
           "Microsoft.Extensions.DependencyModel": "8.0.0",
           "Mono.TextTemplating": "2.2.1"
         }
       },
-      "Microsoft.EntityFrameworkCore.Relational/8.0.3": {
+      "Microsoft.EntityFrameworkCore.Relational/8.0.4": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "8.0.3",
+          "Microsoft.EntityFrameworkCore": "8.0.4",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         },
         "compile": {
@@ -1994,7 +1993,7 @@
       "Microsoft.Extensions.Caching.Memory/8.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Caching.Abstractions": "8.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
           "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
           "Microsoft.Extensions.Options": "8.0.0",
           "Microsoft.Extensions.Primitives": "8.0.0"
@@ -2007,10 +2006,10 @@
       },
       "Microsoft.Extensions.DependencyInjection/8.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1"
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {},
+      "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.1": {},
       "Microsoft.Extensions.DependencyModel/8.0.0": {
         "dependencies": {
           "System.Text.Encodings.Web": "8.0.0",
@@ -2022,7 +2021,7 @@
       },
       "Microsoft.Extensions.Diagnostics.Abstractions/8.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
           "Microsoft.Extensions.Options": "8.0.0",
           "System.Diagnostics.DiagnosticSource": "8.0.0"
         }
@@ -2035,7 +2034,7 @@
       "Microsoft.Extensions.Hosting.Abstractions/8.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
           "Microsoft.Extensions.Diagnostics.Abstractions": "8.0.0",
           "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "8.0.0"
@@ -2050,19 +2049,19 @@
       },
       "Microsoft.Extensions.Logging.Abstractions/8.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1"
         }
       },
       "Microsoft.Extensions.Options/8.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
           "Microsoft.Extensions.Primitives": "8.0.0"
         }
       },
       "Microsoft.Extensions.Primitives/8.0.0": {},
       "Microsoft.NETCore.Platforms/1.1.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
-      "Microsoft.OpenApi/1.6.13": {
+      "Microsoft.OpenApi/1.6.14": {
         "compile": {
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {}
         }
@@ -2151,7 +2150,7 @@
       },
       "Pomelo.EntityFrameworkCore.MySql/8.0.2": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.3",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.4",
           "MySqlConnector": "2.3.5"
         },
         "compile": {
@@ -2332,9 +2331,9 @@
           "runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0"
         }
       },
-      "SharpCompress/0.36.0": {
+      "SharpCompress/0.37.2": {
         "dependencies": {
-          "ZstdSharp.Port": "0.7.4"
+          "ZstdSharp.Port": "0.8.0"
         },
         "compile": {
           "lib/net8.0/SharpCompress.dll": {}
@@ -2348,30 +2347,25 @@
           "lib/netstandard1.3/ICSharpCode.SharpZipLib.dll": {}
         }
       },
-      "SkiaSharp/2.88.7": {
+      "SkiaSharp/2.88.8": {
         "dependencies": {
-          "SkiaSharp.NativeAssets.Win32": "2.88.7",
-          "SkiaSharp.NativeAssets.macOS": "2.88.7"
+          "SkiaSharp.NativeAssets.Win32": "2.88.8",
+          "SkiaSharp.NativeAssets.macOS": "2.88.8"
         },
         "compile": {
           "lib/net6.0/SkiaSharp.dll": {}
         }
       },
-      "SkiaSharp.NativeAssets.Linux.NoDependencies/2.88.7": {
+      "SkiaSharp.NativeAssets.Linux.NoDependencies/2.88.8": {
         "dependencies": {
-          "SkiaSharp": "2.88.7"
+          "SkiaSharp": "2.88.8"
         }
       },
-      "SkiaSharp.NativeAssets.macOS/2.88.7": {},
-      "SkiaSharp.NativeAssets.Win32/2.88.7": {},
-      "StoneCold.SkiaSharp.NativeAssets.AlpineLinux/2.88.3": {
-        "dependencies": {
-          "SkiaSharp": "2.88.7"
-        }
-      },
+      "SkiaSharp.NativeAssets.macOS/2.88.8": {},
+      "SkiaSharp.NativeAssets.Win32/2.88.8": {},
       "Swashbuckle.AspNetCore.Swagger/6.5.0": {
         "dependencies": {
-          "Microsoft.OpenApi": "1.6.13"
+          "Microsoft.OpenApi": "1.6.14"
         },
         "compile": {
           "lib/net7.0/Swashbuckle.AspNetCore.Swagger.dll": {}
@@ -3079,15 +3073,15 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "Wlniao.AspNetCore/8.0.14": {
+      "Wlniao.AspNetCore/8.0.16": {
         "dependencies": {
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.2",
-          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "8.0.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.4",
+          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "8.0.4",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
           "Microsoft.Extensions.Hosting.Abstractions": "8.0.0",
-          "Microsoft.OpenApi": "1.6.13",
+          "Microsoft.OpenApi": "1.6.14",
           "Swashbuckle.AspNetCore.SwaggerGen": "6.5.0",
-          "Wlniao.XCore": "8.0.14"
+          "Wlniao.XCore": "8.0.16"
         },
         "compile": {
           "lib/net8.0/Wlniao.XCore.AspNetCore.dll": {}
@@ -3095,21 +3089,22 @@
       },
       "Wlniao.WxWork/0.0.4": {
         "dependencies": {
-          "Wlniao.XCore": "8.0.14"
+          "Wlniao.XCore": "8.0.16"
         },
         "compile": {
           "lib/netcoreapp3.1/Wlniao.WxWork.dll": {}
         }
       },
-      "Wlniao.XCenter/8.0.19": {
+      "Wlniao.XCenter/8.0.24": {
         "dependencies": {
-          "Wlniao.AspNetCore": "8.0.14"
+          "Wlniao.AspNetCore": "8.0.16",
+          "Wlniao.XCore": "8.0.16"
         },
         "compile": {
           "lib/net8.0/Wlniao.XCenter.dll": {}
         }
       },
-      "Wlniao.XCore/8.0.14": {
+      "Wlniao.XCore/8.0.16": {
         "dependencies": {
           "Portable.BouncyCastle": "1.9.0"
         },
@@ -3117,14 +3112,14 @@
           "lib/net8.0/Wlniao.XCore.dll": {}
         }
       },
-      "ZstdSharp.Port/0.7.4": {
+      "ZstdSharp.Port/0.8.0": {
         "compile": {
           "lib/net8.0/ZstdSharp.dll": {}
         }
       },
       "Wlniao.Dingtalk/0.2.1": {
         "dependencies": {
-          "Wlniao.XCore": "8.0.14"
+          "Wlniao.XCore": "8.0.16"
         },
         "compile": {
           "Wlniao.Dingtalk.dll": {}
@@ -3134,15 +3129,14 @@
     ".NETCoreApp,Version=v8.0/linux-x64": {
       "emi/1.0.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "8.0.3",
+          "Microsoft.EntityFrameworkCore.Design": "8.0.4",
           "Pomelo.EntityFrameworkCore.MySql": "8.0.2",
-          "SharpCompress": "0.36.0",
+          "SharpCompress": "0.37.2",
           "SharpZipLib.NETStandard": "1.0.7",
-          "SkiaSharp.NativeAssets.Linux.NoDependencies": "2.88.7",
-          "StoneCold.SkiaSharp.NativeAssets.AlpineLinux": "2.88.3",
+          "SkiaSharp.NativeAssets.Linux.NoDependencies": "2.88.8",
           "Wlniao.Dingtalk": "0.2.1",
           "Wlniao.WxWork": "0.0.4",
-          "Wlniao.XCenter": "8.0.19",
+          "Wlniao.XCenter": "8.0.24",
           "Microsoft.AspNetCore.Antiforgery": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.BearerToken": "8.0.0.0",
@@ -3450,28 +3444,28 @@
         }
       },
       "Humanizer.Core/2.14.1": {},
-      "Microsoft.AspNetCore.JsonPatch/8.0.2": {
+      "Microsoft.AspNetCore.JsonPatch/8.0.4": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
           "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
           "lib/net8.0/Microsoft.AspNetCore.JsonPatch.dll": {
-            "assemblyVersion": "8.0.2.0",
-            "fileVersion": "8.0.224.6804"
+            "assemblyVersion": "8.0.4.0",
+            "fileVersion": "8.0.424.17014"
           }
         }
       },
-      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/8.0.2": {
+      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/8.0.4": {
         "dependencies": {
-          "Microsoft.AspNetCore.JsonPatch": "8.0.2",
+          "Microsoft.AspNetCore.JsonPatch": "8.0.4",
           "Newtonsoft.Json": "13.0.3",
           "Newtonsoft.Json.Bson": "1.0.2"
         },
         "runtime": {
           "lib/net8.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll": {
-            "assemblyVersion": "8.0.2.0",
-            "fileVersion": "8.0.224.6804"
+            "assemblyVersion": "8.0.4.0",
+            "fileVersion": "8.0.424.17014"
           }
         }
       },
@@ -3487,7 +3481,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/8.0.2": {
+      "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/8.0.4": {
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Razor.Extensions": "6.0.0",
           "Microsoft.CodeAnalysis.Razor": "6.0.0",
@@ -3495,8 +3489,8 @@
         },
         "runtime": {
           "lib/net8.0/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll": {
-            "assemblyVersion": "8.0.2.0",
-            "fileVersion": "8.0.224.6804"
+            "assemblyVersion": "8.0.4.0",
+            "fileVersion": "8.0.424.17014"
           }
         }
       },
@@ -3568,47 +3562,47 @@
         }
       },
       "Microsoft.CSharp/4.7.0": {},
-      "Microsoft.EntityFrameworkCore/8.0.3": {
+      "Microsoft.EntityFrameworkCore/8.0.4": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.3",
-          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.3",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.4",
+          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.4",
           "Microsoft.Extensions.Caching.Memory": "8.0.0",
           "Microsoft.Extensions.Logging": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {
-            "assemblyVersion": "8.0.3.0",
-            "fileVersion": "8.0.324.11510"
+            "assemblyVersion": "8.0.4.0",
+            "fileVersion": "8.0.424.16902"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/8.0.3": {
+      "Microsoft.EntityFrameworkCore.Abstractions/8.0.4": {
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
-            "assemblyVersion": "8.0.3.0",
-            "fileVersion": "8.0.324.11510"
+            "assemblyVersion": "8.0.4.0",
+            "fileVersion": "8.0.424.16902"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/8.0.3": {},
-      "Microsoft.EntityFrameworkCore.Design/8.0.3": {
+      "Microsoft.EntityFrameworkCore.Analyzers/8.0.4": {},
+      "Microsoft.EntityFrameworkCore.Design/8.0.4": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "4.5.0",
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.3",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.4",
           "Microsoft.Extensions.DependencyModel": "8.0.0",
           "Mono.TextTemplating": "2.2.1"
         }
       },
-      "Microsoft.EntityFrameworkCore.Relational/8.0.3": {
+      "Microsoft.EntityFrameworkCore.Relational/8.0.4": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "8.0.3",
+          "Microsoft.EntityFrameworkCore": "8.0.4",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
-            "assemblyVersion": "8.0.3.0",
-            "fileVersion": "8.0.324.11510"
+            "assemblyVersion": "8.0.4.0",
+            "fileVersion": "8.0.424.16902"
           }
         }
       },
@@ -3620,7 +3614,7 @@
       "Microsoft.Extensions.Caching.Memory/8.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Caching.Abstractions": "8.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
           "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
           "Microsoft.Extensions.Options": "8.0.0",
           "Microsoft.Extensions.Primitives": "8.0.0"
@@ -3633,10 +3627,17 @@
       },
       "Microsoft.Extensions.DependencyInjection/8.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1"
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {},
+      "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.1": {
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.324.11423"
+          }
+        }
+      },
       "Microsoft.Extensions.DependencyModel/8.0.0": {
         "dependencies": {
           "System.Text.Encodings.Web": "8.0.0",
@@ -3651,7 +3652,7 @@
       },
       "Microsoft.Extensions.Diagnostics.Abstractions/8.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
           "Microsoft.Extensions.Options": "8.0.0",
           "System.Diagnostics.DiagnosticSource": "8.0.0"
         }
@@ -3664,7 +3665,7 @@
       "Microsoft.Extensions.Hosting.Abstractions/8.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
           "Microsoft.Extensions.Diagnostics.Abstractions": "8.0.0",
           "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "8.0.0"
@@ -3679,23 +3680,23 @@
       },
       "Microsoft.Extensions.Logging.Abstractions/8.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1"
         }
       },
       "Microsoft.Extensions.Options/8.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
           "Microsoft.Extensions.Primitives": "8.0.0"
         }
       },
       "Microsoft.Extensions.Primitives/8.0.0": {},
       "Microsoft.NETCore.Platforms/1.1.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
-      "Microsoft.OpenApi/1.6.13": {
+      "Microsoft.OpenApi/1.6.14": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
-            "assemblyVersion": "1.6.13.0",
-            "fileVersion": "1.6.13.0"
+            "assemblyVersion": "1.6.14.0",
+            "fileVersion": "1.6.14.0"
           }
         }
       },
@@ -3792,7 +3793,7 @@
       },
       "Pomelo.EntityFrameworkCore.MySql/8.0.2": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.3",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.4",
           "MySqlConnector": "2.3.5"
         },
         "runtime": {
@@ -3979,14 +3980,14 @@
           "runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0"
         }
       },
-      "SharpCompress/0.36.0": {
+      "SharpCompress/0.37.2": {
         "dependencies": {
-          "ZstdSharp.Port": "0.7.4"
+          "ZstdSharp.Port": "0.8.0"
         },
         "runtime": {
           "lib/net8.0/SharpCompress.dll": {
-            "assemblyVersion": "0.36.0.0",
-            "fileVersion": "0.36.0.0"
+            "assemblyVersion": "0.37.2.0",
+            "fileVersion": "0.37.2.0"
           }
         }
       },
@@ -4001,21 +4002,21 @@
           }
         }
       },
-      "SkiaSharp/2.88.7": {
+      "SkiaSharp/2.88.8": {
         "dependencies": {
-          "SkiaSharp.NativeAssets.Win32": "2.88.7",
-          "SkiaSharp.NativeAssets.macOS": "2.88.7"
+          "SkiaSharp.NativeAssets.Win32": "2.88.8",
+          "SkiaSharp.NativeAssets.macOS": "2.88.8"
         },
         "runtime": {
           "lib/net6.0/SkiaSharp.dll": {
             "assemblyVersion": "2.88.0.0",
-            "fileVersion": "2.88.7.0"
+            "fileVersion": "2.88.8.0"
           }
         }
       },
-      "SkiaSharp.NativeAssets.Linux.NoDependencies/2.88.7": {
+      "SkiaSharp.NativeAssets.Linux.NoDependencies/2.88.8": {
         "dependencies": {
-          "SkiaSharp": "2.88.7"
+          "SkiaSharp": "2.88.8"
         },
         "native": {
           "runtimes/linux-x64/native/libSkiaSharp.so": {
@@ -4023,16 +4024,11 @@
           }
         }
       },
-      "SkiaSharp.NativeAssets.macOS/2.88.7": {},
-      "SkiaSharp.NativeAssets.Win32/2.88.7": {},
-      "StoneCold.SkiaSharp.NativeAssets.AlpineLinux/2.88.3": {
-        "dependencies": {
-          "SkiaSharp": "2.88.7"
-        }
-      },
+      "SkiaSharp.NativeAssets.macOS/2.88.8": {},
+      "SkiaSharp.NativeAssets.Win32/2.88.8": {},
       "Swashbuckle.AspNetCore.Swagger/6.5.0": {
         "dependencies": {
-          "Microsoft.OpenApi": "1.6.13"
+          "Microsoft.OpenApi": "1.6.14"
         },
         "runtime": {
           "lib/net7.0/Swashbuckle.AspNetCore.Swagger.dll": {
@@ -4746,26 +4742,26 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "Wlniao.AspNetCore/8.0.14": {
+      "Wlniao.AspNetCore/8.0.16": {
         "dependencies": {
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.2",
-          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "8.0.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.4",
+          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "8.0.4",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
           "Microsoft.Extensions.Hosting.Abstractions": "8.0.0",
-          "Microsoft.OpenApi": "1.6.13",
+          "Microsoft.OpenApi": "1.6.14",
           "Swashbuckle.AspNetCore.SwaggerGen": "6.5.0",
-          "Wlniao.XCore": "8.0.14"
+          "Wlniao.XCore": "8.0.16"
         },
         "runtime": {
           "lib/net8.0/Wlniao.XCore.AspNetCore.dll": {
-            "assemblyVersion": "8.0.14.0",
-            "fileVersion": "8.0.14.0"
+            "assemblyVersion": "8.0.16.0",
+            "fileVersion": "8.0.16.0"
           }
         }
       },
       "Wlniao.WxWork/0.0.4": {
         "dependencies": {
-          "Wlniao.XCore": "8.0.14"
+          "Wlniao.XCore": "8.0.16"
         },
         "runtime": {
           "lib/netcoreapp3.1/Wlniao.WxWork.dll": {
@@ -4774,39 +4770,40 @@
           }
         }
       },
-      "Wlniao.XCenter/8.0.19": {
+      "Wlniao.XCenter/8.0.24": {
         "dependencies": {
-          "Wlniao.AspNetCore": "8.0.14"
+          "Wlniao.AspNetCore": "8.0.16",
+          "Wlniao.XCore": "8.0.16"
         },
         "runtime": {
           "lib/net8.0/Wlniao.XCenter.dll": {
-            "assemblyVersion": "8.0.19.0",
-            "fileVersion": "8.0.19.0"
+            "assemblyVersion": "8.0.24.0",
+            "fileVersion": "8.0.24.0"
           }
         }
       },
-      "Wlniao.XCore/8.0.14": {
+      "Wlniao.XCore/8.0.16": {
         "dependencies": {
           "Portable.BouncyCastle": "1.9.0"
         },
         "runtime": {
           "lib/net8.0/Wlniao.XCore.dll": {
-            "assemblyVersion": "8.0.14.0",
-            "fileVersion": "8.0.14.0"
+            "assemblyVersion": "8.0.16.0",
+            "fileVersion": "8.0.16.0"
           }
         }
       },
-      "ZstdSharp.Port/0.7.4": {
+      "ZstdSharp.Port/0.8.0": {
         "runtime": {
           "lib/net8.0/ZstdSharp.dll": {
-            "assemblyVersion": "0.7.4.0",
-            "fileVersion": "0.7.4.0"
+            "assemblyVersion": "0.8.0.0",
+            "fileVersion": "0.8.0.0"
           }
         }
       },
       "Wlniao.Dingtalk/0.2.1": {
         "dependencies": {
-          "Wlniao.XCore": "8.0.14"
+          "Wlniao.XCore": "8.0.16"
         },
         "runtime": {
           "Wlniao.Dingtalk.dll": {}
@@ -4827,19 +4824,19 @@
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.JsonPatch/8.0.2": {
+    "Microsoft.AspNetCore.JsonPatch/8.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-otZdBBC+fHVvO2oaL04HHyOFVI2jitLpP/zFwuBkpLNZfXtoo7pnbFFBDNYuZyBkkqNqvqibUrMkd+co4NQVVw==",
-      "path": "microsoft.aspnetcore.jsonpatch/8.0.2",
-      "hashPath": "microsoft.aspnetcore.jsonpatch.8.0.2.nupkg.sha512"
+      "sha512": "sha512-8iy7uza6GTuE5GadOryGfsGuA8xP1RTs16zqdXF5gM0b8iDfyNWnyDmatY5cZhXE1kJiko0S7s1T/gNFdIZ7Zg==",
+      "path": "microsoft.aspnetcore.jsonpatch/8.0.4",
+      "hashPath": "microsoft.aspnetcore.jsonpatch.8.0.4.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/8.0.2": {
+    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/8.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-y9lCqaABdIy5hk7TkvslznP4nPiOKTwIXlHc6xjEuZg5BmXHqjlWjnH+ltBh2JckdjyEWas0csf757PYl8hYcw==",
-      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/8.0.2",
-      "hashPath": "microsoft.aspnetcore.mvc.newtonsoftjson.8.0.2.nupkg.sha512"
+      "sha512": "sha512-lhJq0JjrlGZQwQoYrpVbokhb1AlgLGxI3QacSyKgCNOXTNwCi0pUnMR7NrfON20DkL90Kqqyl3wDrLbRaRgcsA==",
+      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/8.0.4",
+      "hashPath": "microsoft.aspnetcore.mvc.newtonsoftjson.8.0.4.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Mvc.Razor.Extensions/6.0.0": {
       "type": "package",
@@ -4848,12 +4845,12 @@
       "path": "microsoft.aspnetcore.mvc.razor.extensions/6.0.0",
       "hashPath": "microsoft.aspnetcore.mvc.razor.extensions.6.0.0.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/8.0.2": {
+    "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/8.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Shj9O+OmlXfj3HTvmqnP/LlJs7juSciX3tj2BcSQ4LGeHMjuGMZab0L/CdoJZFdJ+ZaOWe2ByQ66QaETJZqkuw==",
-      "path": "microsoft.aspnetcore.mvc.razor.runtimecompilation/8.0.2",
-      "hashPath": "microsoft.aspnetcore.mvc.razor.runtimecompilation.8.0.2.nupkg.sha512"
+      "sha512": "sha512-876m+YvEo+rjbZNQv64RhOBtWVD08bOwT/g96G0cBm+810WiSR3f5C79XG+W59PuvF6JLGFz+IXYLHCjLCvOrQ==",
+      "path": "microsoft.aspnetcore.mvc.razor.runtimecompilation/8.0.4",
+      "hashPath": "microsoft.aspnetcore.mvc.razor.runtimecompilation.8.0.4.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Language/6.0.0": {
       "type": "package",
@@ -4918,40 +4915,40 @@
       "path": "microsoft.csharp/4.7.0",
       "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore/8.0.3": {
+    "Microsoft.EntityFrameworkCore/8.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-QUPQbeq4yCjgIL/6PzkhfwhljXmai3CNOsErWFJ/WJ1Z41V8+At0Bi4PT8/2pX25kPgf83g0CUKIZd0QbeKT4A==",
-      "path": "microsoft.entityframeworkcore/8.0.3",
-      "hashPath": "microsoft.entityframeworkcore.8.0.3.nupkg.sha512"
+      "sha512": "sha512-/kyu9pXuxQvhg8RO/oN5Q5Og7cDIVvZtrt1z48rX7Yido+zEGkUkp3/Bjd9u45N2uuPPF8mn2pKDlAewCvv3/Q==",
+      "path": "microsoft.entityframeworkcore/8.0.4",
+      "hashPath": "microsoft.entityframeworkcore.8.0.4.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/8.0.3": {
+    "Microsoft.EntityFrameworkCore.Abstractions/8.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cW+SKdx34wZ25ZVKCpk/6+6z27wrZlQ1qXyx7UWpy34s9CyAojH0QiYlV/2owNOGSAH67rm+LxAjUOicsqlGzQ==",
-      "path": "microsoft.entityframeworkcore.abstractions/8.0.3",
-      "hashPath": "microsoft.entityframeworkcore.abstractions.8.0.3.nupkg.sha512"
+      "sha512": "sha512-S50pjtPNOvRktacaO6UAhvGCPMT56wxqEq8fQfcjaSUySPGba6mKWo6ackw6DdeAR1cA6U+U0uj27warA2KtJA==",
+      "path": "microsoft.entityframeworkcore.abstractions/8.0.4",
+      "hashPath": "microsoft.entityframeworkcore.abstractions.8.0.4.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Analyzers/8.0.3": {
+    "Microsoft.EntityFrameworkCore.Analyzers/8.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3csRAzz5O5Gn+GQBMyLn26OICtEo2/U2iDDygQhKb3LnC78bAUvutkMqvb0Ek5A6uHrBcZQrKQJfkgfnRT5XZw==",
-      "path": "microsoft.entityframeworkcore.analyzers/8.0.3",
-      "hashPath": "microsoft.entityframeworkcore.analyzers.8.0.3.nupkg.sha512"
+      "sha512": "sha512-P8hfMZECdbgle4Us8HGRUKAjqVwgbtr5JqtCxqEoiVORrNQAmcpu3g1NKwTAoUsO9Z0QRgExtYoAmdggR/DkMQ==",
+      "path": "microsoft.entityframeworkcore.analyzers/8.0.4",
+      "hashPath": "microsoft.entityframeworkcore.analyzers.8.0.4.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Design/8.0.3": {
+    "Microsoft.EntityFrameworkCore.Design/8.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OAh9P0M5VK3+mtmnjOyyw92s3L0r3fmYwWWAnh0pb/8JH3u7L2FmrJnNPFysChBiWIJu17+6Bqj4k/bkFK4RVw==",
-      "path": "microsoft.entityframeworkcore.design/8.0.3",
-      "hashPath": "microsoft.entityframeworkcore.design.8.0.3.nupkg.sha512"
+      "sha512": "sha512-QD5/h3+h4N7GlUaA4bzaYFW9CoeB7ne2KMiDIENIT0GPx+E6up/v9fDA36FAS3NIq9zeKUAQgN8aj6IwE7tMGw==",
+      "path": "microsoft.entityframeworkcore.design/8.0.4",
+      "hashPath": "microsoft.entityframeworkcore.design.8.0.4.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Relational/8.0.3": {
+    "Microsoft.EntityFrameworkCore.Relational/8.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-8JnVZHWaNFkrrD/FC0O4jekiHIYey8y6TQ4Co3OzLz0wd5Dm1cwJfTp++1TvaVu0BBd4bVDtiktppa5epuoPrA==",
-      "path": "microsoft.entityframeworkcore.relational/8.0.3",
-      "hashPath": "microsoft.entityframeworkcore.relational.8.0.3.nupkg.sha512"
+      "sha512": "sha512-aWLT6e9a8oMzXgF0YQpYYa3mDeU+yb2UQSQ+RrIgyGgSpzPfSKgpA7v2kOVDuZr2AQ6NNAlWPaBG7wZuKQI96w==",
+      "path": "microsoft.entityframeworkcore.relational/8.0.4",
+      "hashPath": "microsoft.entityframeworkcore.relational.8.0.4.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/8.0.0": {
       "type": "package",
@@ -4981,12 +4978,12 @@
       "path": "microsoft.extensions.dependencyinjection/8.0.0",
       "hashPath": "microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {
+    "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cjWrLkJXK0rs4zofsK4bSdg+jhDLTaxrkXu4gS6Y7MAlCvRyNNgwY/lJi5RDlQOnSZweHqoyvgvbdvQsRIW+hg==",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/8.0.0",
-      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+      "sha512": "sha512-fGLiCRLMYd00JYpClraLjJTNKLmMJPnqxMaiRzEBIIvevlzxz33mXy39Lkd48hu1G+N21S7QpaO5ZzKsI6FRuA==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/8.0.1",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512"
     },
     "Microsoft.Extensions.DependencyModel/8.0.0": {
       "type": "package",
@@ -5058,12 +5055,12 @@
       "path": "microsoft.netcore.targets/1.1.0",
       "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
     },
-    "Microsoft.OpenApi/1.6.13": {
+    "Microsoft.OpenApi/1.6.14": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ed1ecKcBp24032vhHBldXbpUJf11hO4+w7hj80RTDoRNA8eXtaunuK44WXauHZO95eYxTT1rWuOwByEXJ+vKQA==",
-      "path": "microsoft.openapi/1.6.13",
-      "hashPath": "microsoft.openapi.1.6.13.nupkg.sha512"
+      "sha512": "sha512-tTaBT8qjk3xINfESyOPE2rIellPvB7qpVqiWiyA/lACVvz+xOGiXhFUfohcx82NLbi5avzLW0lx+s6oAqQijfw==",
+      "path": "microsoft.openapi/1.6.14",
+      "hashPath": "microsoft.openapi.1.6.14.nupkg.sha512"
     },
     "Microsoft.Win32.Primitives/4.3.0": {
       "type": "package",
@@ -5408,12 +5405,12 @@
       "path": "runtime.unix.system.runtime.extensions/4.3.0",
       "hashPath": "runtime.unix.system.runtime.extensions.4.3.0.nupkg.sha512"
     },
-    "SharpCompress/0.36.0": {
+    "SharpCompress/0.37.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-48am//T6Ou+GmyPmBaxaFN1ym0VNidRcBeANr9+OYTzpKRz8QMGzAkHVkCV30lFQ/gnWqGr50AuebahpG1C6xA==",
-      "path": "sharpcompress/0.36.0",
-      "hashPath": "sharpcompress.0.36.0.nupkg.sha512"
+      "sha512": "sha512-cFBpTct57aubLQXkdqMmgP8GGTFRh7fnRWP53lgE/EYUpDZJ27SSvTkdjB4OYQRZ20SJFpzczUquKLbt/9xkhw==",
+      "path": "sharpcompress/0.37.2",
+      "hashPath": "sharpcompress.0.37.2.nupkg.sha512"
     },
     "SharpZipLib.NETStandard/1.0.7": {
       "type": "package",
@@ -5422,40 +5419,33 @@
       "path": "sharpziplib.netstandard/1.0.7",
       "hashPath": "sharpziplib.netstandard.1.0.7.nupkg.sha512"
     },
-    "SkiaSharp/2.88.7": {
+    "SkiaSharp/2.88.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-LJHAMrbWO00J7jXWLWehyjqFo29T4VzABimfJb4nICqpEe3c/KvQGWL4ItON8ymzhxYOeFgyxeRzuNzO4GHSug==",
-      "path": "skiasharp/2.88.7",
-      "hashPath": "skiasharp.2.88.7.nupkg.sha512"
+      "sha512": "sha512-bRkp3uKp5ZI8gXYQT57uKwil1uobb2p8c69n7v5evlB/2JNcMAXVcw9DZAP5Ig3WSvgzGm2YSn27UVeOi05NlA==",
+      "path": "skiasharp/2.88.8",
+      "hashPath": "skiasharp.2.88.8.nupkg.sha512"
     },
-    "SkiaSharp.NativeAssets.Linux.NoDependencies/2.88.7": {
+    "SkiaSharp.NativeAssets.Linux.NoDependencies/2.88.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-KkMftfAz1lGPnuhyecuLJzeyvMjXtHp9cYVQc/oeLhF8KYrxtUxRy5LOX5oROhyLHy/CyqEl9MoAhqmSH7cV7g==",
-      "path": "skiasharp.nativeassets.linux.nodependencies/2.88.7",
-      "hashPath": "skiasharp.nativeassets.linux.nodependencies.2.88.7.nupkg.sha512"
+      "sha512": "sha512-/DoKtdyvRgCC5GR/SH+ps3ZiOjmf0BYpAyrhWQELFOO1hdcqddrDVJjDNCOJ41vV+NlS5b3kcDoZZ7jLhFjyXg==",
+      "path": "skiasharp.nativeassets.linux.nodependencies/2.88.8",
+      "hashPath": "skiasharp.nativeassets.linux.nodependencies.2.88.8.nupkg.sha512"
     },
-    "SkiaSharp.NativeAssets.macOS/2.88.7": {
+    "SkiaSharp.NativeAssets.macOS/2.88.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3jNzco4VjcYPFNxR9aNWcgweFXbTSdM1VpNRzCS4X0i1A1OuNqcaulrAvmntNpujeWxHo9e6WGh6FN8Jf5+XhA==",
-      "path": "skiasharp.nativeassets.macos/2.88.7",
-      "hashPath": "skiasharp.nativeassets.macos.2.88.7.nupkg.sha512"
+      "sha512": "sha512-6Kn5TSkKlfyS6azWHF3Jk2sW5C4jCE5uSshM/5AbfFrR+5n6qM5XEnz9h4VaVl7LTxBvHvMkuPb/3bpbq0vxTw==",
+      "path": "skiasharp.nativeassets.macos/2.88.8",
+      "hashPath": "skiasharp.nativeassets.macos.2.88.8.nupkg.sha512"
     },
-    "SkiaSharp.NativeAssets.Win32/2.88.7": {
+    "SkiaSharp.NativeAssets.Win32/2.88.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BCXmWdQ0oVck9vRwC8U3ocSaTHEx28VB+6qw9OxGIMQ86iO5bp4Flqk3IXH0l9Pbr7vWAUOpI212iaL9mTaUZQ==",
-      "path": "skiasharp.nativeassets.win32/2.88.7",
-      "hashPath": "skiasharp.nativeassets.win32.2.88.7.nupkg.sha512"
-    },
-    "StoneCold.SkiaSharp.NativeAssets.AlpineLinux/2.88.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Egl6SGaUAJ4cqyeBbtC+VtpgM0V3sWCDiLe1XHj94xQjB+VDqt0LduzJBVxxQQ0G9VtMyqbDCYwRJq/f9pJU/Q==",
-      "path": "stonecold.skiasharp.nativeassets.alpinelinux/2.88.3",
-      "hashPath": "stonecold.skiasharp.nativeassets.alpinelinux.2.88.3.nupkg.sha512"
+      "sha512": "sha512-O9QXoWEXA+6cweR4h3BOnwMz+pO9vL9mXdjLrpDd0w1QzCgWmLQBxa1VgySDITiH7nQndrDG1h6937zm9pLj1Q==",
+      "path": "skiasharp.nativeassets.win32/2.88.8",
+      "hashPath": "skiasharp.nativeassets.win32.2.88.8.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore.Swagger/6.5.0": {
       "type": "package",
@@ -5989,12 +5979,12 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "Wlniao.AspNetCore/8.0.14": {
+    "Wlniao.AspNetCore/8.0.16": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WuIjuawkb7KtEBg5NyZmYdK4YJJt+rc2mhkSeNuPIAY9n72T8OTazPjlhpEvRIb7c5GMtzdpZdFlVueVZae4eQ==",
-      "path": "wlniao.aspnetcore/8.0.14",
-      "hashPath": "wlniao.aspnetcore.8.0.14.nupkg.sha512"
+      "sha512": "sha512-WlRkqLcPmvEAdgbIdMPcfsgtvFiFP81HtJR7VPk2ys8hUfnaupAZl6Lp+OO0Yz/K3YuJ8lEfKsBAXFdpPB0yOw==",
+      "path": "wlniao.aspnetcore/8.0.16",
+      "hashPath": "wlniao.aspnetcore.8.0.16.nupkg.sha512"
     },
     "Wlniao.WxWork/0.0.4": {
       "type": "package",
@@ -6003,26 +5993,26 @@
       "path": "wlniao.wxwork/0.0.4",
       "hashPath": "wlniao.wxwork.0.0.4.nupkg.sha512"
     },
-    "Wlniao.XCenter/8.0.19": {
+    "Wlniao.XCenter/8.0.24": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WkuKeIZIJDCd8oApeG8XLjGJZRxsEtQk67RsB1ehITvOGAb3MlF08G0fBO20C5tGvq8gRlF7fNGzmRmfMbmElQ==",
-      "path": "wlniao.xcenter/8.0.19",
-      "hashPath": "wlniao.xcenter.8.0.19.nupkg.sha512"
+      "sha512": "sha512-3p6MWp0m+PaF+VfKEeTYDO61RfdrQh2nUeRiTWHX3rnXPsqs2qfYZnCHocUcJD4VSBwsarfwbDrivQE7DZA2EA==",
+      "path": "wlniao.xcenter/8.0.24",
+      "hashPath": "wlniao.xcenter.8.0.24.nupkg.sha512"
     },
-    "Wlniao.XCore/8.0.14": {
+    "Wlniao.XCore/8.0.16": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-FM7DWTGdlzp21ENoYM6dJMZb+Rj8d1Lo+iswcr7ZYUzHSlaRQ1hvJc5hZLeac66mdmMSeoqemat6MOQjn+Bv6Q==",
-      "path": "wlniao.xcore/8.0.14",
-      "hashPath": "wlniao.xcore.8.0.14.nupkg.sha512"
+      "sha512": "sha512-REtlBANu3gKnjAa4W9mAV9Ff9MgIKsFE/j71kdGYBaq2jUmvEK5YULt3mJSxcxJGOAS1iz/FpOv1inij3Sa+FQ==",
+      "path": "wlniao.xcore/8.0.16",
+      "hashPath": "wlniao.xcore.8.0.16.nupkg.sha512"
     },
-    "ZstdSharp.Port/0.7.4": {
+    "ZstdSharp.Port/0.8.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ziptnotpUJr51afwXJQ5Wc03dvDiZAdmxS08s1g7SHn/VzbyZUXdH6yORk/zaNjzUOEE6pVZ0Nqztab0rYROgQ==",
-      "path": "zstdsharp.port/0.7.4",
-      "hashPath": "zstdsharp.port.0.7.4.nupkg.sha512"
+      "sha512": "sha512-Z62eNBIu8E8YtbqlMy57tK3dV1+m2b9NhPeaYovB5exmLKvrGCqOhJTzrEUH5VyUWU6vwX3c1XHJGhW5HVs8dA==",
+      "path": "zstdsharp.port/0.8.0",
+      "hashPath": "zstdsharp.port.0.8.0.nupkg.sha512"
     },
     "Wlniao.Dingtalk/0.2.1": {
       "type": "project",
