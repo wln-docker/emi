@@ -1,0 +1,184 @@
+﻿<div id="app" class="wln-layout">
+    <template>
+        <div class="wln">
+            <div>
+                <span><el-input v-model="query.key" placeholder="按 名称、Key值 进行筛选" style="width:100%"></el-input></span>
+            </div>
+            <div class="wln-line"></div>
+            <el-tree class="filter-tree" :data="tree" :props="defaultProps" :load="loadNode" :filter-node-method="filterNode" node-key="key" :default-expanded-keys="['_empty']" ref="tree" lazy>
+                <span class="el-tree-node-custom" slot-scope="{ node, data }" :style="{color: data.state || data.key == '_empty'? '#111111' : '#9C9C9C' }">
+                    <font>{{data.label}}</font>
+                    <font style="font-size:0.8em;position:absolute;left:300px;" :style="{color: data.key == '_empty' ? '#9C9C9C' : '' }">{{data.key == '_empty' ? data.description : data.key}}</font>
+                    <span>
+                        <el-button type="info" size="mini" icon="el-icon-delete" v-on:click.stop="doDel(data, node)" v-if="data.key != '_empty'">删除</el-button>
+                        <el-button type="success" size="mini" icon="el-icon-edit" v-on:click.stop="toEdit(data, node)" v-if="data.key != '_empty'">编辑</el-button>
+                        <el-button type="primary" size="mini" icon="el-icon-plus" v-on:click.stop="toAdd(data, node)">增加子字段</el-button>
+                    </span>
+                </span>
+            </el-tree>
+        </div>
+        <div class="wln-mask-layout" v-if="mask">
+            <div class="wln-mask-form" style="width:500px;">
+                <div class="wln-title">数据管理<span><i class="el-icon-close" v-on:click="close"></i></span></div>
+                <el-form label-width="120px">
+                    <el-form-item label="Label名称">
+                        <el-input v-model="form.label" placeholder="必填" style="width:300px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Key值">
+                        <el-input placeholder="必填" v-model="form.key" style="width:300px">
+                            <template slot="prepend" v-if="form.parent">{{form.parent}}</template>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="字段说明">
+                        <el-input v-model="form.description" placeholder="选填" style="width:300px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="排序">
+                        <el-input v-model="form.sort" placeholder="" style="width:60px"></el-input>&nbsp;<span class="tips">数值越小越靠前</span>
+                    </el-form-item>
+                    <el-form-item label="状态">
+                        <el-switch on-text="启用" off-text="停用" v-model="form.state"></el-switch>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button size="small" icon="el-icon-check" type="primary" v-on:click="onSubmit">提交</el-button>
+                        <el-button size="small" icon="el-icon-close" v-on:click="close">取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+    </template>
+</div>
+<style>
+    .el-tree-node-custom {
+        width: 100%
+    }
+    .el-tree-node-custom > span {
+        float: right;
+        padding-right: 8px;
+    }
+    .el-tree-node-custom > span > button {
+        font-size: 12px;
+        padding: 3px 5px !important;
+    }
+    .el-tree-node-custom > span > button > i{
+        font-size: 13px !important;
+        vertical-align: bottom;
+    }
+    .el-button--mini.el-button--info, .el-button--mini.el-button--default {
+        padding: 2px 5px !important;
+    }
+</style>
+<script type="text/javascript">
+    var ctxData;
+    var ctxStore;
+    var form = { id: '', app: '', key: '', label: '', description: '', parent: '', sort: '', state: true };
+    new Vue({
+        el: '#app',
+        data: function () {
+            ds.form = {}
+            ds.tree = []
+            ds.defaultProps = { children: 'children', label: 'label' }
+            ds.mask = false
+            for (var i in form) { ds.form[i] = form[i] };
+            return ds
+        },
+        watch: {
+            key() {
+                this.$refs.tree.filter(this.query.key);
+            }
+        },
+        methods: {
+            loadNode(node, resolve) {
+                asyncPost(location.pathname + '?do=tree', { app: node.data.app ? node.data.app : '', parent: node.data.key ? node.data.key : '' }).then(res => {
+                    resolve(res);
+                    node.data.children = res;
+                });
+            },
+            filterNode(value, data) {
+                if (value) {
+                    return data.label.indexOf(value) !== -1 || data.key.indexOf(value) !== -1;
+                } else {
+                    return true
+                }
+            },
+            toAdd(data, node) {
+                let t = this;
+                ctxData = data
+                ctxStore = node.store
+                for (var i in form) { t.form[i] = form[i] }
+                if (data.app && data.app != '_empty') {
+                    t.form.app = data.app
+                    if (data.key && data.key != '_empty') {
+                        t.form.parent = data.key
+                    }
+                } else if (data.key && data.key != '_empty') {
+                    t.form.parent = data.key
+                }
+                t.mask = true
+            },
+            toEdit(data, node) {
+                let t = this;
+                ctxData = data
+                ctxStore = node.store
+                for (var i in form) { t.form[i] = form[i] }
+                post(location.pathname + '?do=get', { id: data.id }).then(res => {
+                    if (res.success) {
+                        for (var i in res) { t.form[i] = res[i] }
+                        t.form.state = res.state > 0
+                        t.mask = true
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                });
+            },
+            doDel(data, node) {
+                ctxData = data
+                ctxStore = node.store
+                Vue.prototype.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+                    confirmButtonText: '删除',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    post(location.pathname + '?do=del', { id: data.id }).then(res => {
+                        if (res.success) {
+                            node.store.remove(data);
+                        }
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    });
+                }).catch(() => { });
+            },
+            close() {
+                this.mask = false
+            },
+            onSubmit: function () {
+                let t = this;
+                let obj = {}
+                for (let i in t.form) { obj[i] = t.form[i] }
+                obj.state = t.form.state ? "1" : "0";
+                post(location.pathname + '?do=set', obj).then(res => {
+                    if (res.success) {
+                        Vue.prototype.$message({ type: 'success', message: res.message });
+                        if (obj.id || obj.parent) {
+                            if (!ctxData) {
+                                ctxData = t.form;
+                            } else if (t.form.id) {
+                                ctxData.key = res.key;
+                                ctxData.label = res.label;
+                                ctxData.state = res.state;
+                            } else if (ctxStore) {
+                                t.$refs.tree.append({ id: res.id, app: t.form.app, key: res.key, label: res.label, state: res.state }, res.parent);
+                            }
+                            t.mask = false;
+                        } else {
+                            location.reload();
+                        }
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                })
+            }
+        },
+        created() {
+            document.title = '基础数据字典'
+        }
+    });
+</script>

@@ -1,0 +1,235 @@
+﻿<div id="app" class="wln-layout">
+    <template>
+        <div class="wln">
+            <div>
+                <span style="float:right">
+                    <el-button type="primary" onclick="openTab('/system/role','角色管理')">角色管理</el-button>
+                </span>
+                <el-input v-model="query.key" placeholder="按 名称、账号 进行筛选" v-on:keydown.enter.native="refresh" style="width:300px" clearable></el-input>
+                <el-button type="info" icon="el-icon-refresh" v-on:click="refresh">筛选</el-button>
+                <el-button type="primary" icon="el-icon-plus" v-on:click="toAdd">新增账号</el-button>
+            </div>
+            <div class="wln-line"></div>
+            <el-table :data="rows" :empty-text="message" v-on:filter-change="filterChange" style="width:100%">
+                <el-table-column width="40" align="center" label="#">
+                    <template slot-scope="scope">{{scope.$index + (query.page - 1) * query.size + 1}}</template>
+                </el-table-column>
+                <el-table-column width="150" property="account" label="帐号"></el-table-column>
+                <el-table-column label="姓名">
+                    <template scope="scope">
+                        <el-popover trigger="hover" placement="right">
+                            <p>姓名: {{ scope.row.name }}</p>
+                            <p>职位: {{ scope.row.position }}</p>
+                            <p>工号: {{ scope.row.jobnumber }}</p>
+                            <p v-if="scope.row.dinguserid">钉钉: {{scope.row.dinguserid}}(userid)</p>
+                            <div slot="reference" class="name-wrapper">
+                                <font>{{scope.row.name}}</font>
+                                <img class="icon" src="/img/dingtalk.svg" v-if="scope.row.dinguserid" />
+                            </div>
+                        </el-popover>
+                    </template>
+                </el-table-column>
+                <el-table-column property="department" align="left" label="所属部门"></el-table-column>
+                <el-table-column width="100" property="rolename" align="center" label="授权角色" column-key="role" :filters="roles" :filter-multiple="false"></el-table-column>
+                <el-table-column width="70" align="center" label="状态" column-key="state" :filters="status" :filter-multiple="false">
+                    <template scope="scope">
+                        <font v-if="scope.row.state==='1'">正常</font>
+                        <font v-else style="color:#cccccc">停用</font>
+                    </template>
+                </el-table-column>
+                <el-table-column width="150" align="center" property="create" label="添加时间"></el-table-column>
+                <el-table-column width="180" fixed="right" align="center" label="操作">
+                    <template scope="scope">
+                        <el-button size="mini" icon="el-icon-tickets" type="primary" v-on:click="toPermission(scope.row.sid)">权限管理</el-button>
+                        <el-dropdown size="mini">
+                            <el-button size="mini" type="warning">更多<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item v-on:click.native="toEdit(scope.row.sid)">修改用户信息</el-dropdown-item>
+                                <el-dropdown-item v-on:click.native="toLogs(scope.row.sid)">查看用户日志</el-dropdown-item>
+                                <el-dropdown-item v-on:click.native="doDel(scope.row.sid)">删除此用户</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-pagination v-on:current-change="pageset" layout="total, sizes, prev, pager, next, jumper" :total="total" :current-page="query.page" :page-size.sync="query.size" :page-sizes="[10, 20, 50, 100, 1000]" v-on:size-change="refresh"></el-pagination>
+        </div>
+        <div class="wln-mask-layout" v-if="mask">
+            <div class="wln-mask-form" style="width:500px;">
+                <div class="wln-title">账号信息<span><i class="el-icon-close" v-on:click="close"></i></span></div>
+                <el-form label-width="120px">
+                    <el-form-item label="Sid" v-if="form.sid">
+                        <el-input v-model="form.sid" :disabled="true" style="width:240px"></el-input> <span class="tips">用户唯一标识</span>
+                    </el-form-item>
+                    <el-form-item label="账号">
+                        <el-input v-model="form.account" placeholder="推荐使用手机号" style="width:240px"></el-input> <span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item label="姓名">
+                        <el-input v-model="form.name" placeholder="用户的真实姓名" style="width:240px"></el-input> <span class="tips notnull"></span>
+                    </el-form-item>
+                    <el-form-item label="职位">
+                        <el-input v-model="form.position" placeholder="" style="width:240px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="部门">
+                        <el-cascader v-model="form.department" :options="organs" :props="{ multiple:true,checkStrictly:true}" style="width:240px"></el-cascader>
+                    </el-form-item>
+                    <el-form-item label="电话">
+                        <el-input v-model="form.telphone" placeholder="手机、座机、分机号等" style="width:240px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="工号">
+                        <el-input v-model="form.jobnumber" placeholder="" style="width:240px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="授权角色">
+                        <el-select v-model="form.role" placeholder="请选择" style="width:240px">
+                            <el-option v-for="item in roles" :label="item.text" :value="item.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="状态">
+                        <el-switch on-text="启用" off-text="停用" v-model="form.state"></el-switch><span class="tips" v-if="form.state">账号可正常使用</span><span class="tips" v-else>账号不允许登录</span>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button size="small" icon="el-icon-check" type="primary" v-on:click="onSubmit">提交</el-button>
+                        <el-button size="small" icon="el-icon-close" v-on:click="close">取消</el-button>
+                        <el-button size="small" v-on:click="resetPwd" v-if="auth.resetpwd">密码重置</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+    </template>
+</div>
+<script type="text/javascript">
+    var form = {
+        sid: '',
+        name: '',
+        avatar: '',
+        account: '',
+        position: '',
+        department: [],
+        jobnumber: '',
+        telphone: '',
+        role: '',
+        state: true
+    };
+    asyncGet('/system/organs?do=filters').then(organs => { ds.organs = organs });
+    new Vue({
+        el: '#app', router: new VueRouter({ mode: 'history' }),
+        data() {
+            ds.form = {}
+            ds.mask = false
+            ds.roles = []
+            ds.organs = []
+            ds.status = [{text:'正常',value:'1'},{text:'停用',value:'2'}]
+            ds.query.role = ''
+            ds.auth = { resetpwd: true }
+            for (var i in form) { ds.form[i] = form[i] };
+            return ds
+        },
+        methods: {
+            filterChange(filters) {
+                if (filters.role && filters.role.length > 0) {
+                    this.query.role = filters.role[0];
+                } else {
+                    this.query.role = '';
+                }
+                if (filters.state && filters.state.length > 0) {
+                    this.query.state = filters.state[0];
+                } else {
+                    this.query.state = '';
+                }
+                this.refresh()
+            },
+            getlist() {
+                this.message = this.loadtips || '数据加载中，请稍后'
+                asyncPost(location.pathname + '?do=pager', this.query).then(res => {
+                    this.rows = res.rows;
+                    this.total = res.total;
+                    this.message = res.message;
+                })
+            },
+            refresh() {
+                if (this.query.page > 1) {
+                    this.rows = []
+                    this.query.page = 1
+                }
+                this.getlist()
+            },
+            pageset(val) {
+                this.query.page = val
+                this.getlist()
+            },
+            close() {
+                this.mask = false
+            },
+            toAdd() {
+                for (var i in form) { this.form[i] = form[i] }
+                this.mask = true
+            },
+            toEdit(sid) {
+                let t = this;
+                for (var i in form) { t.form[i] = form[i] }
+                post(location.pathname + '?do=get', { sid: sid }).then(res => {
+                    if (res.success) {
+                        for (var i in form) { t.form[i] = res[i] }
+                        t.mask = true
+                    } else {
+                        Vue.prototype.$message({ type: 'info', message: res.message });
+                    }
+                });
+            },
+            toLogs(sid) {
+                openTab('/system/logs?sid=' + sid, '用户日志记录')
+            },
+            doDel(sid) {
+                Vue.prototype.$confirm('此操作将永久删除所选用户, 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    post(location.pathname + '?do=del', { sid: sid }).then(res => {
+                        this.refresh();
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    })
+                }).catch(() => {
+                    Vue.prototype.$message({ type: 'info', message: '操作已取消' });
+                });
+            },
+            onSubmit: function () {
+                let obj = {}
+                for (var i in this.form) { obj[i] = this.form[i] }
+                obj.department = this.form.department.map(a => a[a.length - 1]).join()
+                post(location.pathname + '?do=set', obj).then(res => {
+                    Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    if (res.success) {
+                        this.refresh();
+                        this.mask = false;
+                    }
+                });
+            },
+            toPermission(sid) {
+                openTab('/system/permission?sid=' + sid, '用户权限明细')
+            },
+            resetPwd() {
+                Vue.prototype.$confirm('此操作会将用户登录密码重置为默认密码, 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    post(location.pathname + '?do=resetpwd', { sid: this.form.sid }).then(res => {
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message });
+                    })
+                }).catch(() => {
+                    Vue.prototype.$message({ type: 'info', message: '操作已取消' });
+                });
+            }
+        },
+        created() {
+            get(location.pathname + '?do=roles').then(res => {
+                this.roles = res.map(o => { return { text: o.label, value: o.value } })
+                this.refresh()
+            })
+            asyncGet('/ajax/permission?code=System_AccountPwd', {}).then(res => {
+                this.auth.resetpwd = res['System_AccountPwd'] ? true : false
+            })
+        }
+    })
+</script>

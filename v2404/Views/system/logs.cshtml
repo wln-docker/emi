@@ -1,0 +1,94 @@
+﻿<div id="app" class="wln-layout">
+    <template>
+        <div class="wln">
+            <div>
+                <span style="float:right" v-if="!query.sid">
+                    <el-button type="more" icon="el-icon-delete" v-on:click="clean">日志清理</el-button>
+                </span>
+                <el-input clearable v-model="query.key" placeholder="按 名称、账号 进行筛选" v-on:keydown.enter.native="refresh" style="width:300px"></el-input>
+                <el-button type="info" icon="el-icon-refresh" v-on:click="refresh">筛选</el-button>
+            </div>
+            <div class="wln-line"></div>
+            <el-table :data="rows" :empty-text="message" style="width:100%">
+                <el-table-column width="40" fixed="left" align="center" label="#">
+                    <template slot-scope="scope">{{scope.$index + (query.page - 1) * query.size + 1}}</template>
+                </el-table-column>
+                <el-table-column width="150" fixed="left" property="create" label="记录时间"></el-table-column>
+                <el-table-column property="comments" label="日志内容"></el-table-column>
+                <el-table-column width="128" property="username" label="操作人" v-if="query.sid != 'my'"></el-table-column>
+                <el-table-column width="128" property="account" label="用户名" v-if="query.sid != 'my'"></el-table-column>
+                <el-table-column width="150" property="clientip" label="终端IP"></el-table-column>
+                <el-table-column width="80" fixed="right" align="center" label="操作" v-if="query.sid != 'my'">
+                    <template scope="scope">
+                        <el-button size="mini" icon="el-icon-delete" type="info" v-on:click="remove(scope.row.id)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-pagination v-on:current-change="pageset" layout="total, sizes, prev, pager, next, jumper" :total="total" :current-page="query.page" :page-size.sync="query.size" :page-sizes="[10, 16, 50, 100, 1000]" v-on:size-change="refresh"></el-pagination>
+        </div>
+    </template>
+</div>
+<script type="text/javascript">
+    new Vue({
+        el: '#app', router: new VueRouter({ mode: 'history' }),
+        data() {
+            ds.query.size = 16
+            ds.query.sid = ''
+            ds.query.model = ''
+            return ds
+        },
+        methods: {
+            getlist() {
+                this.message = this.loadtips || '数据加载中，请稍后'
+                asyncPost(location.pathname + '?do=pager', this.query).then(res => {
+                    this.rows = res.rows
+                    this.total = res.total
+                    this.message = res.message
+                })
+            },
+            refresh() {
+                if (this.query.page > 1) {
+                    this.rows = []
+                    this.query.page = 1
+                }
+                this.getlist()
+            },
+            pageset(val) {
+                this.query.page = val
+                this.getlist()
+            },
+            remove(id) {
+                Vue.prototype.$confirm('此操作将永久删除所选记录, 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    post(location.pathname + '?do=del', { id: id }).then(res => {
+                        this.getlist()
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
+                    })
+                }).catch(() => {
+                    Vue.prototype.$message({ type: 'info', message: '操作已取消' });
+                });
+            },
+            clean() {
+                Vue.prototype.$confirm('此操作将删除七天以前的所有日志, 是否继续?', '提示', {
+                    confirmButtonText: '继续',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    post(location.pathname + '?do=clean').then(res => {
+                        this.getlist()
+                        Vue.prototype.$message({ type: res.success ? 'success' : 'error', message: res.message })
+                    })
+                }).catch(() => {
+                    Vue.prototype.$message({ type: 'info', message: '操作已取消' });
+                });
+            }
+        },
+        created() {
+            this.query.sid = this.$route.query.sid || ''
+            this.refresh()
+        }
+    })
+</script>
