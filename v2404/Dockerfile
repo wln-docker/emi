@@ -1,4 +1,4 @@
-FROM ccr.ccs.tencentyun.com/wlniao/dotnet:8.0.4-ubuntu
+FROM ccr.ccs.tencentyun.com/wlniao/dotnet:8.0.4-debian
 COPY . /wln
 COPY ./fonts/* /usr/share/fonts/truetype/noto
 WORKDIR /wln
