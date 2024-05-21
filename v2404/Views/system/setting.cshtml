@@ -230,7 +230,7 @@
                 ding_webroxy: '',
             }
             ds.hostname = location.hostname
-            ds.ipaddress = '@ViewBag.ServerIP';
+            ds.ipaddress = '@Html.Raw(ViewBag.ServerIP)';
             return ds
         },
         methods: {
