@@ -36,14 +36,14 @@
     ".NETCoreApp,Version=v8.0": {
       "emi/1.0.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "8.0.5",
+          "Microsoft.EntityFrameworkCore.Design": "8.0.6",
           "Pomelo.EntityFrameworkCore.MySql": "8.0.2",
           "SharpCompress": "0.37.2",
           "SharpZipLib.NETStandard": "1.0.7",
           "SkiaSharp.NativeAssets.Linux.NoDependencies": "2.88.8",
           "Wlniao.Dingtalk": "0.2.1",
           "Wlniao.WxWork": "0.0.4",
-          "Wlniao.XCenter": "8.0.26",
+          "Wlniao.XCenter": "8.0.32",
           "Microsoft.AspNetCore.Antiforgery": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.BearerToken": "8.0.0.0",
@@ -1950,10 +1950,10 @@
         }
       },
       "Microsoft.CSharp/4.7.0": {},
-      "Microsoft.EntityFrameworkCore/8.0.5": {
+      "Microsoft.EntityFrameworkCore/8.0.6": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.5",
-          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.5",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.6",
+          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.6",
           "Microsoft.Extensions.Caching.Memory": "8.0.0",
           "Microsoft.Extensions.Logging": "8.0.0"
         },
@@ -1961,24 +1961,24 @@
           "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/8.0.5": {
+      "Microsoft.EntityFrameworkCore.Abstractions/8.0.6": {
         "compile": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/8.0.5": {},
-      "Microsoft.EntityFrameworkCore.Design/8.0.5": {
+      "Microsoft.EntityFrameworkCore.Analyzers/8.0.6": {},
+      "Microsoft.EntityFrameworkCore.Design/8.0.6": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "4.5.0",
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.5",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.6",
           "Microsoft.Extensions.DependencyModel": "8.0.0",
           "Mono.TextTemplating": "2.2.1"
         }
       },
-      "Microsoft.EntityFrameworkCore.Relational/8.0.5": {
+      "Microsoft.EntityFrameworkCore.Relational/8.0.6": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "8.0.5",
+          "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         },
         "compile": {
@@ -2150,7 +2150,7 @@
       },
       "Pomelo.EntityFrameworkCore.MySql/8.0.2": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.5",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.6",
           "MySqlConnector": "2.3.5"
         },
         "compile": {
@@ -3073,7 +3073,7 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "Wlniao.AspNetCore/8.0.18": {
+      "Wlniao.AspNetCore/8.0.21": {
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.4",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "8.0.4",
@@ -3081,7 +3081,7 @@
           "Microsoft.Extensions.Hosting.Abstractions": "8.0.0",
           "Microsoft.OpenApi": "1.6.14",
           "Swashbuckle.AspNetCore.SwaggerGen": "6.5.0",
-          "Wlniao.XCore": "8.0.16"
+          "Wlniao.XCore": "8.0.17"
         },
         "compile": {
           "lib/net8.0/Wlniao.XCore.AspNetCore.dll": {}
@@ -3089,22 +3089,22 @@
       },
       "Wlniao.WxWork/0.0.4": {
         "dependencies": {
-          "Wlniao.XCore": "8.0.16"
+          "Wlniao.XCore": "8.0.17"
         },
         "compile": {
           "lib/netcoreapp3.1/Wlniao.WxWork.dll": {}
         }
       },
-      "Wlniao.XCenter/8.0.26": {
+      "Wlniao.XCenter/8.0.32": {
         "dependencies": {
-          "Wlniao.AspNetCore": "8.0.18",
-          "Wlniao.XCore": "8.0.16"
+          "Wlniao.AspNetCore": "8.0.21",
+          "Wlniao.XCore": "8.0.17"
         },
         "compile": {
           "lib/net8.0/Wlniao.XCenter.dll": {}
         }
       },
-      "Wlniao.XCore/8.0.16": {
+      "Wlniao.XCore/8.0.17": {
         "dependencies": {
           "Portable.BouncyCastle": "1.9.0"
         },
@@ -3119,7 +3119,7 @@
       },
       "Wlniao.Dingtalk/0.2.1": {
         "dependencies": {
-          "Wlniao.XCore": "8.0.16"
+          "Wlniao.XCore": "8.0.17"
         },
         "compile": {
           "Wlniao.Dingtalk.dll": {}
@@ -3129,14 +3129,14 @@
     ".NETCoreApp,Version=v8.0/linux-x64": {
       "emi/1.0.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "8.0.5",
+          "Microsoft.EntityFrameworkCore.Design": "8.0.6",
           "Pomelo.EntityFrameworkCore.MySql": "8.0.2",
           "SharpCompress": "0.37.2",
           "SharpZipLib.NETStandard": "1.0.7",
           "SkiaSharp.NativeAssets.Linux.NoDependencies": "2.88.8",
           "Wlniao.Dingtalk": "0.2.1",
           "Wlniao.WxWork": "0.0.4",
-          "Wlniao.XCenter": "8.0.26",
+          "Wlniao.XCenter": "8.0.32",
           "Microsoft.AspNetCore.Antiforgery": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.BearerToken": "8.0.0.0",
@@ -3562,47 +3562,47 @@
         }
       },
       "Microsoft.CSharp/4.7.0": {},
-      "Microsoft.EntityFrameworkCore/8.0.5": {
+      "Microsoft.EntityFrameworkCore/8.0.6": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.5",
-          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.5",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.6",
+          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.6",
           "Microsoft.Extensions.Caching.Memory": "8.0.0",
           "Microsoft.Extensions.Logging": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {
-            "assemblyVersion": "8.0.5.0",
-            "fileVersion": "8.0.524.21704"
+            "assemblyVersion": "8.0.6.0",
+            "fileVersion": "8.0.624.26904"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/8.0.5": {
+      "Microsoft.EntityFrameworkCore.Abstractions/8.0.6": {
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
-            "assemblyVersion": "8.0.5.0",
-            "fileVersion": "8.0.524.21704"
+            "assemblyVersion": "8.0.6.0",
+            "fileVersion": "8.0.624.26904"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/8.0.5": {},
-      "Microsoft.EntityFrameworkCore.Design/8.0.5": {
+      "Microsoft.EntityFrameworkCore.Analyzers/8.0.6": {},
+      "Microsoft.EntityFrameworkCore.Design/8.0.6": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "4.5.0",
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.5",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.6",
           "Microsoft.Extensions.DependencyModel": "8.0.0",
           "Mono.TextTemplating": "2.2.1"
         }
       },
-      "Microsoft.EntityFrameworkCore.Relational/8.0.5": {
+      "Microsoft.EntityFrameworkCore.Relational/8.0.6": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "8.0.5",
+          "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
-            "assemblyVersion": "8.0.5.0",
-            "fileVersion": "8.0.524.21704"
+            "assemblyVersion": "8.0.6.0",
+            "fileVersion": "8.0.624.26904"
           }
         }
       },
@@ -3793,7 +3793,7 @@
       },
       "Pomelo.EntityFrameworkCore.MySql/8.0.2": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.5",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.6",
           "MySqlConnector": "2.3.5"
         },
         "runtime": {
@@ -4742,7 +4742,7 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "Wlniao.AspNetCore/8.0.18": {
+      "Wlniao.AspNetCore/8.0.21": {
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.4",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "8.0.4",
@@ -4750,18 +4750,18 @@
           "Microsoft.Extensions.Hosting.Abstractions": "8.0.0",
           "Microsoft.OpenApi": "1.6.14",
           "Swashbuckle.AspNetCore.SwaggerGen": "6.5.0",
-          "Wlniao.XCore": "8.0.16"
+          "Wlniao.XCore": "8.0.17"
         },
         "runtime": {
           "lib/net8.0/Wlniao.XCore.AspNetCore.dll": {
-            "assemblyVersion": "8.0.18.0",
-            "fileVersion": "8.0.18.0"
+            "assemblyVersion": "8.0.21.0",
+            "fileVersion": "8.0.21.0"
           }
         }
       },
       "Wlniao.WxWork/0.0.4": {
         "dependencies": {
-          "Wlniao.XCore": "8.0.16"
+          "Wlniao.XCore": "8.0.17"
         },
         "runtime": {
           "lib/netcoreapp3.1/Wlniao.WxWork.dll": {
@@ -4770,26 +4770,26 @@
           }
         }
       },
-      "Wlniao.XCenter/8.0.26": {
+      "Wlniao.XCenter/8.0.32": {
         "dependencies": {
-          "Wlniao.AspNetCore": "8.0.18",
-          "Wlniao.XCore": "8.0.16"
+          "Wlniao.AspNetCore": "8.0.21",
+          "Wlniao.XCore": "8.0.17"
         },
         "runtime": {
           "lib/net8.0/Wlniao.XCenter.dll": {
-            "assemblyVersion": "8.0.26.0",
-            "fileVersion": "8.0.26.0"
+            "assemblyVersion": "8.0.32.0",
+            "fileVersion": "8.0.32.0"
           }
         }
       },
-      "Wlniao.XCore/8.0.16": {
+      "Wlniao.XCore/8.0.17": {
         "dependencies": {
           "Portable.BouncyCastle": "1.9.0"
         },
         "runtime": {
           "lib/net8.0/Wlniao.XCore.dll": {
-            "assemblyVersion": "8.0.16.0",
-            "fileVersion": "8.0.16.0"
+            "assemblyVersion": "8.0.17.0",
+            "fileVersion": "8.0.17.0"
           }
         }
       },
@@ -4803,7 +4803,7 @@
       },
       "Wlniao.Dingtalk/0.2.1": {
         "dependencies": {
-          "Wlniao.XCore": "8.0.16"
+          "Wlniao.XCore": "8.0.17"
         },
         "runtime": {
           "Wlniao.Dingtalk.dll": {}
@@ -4915,40 +4915,40 @@
       "path": "microsoft.csharp/4.7.0",
       "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore/8.0.5": {
+    "Microsoft.EntityFrameworkCore/8.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-sqpDZgfzmTPXy/jCekqTaPDwqRDjtdGmIL+eqFfXtVAoH4AanWjeyxQ1ej3uVnTQO6f23+m9+ggJDVcgyPJxcA==",
-      "path": "microsoft.entityframeworkcore/8.0.5",
-      "hashPath": "microsoft.entityframeworkcore.8.0.5.nupkg.sha512"
+      "sha512": "sha512-Ms5e5QuBAjVIuQsGumeLvkgMiOpnj6wxPvwBIoe1NfTkseWK4NZYztnhgDlpkCPkrUmJEXLv69kl349Ours30Q==",
+      "path": "microsoft.entityframeworkcore/8.0.6",
+      "hashPath": "microsoft.entityframeworkcore.8.0.6.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/8.0.5": {
+    "Microsoft.EntityFrameworkCore.Abstractions/8.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-qwYdfjFKtmTXX8NIm0MuZxUkon1tcw+aF5huzR7YOVr/tR3s4fqw9DWcvc23l3Jhpo/uGHWZcNPyFlI2CD3Usg==",
-      "path": "microsoft.entityframeworkcore.abstractions/8.0.5",
-      "hashPath": "microsoft.entityframeworkcore.abstractions.8.0.5.nupkg.sha512"
+      "sha512": "sha512-X7wSSBNFRuN8j8M9HDYG7rPpEeyhY+PdJZR9rftmgvsZH0eK5+bZ3b3As8iO4rLEpjsBzDnrgSIY6q2F3HQatw==",
+      "path": "microsoft.entityframeworkcore.abstractions/8.0.6",
+      "hashPath": "microsoft.entityframeworkcore.abstractions.8.0.6.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Analyzers/8.0.5": {
+    "Microsoft.EntityFrameworkCore.Analyzers/8.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-LzoKedC+9A8inF5d3iIzgyv/JDXgKrtpYoGIC3EqGWuHVDm9s/IHHApeTOTbzvnr7yBVV+nmYfyT1nwtzRDp0Q==",
-      "path": "microsoft.entityframeworkcore.analyzers/8.0.5",
-      "hashPath": "microsoft.entityframeworkcore.analyzers.8.0.5.nupkg.sha512"
+      "sha512": "sha512-fDNtuQ4lAaPaCOlsrwUck/GvnF4QLeDpMmE1L5QtxZpMSmWfnL2/vk8sDL9OVTWcfprooI9V5MNpIx3/Tq5ehg==",
+      "path": "microsoft.entityframeworkcore.analyzers/8.0.6",
+      "hashPath": "microsoft.entityframeworkcore.analyzers.8.0.6.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Design/8.0.5": {
+    "Microsoft.EntityFrameworkCore.Design/8.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HWYnbuMwllSCsZjfKj3Vz+HDGOCyGlTMYjI7tZH5pK7AuiGNHOdshCnWlEFEuDV6oAadWfXGTDmkmV53gwTqSQ==",
-      "path": "microsoft.entityframeworkcore.design/8.0.5",
-      "hashPath": "microsoft.entityframeworkcore.design.8.0.5.nupkg.sha512"
+      "sha512": "sha512-4OT+mH+8EB4Kfn1ENpDx2Ssx459j200gvdhDOKq5lkHmHzkRpmEDKS5GfqaLZvBLJKWu1FVGQ7Wnczcjb0hX4g==",
+      "path": "microsoft.entityframeworkcore.design/8.0.6",
+      "hashPath": "microsoft.entityframeworkcore.design.8.0.6.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Relational/8.0.5": {
+    "Microsoft.EntityFrameworkCore.Relational/8.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-x2bdSK3eKKEQkDdYcGxxDU+S7NqhBiz/Fciz01Mafz9P71VRdP3JskKHaZvwK0/sNEAT3hS7BTsDQGUA2F9mAA==",
-      "path": "microsoft.entityframeworkcore.relational/8.0.5",
-      "hashPath": "microsoft.entityframeworkcore.relational.8.0.5.nupkg.sha512"
+      "sha512": "sha512-chhfmLusCGLGvNYtvMji6KGQlduPDnJsStG/LjS8qJhFWJDDzTZpSr2LHowewcxMrMo/Axc6Jwe+WwSi/vlkTg==",
+      "path": "microsoft.entityframeworkcore.relational/8.0.6",
+      "hashPath": "microsoft.entityframeworkcore.relational.8.0.6.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/8.0.0": {
       "type": "package",
@@ -5979,12 +5979,12 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "Wlniao.AspNetCore/8.0.18": {
+    "Wlniao.AspNetCore/8.0.21": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jKUYOwBpH2pDeFmZ0AR4xKSu9OxGrrRU2J2srRyAsZdfWPawmQD4QV+lLH4vdSpvru/6PmnSVcTcQbN4nZ2Rzw==",
-      "path": "wlniao.aspnetcore/8.0.18",
-      "hashPath": "wlniao.aspnetcore.8.0.18.nupkg.sha512"
+      "sha512": "sha512-R52q60EI7iCMOd9MxrJyRaDo1htO+PowXJI1r+AcB5PZMe5kYb3qxYrX1rnJxqTGKasriFPk783sIg4L0IPv+Q==",
+      "path": "wlniao.aspnetcore/8.0.21",
+      "hashPath": "wlniao.aspnetcore.8.0.21.nupkg.sha512"
     },
     "Wlniao.WxWork/0.0.4": {
       "type": "package",
@@ -5993,19 +5993,19 @@
       "path": "wlniao.wxwork/0.0.4",
       "hashPath": "wlniao.wxwork.0.0.4.nupkg.sha512"
     },
-    "Wlniao.XCenter/8.0.26": {
+    "Wlniao.XCenter/8.0.32": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1NhGgsQkNBUQHB/F7u2h/FvcCRA0Kgg0By8U1CUp/26LnSC8pX3PTT3GgULgHjZnorDV8bKsq9LX4ZDYgIKeRQ==",
-      "path": "wlniao.xcenter/8.0.26",
-      "hashPath": "wlniao.xcenter.8.0.26.nupkg.sha512"
+      "sha512": "sha512-USrOiUNTDcgJVSYR3YKLEDQXIFoEXE22GgXXpLpPlKujKGHodUei6sLt0BEA3eRM5QLxzMABwMVNkN3jqP/Hmg==",
+      "path": "wlniao.xcenter/8.0.32",
+      "hashPath": "wlniao.xcenter.8.0.32.nupkg.sha512"
     },
-    "Wlniao.XCore/8.0.16": {
+    "Wlniao.XCore/8.0.17": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-REtlBANu3gKnjAa4W9mAV9Ff9MgIKsFE/j71kdGYBaq2jUmvEK5YULt3mJSxcxJGOAS1iz/FpOv1inij3Sa+FQ==",
-      "path": "wlniao.xcore/8.0.16",
-      "hashPath": "wlniao.xcore.8.0.16.nupkg.sha512"
+      "sha512": "sha512-ygu1KFIci6Q/5QTlsxo8rHQzFreJkiTdnRPWi1RdhsTNBuR0mbFVr2/E2FiZNf857lnITOMt4ifLdouX9pq8sQ==",
+      "path": "wlniao.xcore/8.0.17",
+      "hashPath": "wlniao.xcore.8.0.17.nupkg.sha512"
     },
     "ZstdSharp.Port/0.8.0": {
       "type": "package",

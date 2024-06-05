@@ -1,7 +1,7 @@
 ﻿@{ Layout = "../_all.cshtml";}
 @section head{
-    <script>var sslCertTrusted = '@Html.Raw(ViewBag.CheckCA)' == 'true' ? false : true</script>
-    <script src="https://ca.wlniao.cn/ssltest.js"></script>
+    <script>var sslCertTrusted = ('@Html.Raw(ViewBag.CheckCA)' == 'true' ? false : true)</script>
+    <script src="https://ca.wlniao.cn/ssltest.js" async></script>
     <style type="text/css">
         #app {display:flex;width:100vw;height:100vh;flex-flow:row nowrap;justify-content:space-between; }
         #left {user-select:none;width:168px;background:#1f2126;overflow:hidden;}
