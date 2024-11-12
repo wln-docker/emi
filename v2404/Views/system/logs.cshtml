@@ -17,7 +17,7 @@
                 <el-table-column property="comments" label="日志内容"></el-table-column>
                 <el-table-column width="128" property="username" label="操作人" v-if="query.sid != 'my'"></el-table-column>
                 <el-table-column width="128" property="account" label="用户名" v-if="query.sid != 'my'"></el-table-column>
-                <el-table-column width="150" property="clientip" label="终端IP"></el-table-column>
+                <el-table-column width="320" property="clientip" label="终端IP"></el-table-column>
                 <el-table-column width="80" fixed="right" align="center" label="操作" v-if="query.sid != 'my'">
                     <template scope="scope">
                         <el-button size="mini" icon="el-icon-delete" type="info" v-on:click="remove(scope.row.id)">删除</el-button>
